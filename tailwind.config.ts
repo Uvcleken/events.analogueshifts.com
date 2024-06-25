@@ -18,6 +18,24 @@ const config = {
       },
     },
     extend: {
+      screens: {
+        tablet: "900px",
+        desktop: '1000px',
+      },
+      maxWidth: {
+        desktop: "1200px",
+        createPage: "850px",
+      },
+      maxHeight: {
+        emptyBox: "250px",
+      },
+      width: {
+        107: "107px",
+      },
+      height: {
+        allEventsSection: "calc(100% - 128px)",
+        107: "107px",
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -32,6 +50,9 @@ const config = {
           brown: "#876307",
           lightYellow: "#D5AE35",
           white300: "#FEFEFE",
+          whisperGray: "#f8f7fa",
+          whisperWhite: "rgb(248, 247, 250)",
+          darkPurple: "rgba(30, 10, 60, 0.07)",
         },
         content: {
           subtle: "#9ca3af", // gray-400

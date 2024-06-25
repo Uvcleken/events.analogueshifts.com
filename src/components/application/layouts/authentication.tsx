@@ -13,7 +13,7 @@ export default function AuthenticationLayout({
   useEffect(() => {
     const authSession = Cookies.get("analogueshifts");
     if (authSession) {
-      router.push("");
+      router.push("/events");
     }
   }, []);
 

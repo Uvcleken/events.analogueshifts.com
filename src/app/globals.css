@@ -91,7 +91,7 @@
   width: 13.33333px;
   height: 13.33333px;
   border-radius: 50%;
-  background: #d5ae35;
+  background: #ffbb0a;
   animation-timing-function: cubic-bezier(0, 1, 1, 0);
 }
 .lds-ellipsis div:nth-child(1) {
@@ -133,4 +133,28 @@
   100% {
     transform: translate(24px, 0);
   }
+}
+
+body::-webkit-scrollbar {
+  display: none;
+}
+
+.show-event-hero {
+  filter: blur(50px) brightness(0.9);
+}
+
+.helpful-link:hover div {
+  background-color: rgba(255, 187, 10, 0.1);
+}
+
+input[type="password"]::-webkit-textfield-decoration-container {
+  display: none;
+}
+
+input[type="password"]::-moz-svg-anonymous {
+  display: none;
+}
+
+input[type="password"]::-ms-reveal {
+  display: none;
 }
