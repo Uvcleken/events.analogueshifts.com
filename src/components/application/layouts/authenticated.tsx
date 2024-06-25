@@ -48,7 +48,7 @@ export default function AuthenticatedLayout({
         handleLogout={() => setIdiomModalDisplay(true)}
       />
       <SidebarMenu handleLogout={() => setIdiomModalDisplay(true)} />
-      <div className="w-full pl-16 pt-16">{children}</div>
+      <div className="w-full pl-0 mobile:pl-16 pt-16">{children}</div>
     </section>
   );
 }

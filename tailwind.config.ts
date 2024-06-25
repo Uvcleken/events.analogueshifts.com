@@ -20,7 +20,8 @@ const config = {
     extend: {
       screens: {
         tablet: "900px",
-        desktop: '1000px',
+        desktop: "1000px",
+        mobile: "500px",
       },
       maxWidth: {
         desktop: "1200px",

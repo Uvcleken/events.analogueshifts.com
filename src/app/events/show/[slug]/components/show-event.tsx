@@ -54,7 +54,7 @@ export default function ShowEvent({ slug }: { slug: string }) {
         )}
       </div>
       {event && (
-        <div className="mt-10 tablet:mb-44 w-[90%] pb-[300px] translate-y-10 tablet:pb-0 max-w-desktop mx-auto tablet:translate-y-[calc(6vh+40px)]">
+        <div className="mt-14 tablet:mb-44 w-[90%] pb-[300px] translate-y-10 tablet:pb-0 max-w-desktop mx-auto tablet:translate-y-[calc(6vh+40px)]">
           <div className="w-full mb-5 flex justify-between  items-center">
             <h1 className="text-primary-boulder900 text-3xl tablet:text-6xl font-bold">
               <b> {event.title}</b>

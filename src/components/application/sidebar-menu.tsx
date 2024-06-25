@@ -18,7 +18,7 @@ export default function SidebarMenu({ handleLogout }: { handleLogout: any }) {
   }, []);
 
   return (
-    <div className="w-16 z-30 h-screen fixed top-0 left-0 bg-gray-700/5 flex flex-col">
+    <div className="w-16 z-30 h-screen fixed top-0 left-0 bg-gray-700/5 hidden mobile:flex flex-col">
       <div className="w-full h-16 flex justify-center items-center">
         <Link
           href="https://www.analogueshifts.com"

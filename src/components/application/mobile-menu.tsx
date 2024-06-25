@@ -28,20 +28,20 @@ export default function MobileMenu({
           )}
         </div>
         <div className="w-full flex flex-col items-center gap-5 pt-5">
-          <div className=" w-4/5">
+          <div className=" w-11/12">
             <SearchBar />
           </div>
           {!user && (
             <>
               <Link
                 href="/login"
-                className="px-4 w-4/5 flex py-2.5 hover:bg-gray-700/5 font-medium rounded-full bg-transparent text-[13px] text-primary-boulder900 items-center gap-1"
+                className="px-4 w-11/12 flex py-2.5 hover:bg-gray-700/5 font-medium rounded-full bg-transparent text-[13px] text-primary-boulder900 items-center gap-1"
               >
                 Log In
               </Link>
               <Link
                 href="/register"
-                className="px-4 w-4/5 flex py-2.5 hover:bg-gray-700/5 font-medium rounded-full bg-transparent text-[13px] text-primary-boulder900 items-center gap-1"
+                className="px-4 w-11/12 flex py-2.5 hover:bg-gray-700/5 font-medium rounded-full bg-transparent text-[13px] text-primary-boulder900 items-center gap-1"
               >
                 Sign Up
               </Link>
@@ -49,7 +49,7 @@ export default function MobileMenu({
           )}
           <Link
             href="/events/create"
-            className="px-4 w-4/5 flex py-2.5 hover:bg-gray-700/5 font-medium rounded-full bg-transparent text-[13px] text-primary-boulder900 items-center gap-1"
+            className="px-4 w-11/12 flex py-2.5 hover:bg-gray-700/5 font-medium rounded-full bg-transparent text-[13px] text-primary-boulder900 items-center gap-1"
           >
             Create Event
           </Link>
