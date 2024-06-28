@@ -32,7 +32,7 @@ export const createEvent = async (
   endsDate: string,
   countriesPrices: any,
   locationType: string,
-  location: string,
+  location: any,
   user: any,
   router: any,
   url: string,
@@ -86,7 +86,7 @@ export const createEvent = async (
     setLoading(true);
     let request = await axios.request(config);
 
-    if (request.data.success) {
+    if (request?.data?.success) {
       successToast("Success", request?.data?.message || "");
       router.push("/events");
     }

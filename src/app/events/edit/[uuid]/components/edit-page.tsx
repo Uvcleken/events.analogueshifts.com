@@ -46,6 +46,7 @@ export default function EditPage({ uuid }: { uuid: string }) {
     setCountriesPrices(data.countriesPrices);
     setLocationType(data.location_type);
     setLocation(data.location);
+    console.log(data);
   };
 
   useEffect(() => {
@@ -149,7 +150,7 @@ export default function EditPage({ uuid }: { uuid: string }) {
               endsDate,
               countriesPrices,
               locationType,
-              locationType,
+              locationType === "virtual" ? null : location,
               user,
               router,
               process.env.NEXT_PUBLIC_BACKEND_URL + "/tools/event/" + uuid,

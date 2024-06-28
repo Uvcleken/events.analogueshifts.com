@@ -135,7 +135,7 @@ export default function CreatePage() {
               endsDate,
               countriesPrices,
               locationType,
-              locationType,
+              locationType === "virtual" ? null : location,
               user,
               router,
               process.env.NEXT_PUBLIC_BACKEND_URL + "/tools/event/create",
