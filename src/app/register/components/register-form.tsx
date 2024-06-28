@@ -63,7 +63,7 @@ export default function RegisterForm() {
         );
 
         // Redirect To Dashboard
-        window.location.href = "";
+        window.location.href = "/events";
       }
       setLoading(false);
     } catch (error: any) {

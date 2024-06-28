@@ -7,9 +7,8 @@ import EventsPagination from "./pagination";
 import Image from "next/image";
 import EmptyBox from "@/assets/images/empty-box.png";
 import Loading from "@/components/application/loading";
-import { errorToast } from "@/utils/error-toast";
-import { clearUserSession } from "@/utils/clear-user-session";
 import EventGridTile from "./event-grid-tile";
+import { fetchEvents } from "@/utils/my-events/fetch-events";
 
 export default function EventsDashboard() {
   const [user, setUser]: any = useState(null);
@@ -21,35 +20,6 @@ export default function EventsDashboard() {
     pageQuery.length ? `?page=${pageQuery[0]}` : ""
   }`;
 
-  const fetchEvents = async () => {
-    const axios = require("axios");
-    let config = {
-      method: "GET",
-      url: getEventsUrl,
-      headers: {
-        Authorization: "Bearer " + user.token,
-      },
-    };
-    try {
-      setLoading(true);
-      let request = await axios.request(config);
-      setCurrentPageInfo(request.data.data.events);
-      setEvents(request.data.data.events.data);
-      setLoading(false);
-    } catch (error: any) {
-      setLoading(false);
-      errorToast(
-        "Uh oh! Error fetching events.",
-        error?.response?.data?.message ||
-          error.message ||
-          "Failed To Fetch Events"
-      );
-      if (error.response.status === 401) {
-        clearUserSession();
-      }
-    }
-  };
-
   useEffect(() => {
     const authSession = Cookies.get("analogueshifts");
     if (authSession) {
@@ -57,9 +27,23 @@ export default function EventsDashboard() {
     }
   }, []);
 
+  const getEvents = async () => {
+    try {
+      await fetchEvents(
+        getEventsUrl,
+        user,
+        setLoading,
+        setEvents,
+        setCurrentPageInfo
+      );
+    } catch (error) {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
     if (user) {
-      fetchEvents();
+      getEvents();
     }
   }, [user]);
 
@@ -92,7 +76,15 @@ export default function EventsDashboard() {
                 ) : (
                   <div className="w-full flex flex-col gap-5 py-5">
                     {events.map((item: any) => {
-                      return <EventGridTile key={item.uuid} item={item} />;
+                      return (
+                        <EventGridTile
+                          key={item.uuid}
+                          item={item}
+                          user={user}
+                          setLoading={setLoading}
+                          getEvents={getEvents}
+                        />
+                      );
                     })}
                   </div>
                 )}

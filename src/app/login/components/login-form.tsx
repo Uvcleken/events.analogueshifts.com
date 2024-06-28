@@ -47,7 +47,7 @@ export default function LoginForm() {
       successToast("Login Successful", "Redirecting You to your dashboard.");
 
       // Redirect To Dashboard
-      window.location.href = "";
+      window.location.href = "/events";
     } catch (error: any) {
       setLoading(false);
       errorToast(

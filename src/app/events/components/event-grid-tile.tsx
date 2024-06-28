@@ -1,3 +1,4 @@
+"use client";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import VenueLittle from "@/assets/images/venue-little.jpeg";
@@ -21,12 +22,41 @@ import {
   Trash,
 } from "lucide-react";
 import { share } from "@/utils/share";
+import IdiomProof from "@/components/application/idiom-proof";
+import { useState } from "react";
+import { deleteEvent } from "@/utils/my-events/delete-event";
 
-export default function EventGridTile({ item }: any) {
+export default function EventGridTile({
+  item,
+  user,
+  setLoading,
+  getEvents,
+}: any) {
   const router = useRouter();
+  const [deleteModalDisplay, setDeleteModalDisplay] = useState(false);
+
+  const handleDelete = async () => {
+    try {
+      setDeleteModalDisplay(false);
+      await deleteEvent(setLoading, user, item.uuid);
+      await getEvents();
+    } catch (error) {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="w-full max-w-full p-3 rounded-lg bg-gray-700/5 flex justify-between items-center">
+      {/* Delete Event Idiom Modal */}
+      <IdiomProof
+        action={handleDelete}
+        close={() => setDeleteModalDisplay(false)}
+        description={"Are you sure you want to delete the event " + item.title}
+        label="Delete"
+        open={deleteModalDisplay}
+        title="Confirm delete"
+      />
+
       <div className=" flex gap-3 overflow-x-hidden max-w-[90%] items-center">
         <div className="w-full h-10 flex flex-col justify-between">
           <p className="text-background-darkYellow text-xs font-semibold">
@@ -69,7 +99,10 @@ export default function EventGridTile({ item }: any) {
           >
             <PartyPopper className="mr-2 h-4 w-4" /> View Event
           </DropdownMenuItem>
-          <DropdownMenuItem className="py-3 cursor-pointer px-3 focus:bg-gray-700/5">
+          <DropdownMenuItem
+            onClick={() => router.push(`/events/edit/${item.uuid}`)}
+            className="py-3 cursor-pointer px-3 focus:bg-gray-700/5"
+          >
             <Pencil className="mr-2 h-4 w-4" /> Edit Event
           </DropdownMenuItem>
           <DropdownMenuItem
@@ -83,7 +116,10 @@ export default function EventGridTile({ item }: any) {
           >
             <Share2 className="mr-2 h-4 w-4" /> Share Event
           </DropdownMenuItem>
-          <DropdownMenuItem className="py-3 cursor-pointer px-3 focus:bg-gray-700/5">
+          <DropdownMenuItem
+            onClick={() => setDeleteModalDisplay(true)}
+            className="py-3 cursor-pointer px-3 focus:bg-gray-700/5"
+          >
             <Trash className="mr-2 h-4 w-4" /> Delete Event
           </DropdownMenuItem>
         </DropdownMenuContent>

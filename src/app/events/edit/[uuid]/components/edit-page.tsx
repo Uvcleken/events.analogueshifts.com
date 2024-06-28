@@ -2,13 +2,13 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { ChevronLeft } from "lucide-react";
-import UploadImage from "./upload-image";
-import EventInfo from "./event-info";
-import DateAndLocation from "./date-and-location";
+import UploadImage from "@/app/events/create/components/upload-image";
+import EventInfo from "@/app/events/create/components/event-info";
+import DateAndLocation from "@/app/events/create/components/date-and-location";
 import { Button } from "@/components/ui/button";
 import Cookies from "js-cookie";
 import Loading from "@/components/application/loading";
-import { fetchCountriesParameters } from "@/utils/create-event/fetch-countries-parameter";
+import { getEventToEdit } from "@/utils/edit-event/get-event";
 import {
   handleClickOutside,
   toggleSection,
@@ -16,7 +16,7 @@ import {
 import { createEvent } from "@/utils/create-event/create-event";
 import { useRouter } from "next/navigation";
 
-export default function CreatePage() {
+export default function EditPage({ uuid }: { uuid: string }) {
   const router = useRouter();
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -34,6 +34,20 @@ export default function CreatePage() {
   const [locationType, setLocationType] = useState("physical");
   const [location, setLocation] = useState("");
 
+  const prefillInputs = (data: any) => {
+    setEmail(data.email);
+    setContact(data.contact);
+    setTitle(data.title);
+    setThumbnail(data.thumbnail);
+    setDescription(data.description);
+    setPrice(data.price);
+    setStartsDate(data.starts_date);
+    setEndsDate(data.ends_date);
+    setCountriesPrices(data.countriesPrices);
+    setLocationType(data.location_type);
+    setLocation(data.location);
+  };
+
   useEffect(() => {
     document.addEventListener("click", (e: any) =>
       handleClickOutside(e, setOpenSection)
@@ -49,10 +63,12 @@ export default function CreatePage() {
     const authSession = Cookies.get("analogueshifts");
     if (authSession) {
       setUser(JSON.parse(authSession));
-      fetchCountriesParameters(
-        JSON.parse(authSession),
+      getEventToEdit(
         setLoading,
-        setCountriesParameters
+        JSON.parse(authSession),
+        prefillInputs,
+        setCountriesParameters,
+        uuid
       );
     }
   }, []);
@@ -66,11 +82,9 @@ export default function CreatePage() {
       >
         <ChevronLeft height={13} /> Back to Events
       </Link>
-      <h3 className="text-primary-boulder900 font-bold text-3xl">
-        Build your event page
-      </h3>
+      <h3 className="text-primary-boulder900 font-bold text-3xl">Edit Event</h3>
       <p className="text-primary-boulder900 font-medium text-base mb-4">
-        Add all of your event details and let attendees know what to expect
+        Make the adjustments and click on the Edit Event button below
       </p>
       <section className="w-[90%] mx-auto flex flex-col gap-5">
         <EventInfo
@@ -138,13 +152,13 @@ export default function CreatePage() {
               locationType,
               user,
               router,
-              process.env.NEXT_PUBLIC_BACKEND_URL + "/tools/event/create",
-              "POST"
+              process.env.NEXT_PUBLIC_BACKEND_URL + "/tools/event/" + uuid,
+              "PUT"
             )
           }
           className="bg-background-darkYellow hover:bg-background-darkYellow/80 tablet:px-8 tablet:py-3"
         >
-          Create event
+          Edit event
         </Button>
       </section>
     </main>

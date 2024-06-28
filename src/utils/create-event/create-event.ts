@@ -34,7 +34,9 @@ export const createEvent = async (
   locationType: string,
   location: string,
   user: any,
-  router: any
+  router: any,
+  url: string,
+  method: string
 ) => {
   let returnValue = true;
   [
@@ -71,8 +73,8 @@ export const createEvent = async (
   };
 
   const config = {
-    method: "POST",
-    url: process.env.NEXT_PUBLIC_BACKEND_URL + "/tools/event/create",
+    method: method,
+    url: url,
     headers: {
       "Content-Type": "application/json",
       Authorization: "Bearer " + user.token,
@@ -83,17 +85,16 @@ export const createEvent = async (
   try {
     setLoading(true);
     let request = await axios.request(config);
+
     if (request.data.success) {
-      successToast("Success", "Event Created Successfully");
+      successToast("Success", request?.data?.message || "");
       router.push("/events");
     }
   } catch (error: any) {
     setLoading(false);
     errorToast(
-      "Uh oh! Error Creating Event.",
-      error?.response?.data?.message ||
-        error.message ||
-        "Failed To Create Event"
+      "Uh oh! Error.",
+      error?.response?.data?.message || error.message || "Failed"
     );
     if (error.response.status === 401) {
       clearUserSession();
