@@ -104,7 +104,7 @@ export default function LoginForm() {
               </button>
               <div className="w-full pt-4 flex justify-center items-center gap-1">
                 <Link
-                  href="/forgot-password"
+                  href="https://www.analogueshifts.com/forgot-password"
                   className="font-normal cursor-pointer text-sm text-black/90"
                 >
                   Forgotten Password?
