@@ -1,5 +1,4 @@
 import Link from "next/link";
-import ProfileDropdown from "./profile-dropdown";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 
 import { Menu } from "lucide-react";
@@ -18,20 +17,11 @@ export default function MobileMenu({
         <Menu width={18} className="text-primary-boulder900" />
       </SheetTrigger>
       <SheetContent className="w-screen ">
-        <div className="-translate-y-4">
-          {user && (
-            <ProfileDropdown
-              handleLogout={handleLogout}
-              user={user}
-              mobile={true}
-            />
-          )}
+        <div className="-translate-y-2 w-4/5">
+          <SearchBar />
         </div>
         <div className="w-full flex flex-col items-center gap-5 pt-5">
-          <div className=" w-11/12">
-            <SearchBar />
-          </div>
-          {!user && (
+          {!user ? (
             <>
               <Link
                 href="/login"
@@ -44,6 +34,21 @@ export default function MobileMenu({
                 className="px-4 w-11/12 flex py-2.5 hover:bg-gray-700/5 font-medium rounded-full bg-transparent text-[13px] text-primary-boulder900 items-center gap-1"
               >
                 Sign Up
+              </Link>
+            </>
+          ) : (
+            <>
+              <SheetTrigger
+                onClick={handleLogout}
+                className="px-4 w-11/12 flex py-2.5 hover:bg-gray-700/5 font-medium rounded-full bg-transparent text-[13px] text-primary-boulder900 items-center gap-1"
+              >
+                Logout
+              </SheetTrigger>
+              <Link
+                href="/events"
+                className="px-4 w-11/12 flex py-2.5 hover:bg-gray-700/5 font-medium rounded-full bg-transparent text-[13px] text-primary-boulder900 items-center gap-1"
+              >
+                My Events
               </Link>
             </>
           )}

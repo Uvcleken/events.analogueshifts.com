@@ -10,7 +10,7 @@ import { useRouter } from "next/navigation";
 import { ChevronDown, Plus, LogOut, LayoutDashboard } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
-export default function ProfileDropdown({ user, handleLogout, mobile }: any) {
+export default function ProfileDropdown({ user, handleLogout }: any) {
   const router = useRouter();
   return (
     <DropdownMenu>
@@ -69,21 +69,18 @@ export default function ProfileDropdown({ user, handleLogout, mobile }: any) {
           <LayoutDashboard className="mr-2 h-4 w-4" />
           <span>Manage Events</span>
         </DropdownMenuItem>
-        {!mobile && (
-          <>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem
-              onClick={handleLogout}
-              className="px-5 py-4 focus:bg-gray-700/5 cursor-pointer text-sm font-semibold text-primary-boulder950"
-            >
-              <LogOut className="mr-2 h-4 w-4" />
-              <span>
-                Log out <br />{" "}
-                <small className="truncate">{user?.user?.email}</small>
-              </span>
-            </DropdownMenuItem>
-          </>
-        )}
+
+        <DropdownMenuSeparator />
+        <DropdownMenuItem
+          onClick={handleLogout}
+          className="px-5 py-4 focus:bg-gray-700/5 cursor-pointer text-sm font-semibold text-primary-boulder950"
+        >
+          <LogOut className="mr-2 h-4 w-4" />
+          <span>
+            Log out <br />{" "}
+            <small className="truncate">{user?.user?.email}</small>
+          </span>
+        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );
