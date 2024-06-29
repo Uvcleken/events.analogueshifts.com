@@ -13,7 +13,7 @@ export default function TicketCard({
             <b>Ticket Fee: {"$" + event.price}</b>
           </p>
 
-          {event.countriesPrices && (
+          {event?.countriesPrices?.length > 0 && (
             <div className="mt-5">
               <p className="text-sm border-b py-2 mb-3 font-medium text-primary-boulder900">
                 <b>Price for other countries</b>

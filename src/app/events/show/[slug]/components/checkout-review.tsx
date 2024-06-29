@@ -38,7 +38,7 @@ export default function CheckoutReview({
           </div>
           <form
             onSubmit={handleSubmit}
-            className="w-full overflow-y-auto h-max max-h-[calc(100%-80px)] px-10 py-6 flex flex-wrap gap-y-5 gap-x-3"
+            className="w-full overflow-y-auto h-max max-h-[calc(100%-80px)] px-6 md:px-10 py-6 flex flex-wrap gap-y-5 gap-x-3"
           >
             <p className="text-sm text-primary-boulder500 font-medium">
               You&apos;re about to purchase a Ticket for <b>{event.title}.</b>{" "}
@@ -64,7 +64,7 @@ export default function CheckoutReview({
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-[calc(50%-6px)] rounded-none h-12 text-primary-boulder900"
+              className="md:w-[calc(50%-6px)] w-full rounded-none h-12 text-primary-boulder900"
               placeholder="Email"
             />
             <Input
@@ -72,7 +72,7 @@ export default function CheckoutReview({
               type="text"
               value={contact}
               onChange={(e) => setContact(e.target.value)}
-              className="w-[calc(50%-6px)] rounded-none h-12 text-primary-boulder900"
+              className="md:w-[calc(50%-6px)] w-full rounded-none h-12 text-primary-boulder900"
               placeholder="Contact"
             />
             <button className="w-full h-12 flex justify-center items-center hover:bg-background-darkYellow/90 bg-background-darkYellow outline-none text-white font-bold text-sm">
