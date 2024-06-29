@@ -1,7 +1,5 @@
 "use client";
 import { useRouter } from "next/navigation";
-import Image from "next/image";
-import VenueLittle from "@/assets/images/venue-little.jpeg";
 import { convertDateFormat } from "../resources/convert-date-format";
 
 import {
@@ -66,7 +64,17 @@ export default function EventGridTile({
             {convertDateFormat(item.starts_date)?.slice(4, 6)}
           </p>
         </div>{" "}
-        <Image src={VenueLittle} alt="" className="w-20 h-16 object-cover" />
+        <div className="w-20 min-w-20 max-w-20 overflow-hidden h-16">
+          <img
+            src={
+              item.thumbnail.length > 0 && item.thumbnail !== "null"
+                ? item.thumbnail
+                : "/venue-little.jpeg"
+            }
+            alt=""
+            className="w-full h-full object-cover"
+          />
+        </div>
         <div className="w-full h-10 flex flex-col justify-between">
           <p className="text-primary-boulder900 text-sm font-semibold">
             {item.title}

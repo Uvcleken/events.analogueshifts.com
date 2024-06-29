@@ -62,7 +62,7 @@ export const createEvent = async (
     email: email,
     contact: contact,
     title: title,
-    thumbnail: thumbnail,
+    thumbnail: thumbnail === "" ? "null" : thumbnail,
     description: description,
     price: price,
     starts_date: convertDateFormat(startsDate),

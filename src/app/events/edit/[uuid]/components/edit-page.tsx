@@ -45,7 +45,9 @@ export default function EditPage({ uuid }: { uuid: string }) {
     setEndsDate(data.ends_date);
     setCountriesPrices(data.countriesPrices);
     setLocationType(data.location_type);
-    setLocation(data.location);
+    if (data.location_type === "physical") {
+      setLocation(data.location);
+    }
     console.log(data);
   };
 
@@ -150,7 +152,7 @@ export default function EditPage({ uuid }: { uuid: string }) {
               endsDate,
               countriesPrices,
               locationType,
-              locationType === "virtual" ? null : location,
+              locationType === "virtual" ? "null" : location,
               user,
               router,
               process.env.NEXT_PUBLIC_BACKEND_URL + "/tools/event/" + uuid,

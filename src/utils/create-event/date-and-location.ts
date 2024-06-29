@@ -7,7 +7,7 @@ export const validate = (
 ) => {
   const validateLocation = () => {
     if (
-      (locationType === "physical" && location.trim().length > 0) ||
+      (locationType === "physical" && location !== "null") ||
       locationType === "virtual"
     ) {
       return true;

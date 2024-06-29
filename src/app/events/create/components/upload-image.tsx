@@ -90,7 +90,11 @@ const UploadImage: React.FC<UploadImage> = ({
         }`}
       >
         <img
-          src={thumbnail.length !== 0 ? thumbnail : "/concert.jpg"}
+          src={
+            thumbnail.length > 0 && thumbnail !== "null"
+              ? thumbnail
+              : "/concert.jpg"
+          }
           alt=""
           className="w-full h-[250px] sm:h-[400px] object-cover"
         />
@@ -105,12 +109,12 @@ const UploadImage: React.FC<UploadImage> = ({
           </div>
           <div
             className={`absolute top-3 right-3 w-9 h-9 flex items-center justify-center rounded-full  ${
-              thumbnail.length !== 0
+              thumbnail.length > 0 && thumbnail !== "null"
                 ? "bg-green-600 text-white"
                 : "bg-white text-background-darkYellow"
             }`}
           >
-            {thumbnail.length !== 0 ? (
+            {thumbnail.length > 0 && thumbnail !== "null" ? (
               <Check width={20} />
             ) : (
               <Plus width={20} />

@@ -36,7 +36,9 @@ export default function ShowEvent({ slug }: { slug: string }) {
           <div
             style={{
               backgroundImage: `url(${
-                event.thumbnail.length > 0 ? event.thumbnail : "/concert.jpg"
+                event.thumbnail.length > 0 && event.thumbnail !== "null"
+                  ? event.thumbnail
+                  : "/concert.jpg"
               })`,
             }}
             className="w-[90%] bg-cover h-64 translate-y-10 tablet:h-[72vh] max-w-desktop mx-auto rounded-3xl overflow-hidden"
@@ -44,7 +46,9 @@ export default function ShowEvent({ slug }: { slug: string }) {
             <div className="w-full h-full backdrop-blur-lg ">
               <img
                 src={
-                  event.thumbnail.length > 0 ? event.thumbnail : "/concert.jpg"
+                  event.thumbnail.length > 0 && event.thumbnail !== "null"
+                    ? event.thumbnail
+                    : "/concert.jpg"
                 }
                 alt="Cover Photo"
                 className=" w-4/5 tablet:w-9/12 max-w-full mx-auto h-full object-cover"
