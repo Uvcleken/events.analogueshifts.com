@@ -7,6 +7,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Combobox } from "@/components/ui/comobox";
 import { Button } from "@/components/ui/button";
 import { errorToast } from "@/utils/error-toast";
+import { Switch } from "@/components/ui/switch";
 
 interface EventInfo {
   isOpen: boolean;
@@ -45,6 +46,7 @@ const EventInfo: React.FC<EventInfo> = ({
 }) => {
   const [countryCodeValue, setCountryCodeValue] = useState("");
   const [countryPriceValue, setCountryPriceValue] = useState("");
+  const [addCountryPrices, setAddCountryPrices] = useState(false);
 
   // Checks If All the required info field Has been Field
   const validate = () => {
@@ -200,35 +202,44 @@ const EventInfo: React.FC<EventInfo> = ({
             className="text-sm font-medium text-primary-boulder900 placeholder:text-primary-boulder900/70 h-12 mb-3"
           />
           <p className="text-primary-boulder900 font-normal text-xs mb-3">
-            Please Note that Prices are in USD. If you wish to Enter USD Prices
-            for other Countries, Do that Below.
+            Please Note that Prices are in USD.
           </p>
-          <div className="w-full mb-4 flex flex-wrap gap-y-3 justify-between items-center">
-            <div className="flex sm:max-w-[calc(100%-150px)]   max-w-full flex-wrap gap-y-3 items-center gap-x-5">
-              <div className="sm:w-[calc(50%-10px)] w-full">
-                <Combobox
-                  value={countryCodeValue}
-                  setValue={setCountryCodeValue}
-                  list={countriesCodes}
-                />
-              </div>
-              <div className="sm:w-[calc(50%-10px)] w-full">
-                <Input
-                  type="number"
-                  value={countryPriceValue}
-                  onChange={(e) => setCountryPriceValue(e.target.value)}
-                  placeholder="Enter Price"
-                  className="text-sm font-medium text-primary-boulder900 placeholder:text-primary-boulder900/70"
-                />
-              </div>
-            </div>
-            <Button
-              onClick={handleAddCountryPrice}
-              className="bg-background-darkYellow w-full sm:w-max hover:bg-background-darkYellow/80"
-            >
-              <Plus className="mr-1 " width={15} /> Add Price
-            </Button>
+          <div className="mb-3 flex items-center gap-3 flex-wrap">
+            <p className="text-primary-boulder900 font-normal text-xs">
+              Add USD Prices for other Countries.
+            </p>{" "}
+            <Switch
+              onCheckedChange={(value: boolean) => setAddCountryPrices(value)}
+            />
           </div>
+          {addCountryPrices && (
+            <div className="w-full mb-4 flex flex-wrap gap-y-3 justify-between items-center">
+              <div className="flex sm:max-w-[calc(100%-150px)]   max-w-full flex-wrap gap-y-3 items-center gap-x-5">
+                <div className="sm:w-[calc(50%-10px)] w-full">
+                  <Combobox
+                    value={countryCodeValue}
+                    setValue={setCountryCodeValue}
+                    list={countriesCodes}
+                  />
+                </div>
+                <div className="sm:w-[calc(50%-10px)] w-full">
+                  <Input
+                    type="number"
+                    value={countryPriceValue}
+                    onChange={(e) => setCountryPriceValue(e.target.value)}
+                    placeholder="Enter Price"
+                    className="text-sm font-medium text-primary-boulder900 placeholder:text-primary-boulder900/70"
+                  />
+                </div>
+              </div>
+              <Button
+                onClick={handleAddCountryPrice}
+                className="bg-background-darkYellow w-full sm:w-max hover:bg-background-darkYellow/80"
+              >
+                <Plus className="mr-1 " width={15} /> Add Price
+              </Button>
+            </div>
+          )}
           <div className="w-full flex flex-col gap-3">
             {contriesPrices.map((item: any) => {
               return (
