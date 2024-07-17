@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./globals.css";
+import Script from "next/script";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,6 +20,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <Script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=G-G7NWPZKQ2S"
+        ></Script>
+        <Script id="gtag-init" strategy="afterInteractive">
+          {`     window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-G7NWPZKQ2S');
+                    `}
+        </Script>
+      </head>
       <body className={cn(inter.className)}>
         {" "}
         <ToastContainer position="top-center" />
