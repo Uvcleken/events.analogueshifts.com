@@ -1,10 +1,13 @@
+import "./globals.css";
+import Script from "next/script";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { cn } from "@/lib/utils";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import "./globals.css";
-import Script from "next/script";
+
+import { UserProvider } from "@/contexts/user";
+import { ToastProvider } from "@/contexts/toast";
+import ToastMessage from "@/components/application/toast";
+import { EventsProvider } from "@/contexts/events";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -32,8 +35,14 @@ export default function RootLayout({
       </head>
       <body className={cn(inter.className)}>
         {" "}
-        <ToastContainer position="top-center" />
-        {children}
+        <UserProvider>
+          <ToastProvider>
+            <EventsProvider>
+              <ToastMessage />
+              {children}
+            </EventsProvider>
+          </ToastProvider>
+        </UserProvider>
       </body>
     </html>
   );

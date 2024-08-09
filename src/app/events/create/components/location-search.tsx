@@ -1,72 +1,87 @@
-// components/MapWithSearch.tsx
+import React, { useState } from "react";
+import { GoogleMap, useLoadScript, Marker } from "@react-google-maps/api";
+import usePlacesAutocomplete, {
+  getGeocode,
+  getLatLng,
+} from "use-places-autocomplete";
+import { Input } from "@/components/ui/input";
 
-import React, { useRef, useState, useCallback } from "react";
-import {
-  GoogleMap,
-  LoadScript,
-  StandaloneSearchBox,
-} from "@react-google-maps/api";
-
-const libraries: any = ["places"];
-
-const containerStyle = {
+const mapContainerStyle = {
   width: "100%",
-  height: "500px",
+  height: "400px",
 };
 
 const center = {
-  lat: -3.745,
-  lng: -38.523,
+  lat: 6.5244, // Default to Lagos, Nigeria
+  lng: 3.3792,
 };
 
-const LocationSearch: React.FC = () => {
-  const [map, setMap] = useState<google.maps.Map | null>(null);
-  const [searchBox, setSearchBox] =
-    useState<google.maps.places.SearchBox | null>(null);
-  const [place, setPlace] = useState<string>("");
+const LocationSearch = () => {
+  const [selected, setSelected] = useState<{ lat: number; lng: number } | null>(
+    null
+  );
+  const { isLoaded, loadError } = useLoadScript({
+    googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY as string,
+    libraries: ["places"],
+  });
 
-  const onLoadMap = useCallback((map: google.maps.Map) => {
-    setMap(map);
-  }, []);
+  const {
+    ready,
+    value,
+    suggestions: { status, data },
+    setValue,
+    clearSuggestions,
+  } = usePlacesAutocomplete({
+    requestOptions: {
+      locationBias: { lat: 6.5244, lng: 3.3792 }, // Bias towards Lagos, Nigeria
+    },
+  });
 
-  const onLoadSearchBox = useCallback((ref: google.maps.places.SearchBox) => {
-    setSearchBox(ref);
-  }, []);
+  const handleSelect = async (address: string) => {
+    setValue(address, false);
+    clearSuggestions();
 
-  const onPlacesChanged = () => {
-    const places = searchBox?.getPlaces();
-    if (places && places.length > 0) {
-      const place = places[0];
-      setPlace(place.formatted_address || "");
-      const location = place.geometry?.location;
-      if (location && map) {
-        map.panTo(location);
-        map.setZoom(15);
-      }
+    try {
+      const results = await getGeocode({ address });
+      const { lat, lng } = await getLatLng(results[0]);
+      setSelected({ lat, lng });
+    } catch (error) {
+      console.error("Error: ", error);
     }
   };
 
+  if (loadError) return <div>Error loading maps</div>;
+  if (!isLoaded) return <div>Loading Maps...</div>;
+
   return (
-    <LoadScript googleMapsApiKey="YOUR_API_KEY" libraries={libraries}>
-      <StandaloneSearchBox
-        onLoad={onLoadSearchBox}
-        onPlacesChanged={onPlacesChanged}
-      >
-        <input
-          type="text"
-          placeholder="Search for a location"
-          className="absolute top-4 left-1/2 transform -translate-x-1/2 w-72 h-10 px-4 border border-transparent rounded-lg shadow-lg text-sm outline-none"
-        />
-      </StandaloneSearchBox>
+    <div>
+      <Input
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
+        disabled={!ready}
+        placeholder="Search for a location"
+        className="text-sm font-medium text-primary-boulder900 placeholder:text-primary-boulder900/70 h-12 mb-3"
+      />
+      <div>
+        {status === "OK" &&
+          data.map(({ place_id, description }) => (
+            <div
+              key={place_id}
+              onClick={() => handleSelect(description)}
+              className="cursor-pointer p-2 border-b border-gray-200"
+            >
+              {description}
+            </div>
+          ))}
+      </div>
       <GoogleMap
-        mapContainerStyle={containerStyle}
-        center={center}
+        mapContainerStyle={mapContainerStyle}
         zoom={10}
-        onLoad={onLoadMap}
+        center={selected || center}
       >
-        {/* Child components, such as markers, info windows, etc. */}
+        {selected && <Marker position={selected} />}
       </GoogleMap>
-    </LoadScript>
+    </div>
   );
 };
 

@@ -1,10 +1,10 @@
 import CreatePage from "./components/create-page";
-import AuthenticatedLayout from "@/components/application/layouts/authenticated";
+import { Suspense } from "react";
 
 export default function Page() {
   return (
-    <AuthenticatedLayout>
+    <Suspense fallback={<p></p>}>
       <CreatePage />
-    </AuthenticatedLayout>
+    </Suspense>
   );
 }

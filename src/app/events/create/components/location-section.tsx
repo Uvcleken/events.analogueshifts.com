@@ -1,17 +1,22 @@
 import { Input } from "@/components/ui/input";
 import { MapPin, Video } from "lucide-react";
+import LocationSearch from "./location-search";
 
 interface LocationSectionInterface {
   location: string;
   locationType: string;
+  url_link: string;
+  setUrlLink: any;
   setLocation: any;
   setLocationType: any;
 }
 
 export default function LocationSection({
+  url_link,
   location,
   locationType,
   setLocation,
+  setUrlLink,
   setLocationType,
 }: LocationSectionInterface) {
   return (
@@ -42,30 +47,35 @@ export default function LocationSection({
         </button>
       </div>
 
+      <h6 className="text-primary-boulder900 font-semibold text-base mb-3">
+        Event location
+      </h6>
+
       {/* For Online Event */}
       {locationType === "virtual" && (
-        <h5 className="text-primary-boulder900 font-medium text-[13px]">
-          Your event is Online, You&apos;re meant to Contact your Guests with a
-          link to the event livestreams and more.
-        </h5>
+        <>
+          <p className="text-primary-boulder900 font-normal text-xs mb-3">
+            Enter the URL to your online event webinar. This isn&apos;t a
+            required field, You can contact your Guests with a link to the event
+            webinar.
+          </p>
+          <Input
+            type="text"
+            value={url_link}
+            onChange={(e) => setUrlLink(e.target.value)}
+            placeholder="Enter event URL"
+            className="text-sm font-medium text-primary-boulder900 placeholder:text-primary-boulder900/70 h-12 mb-6"
+          />
+        </>
       )}
 
       {/* For Physical Event */}
       {locationType === "physical" && (
         <>
-          <h6 className="text-primary-boulder900 font-semibold text-base mb-3">
-            Event location
-          </h6>
           <p className="text-primary-boulder900 font-normal text-xs mb-3">
             Enter your physical location For your Event.
           </p>
-          <Input
-            type="text"
-            value={location}
-            onChange={(e) => setLocation(e.target.value)}
-            placeholder="Enter Location"
-            className="text-sm font-medium text-primary-boulder900 placeholder:text-primary-boulder900/70 h-12 mb-6"
-          />
+          <LocationSearch />
         </>
       )}
     </>

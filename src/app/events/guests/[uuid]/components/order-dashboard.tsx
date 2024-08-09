@@ -1,17 +1,21 @@
 "use client";
+import { useUser } from "@/contexts/user";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
-import Cookies from "js-cookie";
-import Loading from "@/components/application/loading";
-import { errorToast } from "@/utils/error-toast";
-import { clearUserSession } from "@/utils/clear-user-session";
+import { useEvents } from "@/hooks/events";
+
 import OrdersTable from "./orders-table";
+import Link from "next/link";
+import { ChevronLeft } from "lucide-react";
+import OrdersPagination from "./orders-pagination";
 
 export default function OrdersDashboard({ eventUUID }: { eventUUID: string }) {
-  const [user, setUser]: any = useState(null);
+  const { user } = useUser();
   const pageQuery = useSearchParams().getAll("page");
   const [orders, setOrders]: any = useState(null);
   const [loading, setLoading] = useState(false);
+  const { fetchOrders } = useEvents();
+
   const [currentPageInfo, setCurrentPageInfo]: any = useState({});
   const getOrdersUrl = `${
     process.env.NEXT_PUBLIC_BACKEND_URL
@@ -19,52 +23,30 @@ export default function OrdersDashboard({ eventUUID }: { eventUUID: string }) {
     pageQuery.length ? `?page=${pageQuery[0]}` : ""
   }`;
 
-  const fetchOrders = async () => {
-    const axios = require("axios");
-    let config = {
-      method: "GET",
+  const getOrders = () => {
+    fetchOrders({
+      setData: setOrders,
+      setLoading,
+      setPaginationData: setCurrentPageInfo,
       url: getOrdersUrl,
-      headers: {
-        Authorization: "Bearer " + user.token,
-      },
-    };
-    try {
-      setLoading(true);
-      let request = await axios.request(config);
-      console.log(request);
-      setOrders([]);
-      setLoading(false);
-    } catch (error: any) {
-      setLoading(false);
-      errorToast(
-        "Uh oh! Error fetching orders.",
-        error?.response?.data?.message ||
-          error.message ||
-          "Failed To Fetch Orders"
-      );
-      if (error.response.status === 401) {
-        clearUserSession();
-      }
-    }
+    });
   };
 
   useEffect(() => {
-    const authSession = Cookies.get("analogueshifts");
-    if (authSession) {
-      setUser(JSON.parse(authSession));
-    }
-  }, []);
-
-  useEffect(() => {
     if (user) {
-      fetchOrders();
+      getOrders();
     }
   }, [user]);
 
   return (
     <main className="my-10 mx-auto w-[90%] max-w-desktop">
-      {loading && <Loading />}
       <div className="flex flex-col gap-5">
+        <Link
+          href="/events"
+          className="flex w-max items-center gap-1 text-background-darkYellow text-sm font-medium mb-2"
+        >
+          <ChevronLeft height={13} /> Back to Events
+        </Link>
         <h1 className="text-primary-boulder700 text-3xl tablet:text-5xl font-bold">
           <b>Order Management</b>
         </h1>
@@ -75,7 +57,10 @@ export default function OrdersDashboard({ eventUUID }: { eventUUID: string }) {
         </p>
       </div>
 
-      {orders && <OrdersTable orders={orders} />}
+      <OrdersTable user={user} loading={loading} orders={orders} />
+      <div className="w-max pt-6">
+        <OrdersPagination currentPageInfo={currentPageInfo} />
+      </div>
     </main>
   );
 }

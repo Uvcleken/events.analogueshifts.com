@@ -1,54 +1,71 @@
 "use client";
-import Link from "next/link";
+import { useAuth } from "@/hooks/auth";
+import { useUser } from "@/contexts/user";
+import { useEvents } from "@/hooks/events";
 import { useEffect, useState } from "react";
+
+import Link from "next/link";
 import { ChevronLeft } from "lucide-react";
 import UploadImage from "@/app/events/create/components/upload-image";
 import EventInfo from "@/app/events/create/components/event-info";
 import DateAndLocation from "@/app/events/create/components/date-and-location";
 import { Button } from "@/components/ui/button";
-import Cookies from "js-cookie";
 import Loading from "@/components/application/loading";
-import { getEventToEdit } from "@/utils/edit-event/get-event";
 import {
   handleClickOutside,
   toggleSection,
-} from "@/utils/create-event/helper-functions";
-import { createEvent } from "@/utils/create-event/create-event";
-import { useRouter } from "next/navigation";
+} from "@/configs/upload-event/layout-functions";
+import { handleUpload } from "@/configs/upload-event/handle-upload";
 
 export default function EditPage({ uuid }: { uuid: string }) {
-  const router = useRouter();
-  const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [email, setEmail] = useState("");
-  const [contact, setContact] = useState("");
-  const [title, setTitle] = useState("");
-  const [thumbnail, setThumbnail] = useState("");
-  const [description, setDescription] = useState("");
-  const [price, setPrice] = useState("");
-  const [startsDate, setStartsDate] = useState("");
-  const [endsDate, setEndsDate] = useState("");
-  const [countriesPrices, setCountriesPrices] = useState([]);
   const [openSection, setOpenSection] = useState(null);
-  const [countriesParameters, setCountriesParameters] = useState([]);
-  const [locationType, setLocationType] = useState("physical");
-  const [location, setLocation] = useState("");
+  const [thumbnail, setThumbnail] = useState("");
+
+  const [eventInfoData, setEventInfoData] = useState({
+    email: "",
+    contact: "",
+    title: "",
+    description: "",
+    price: "0",
+    maximum: "10",
+    status: "public",
+  });
+
+  const [dateAndLocationInfo, setDateAndLocationInfo] = useState({
+    startsDate: "",
+    endsDate: "",
+    locationType: "physical",
+    location: "null",
+    url_link: "",
+    longitude: "",
+    latitude: "",
+  });
+
+  const { user } = useUser();
+  const { notifyUser } = useAuth();
+  const { uploadEvent, getEvent } = useEvents();
 
   const prefillInputs = (data: any) => {
-    setEmail(data.email);
-    setContact(data.contact);
-    setTitle(data.title);
+    setEventInfoData({
+      email: data.email,
+      contact: data.contact || "",
+      title: data.title,
+      description: data.description,
+      price: "0",
+      maximum: data.maximum,
+      status: data.status ? "public" : "private",
+    });
+    setDateAndLocationInfo({
+      startsDate: data.starts_date,
+      endsDate: data.ends_date,
+      locationType: data.location_type,
+      location: data.location_type === "virtual" ? "null" : data.location,
+      url_link: data.url_link || "",
+      longitude: data.longitude || "",
+      latitude: data.latitude || "",
+    });
     setThumbnail(data.thumbnail);
-    setDescription(data.description);
-    setPrice(data.price);
-    setStartsDate(data.starts_date);
-    setEndsDate(data.ends_date);
-    setCountriesPrices(data.countriesPrices);
-    setLocationType(data.location_type);
-    if (data.location_type === "physical") {
-      setLocation(data.location);
-    }
-    console.log(data);
   };
 
   useEffect(() => {
@@ -63,18 +80,29 @@ export default function EditPage({ uuid }: { uuid: string }) {
   }, []);
 
   useEffect(() => {
-    const authSession = Cookies.get("analogueshifts");
-    if (authSession) {
-      setUser(JSON.parse(authSession));
-      getEventToEdit(
+    if (user) {
+      //  Get Event to edit
+      getEvent({
+        uuid,
         setLoading,
-        JSON.parse(authSession),
-        prefillInputs,
-        setCountriesParameters,
-        uuid
-      );
+        setData: (data) => {
+          prefillInputs(data);
+        },
+      });
     }
-  }, []);
+  }, [user]);
+
+  const handleEditEvent = () => {
+    handleUpload(
+      "PUT",
+      setLoading,
+      thumbnail,
+      eventInfoData,
+      dateAndLocationInfo,
+      uploadEvent,
+      uuid
+    );
+  };
 
   return (
     <main className="mt-10 pb-40  mx-auto w-[90%] max-w-createPage flex flex-col gap-3">
@@ -91,23 +119,12 @@ export default function EditPage({ uuid }: { uuid: string }) {
       </p>
       <section className="w-[90%] mx-auto flex flex-col gap-5">
         <EventInfo
-          countriesParameters={countriesParameters}
-          setContriesPrices={setCountriesPrices}
-          contriesPrices={countriesPrices}
-          price={price}
-          email={email}
-          contact={contact}
-          setContact={setContact}
-          setEmail={setEmail}
-          setPrice={setPrice}
           isOpen={openSection === "info"}
           toggleSection={(section: string) =>
             toggleSection(section, setOpenSection)
           }
-          title={title}
-          summary={description}
-          setTitle={setTitle}
-          setSummary={setDescription}
+          eventInfoData={eventInfoData}
+          setEventInfoData={setEventInfoData}
         />
 
         <DateAndLocation
@@ -115,18 +132,12 @@ export default function EditPage({ uuid }: { uuid: string }) {
           toggleSection={(section: string) =>
             toggleSection(section, setOpenSection)
           }
-          location={location}
-          locationType={locationType}
-          setLocation={setLocation}
-          setLocationType={setLocationType}
-          startsDate={startsDate}
-          endsDate={endsDate}
-          setStartsDate={setStartsDate}
-          setEndsDate={setEndsDate}
+          dateAndLocationInfo={dateAndLocationInfo}
+          setDateAndLocationInfo={setDateAndLocationInfo}
         />
 
         <UploadImage
-          user={user}
+          notifyUser={notifyUser}
           thumbnail={thumbnail}
           isOpen={openSection === "image"}
           toggleSection={(section: string) =>
@@ -139,26 +150,7 @@ export default function EditPage({ uuid }: { uuid: string }) {
 
       <section className="fixed z-20 bottom-0 left-0 w-screen bg-white py-5 flex justify-end tablet:pr-8 pr-5">
         <Button
-          onClick={() =>
-            createEvent(
-              setLoading,
-              email,
-              contact,
-              title,
-              thumbnail,
-              description,
-              price,
-              startsDate,
-              endsDate,
-              countriesPrices,
-              locationType,
-              locationType === "virtual" ? "null" : location,
-              user,
-              router,
-              process.env.NEXT_PUBLIC_BACKEND_URL + "/tools/event/" + uuid,
-              "PUT"
-            )
-          }
+          onClick={handleEditEvent}
           className="bg-background-darkYellow hover:bg-background-darkYellow/80 tablet:px-8 tablet:py-3"
         >
           Edit event

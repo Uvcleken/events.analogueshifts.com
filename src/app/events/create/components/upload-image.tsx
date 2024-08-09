@@ -4,27 +4,28 @@ import React from "react";
 import Image from "next/image";
 import ImageShape from "@/assets/images/image-shape.svg";
 import { Upload, Plus, Check } from "lucide-react";
-import { errorToast } from "@/utils/error-toast";
-import { clearUserSession } from "@/utils/clear-user-session";
+import { clearUserSession } from "@/configs/clear-user-session";
+import Cookies from "js-cookie";
 
 interface UploadImage {
   isOpen: boolean;
   toggleSection: any;
   thumbnail: string;
-  user: any;
   setLoading: any;
   setThumbnail: any;
+  notifyUser: any;
 }
 
 const UploadImage: React.FC<UploadImage> = ({
   isOpen,
   toggleSection,
   thumbnail,
-  user,
   setLoading,
   setThumbnail,
+  notifyUser,
 }) => {
   const imageFileRef: any = useRef(null);
+  const token = Cookies.get("analogueshifts");
 
   const uploadImage = async (value: any) => {
     const url = process.env.NEXT_PUBLIC_BACKEND_URL + "/upload";
@@ -38,7 +39,7 @@ const UploadImage: React.FC<UploadImage> = ({
       headers: {
         Accept: "application/json",
         "Content-Type": "multipart/form-data",
-        Authorization: "Bearer " + user.token,
+        Authorization: "Bearer " + token || "",
       },
       data: formData,
     };
@@ -50,10 +51,7 @@ const UploadImage: React.FC<UploadImage> = ({
       setLoading(false);
     } catch (error: any) {
       setLoading(false);
-      errorToast(
-        "Error Uploading Image",
-        error?.response?.data?.message || error.message || ""
-      );
+      notifyUser("error", error?.response?.data?.data?.message || "", "right");
       if (error?.response?.status === 401) {
         clearUserSession();
       }
@@ -64,10 +62,7 @@ const UploadImage: React.FC<UploadImage> = ({
     const maxFileSize = 5 * 1024 * 1024;
     const selectedFile = e.target.files[0];
     if (selectedFile && selectedFile.size > maxFileSize) {
-      errorToast(
-        "File size exceeds the limit (5 MB)",
-        "File Size Must not exceed the Limit"
-      );
+      notifyUser("error", "File size exceeds the limit (5 MB)", "right");
       return;
     }
     if (selectedFile) {

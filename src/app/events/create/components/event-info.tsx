@@ -1,60 +1,30 @@
 "use client";
-import { useState } from "react";
 import React from "react";
-import { Plus, Check, Trash } from "lucide-react";
+import { Plus, Check } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Combobox } from "@/components/ui/comobox";
-import { Button } from "@/components/ui/button";
-import { errorToast } from "@/utils/error-toast";
-import { Switch } from "@/components/ui/switch";
 
 interface EventInfo {
   isOpen: boolean;
   toggleSection: any;
-  title: string;
-  contact: string;
-  summary: string;
-  setTitle: any;
-  setSummary: any;
-  price: string;
-  email: string;
-  setEmail: any;
-  setContact: any;
-  setPrice: any;
-  contriesPrices: any[];
-  setContriesPrices: any;
-  countriesParameters: any[];
+  eventInfoData: any;
+  setEventInfoData: (data: any) => void;
 }
 
 const EventInfo: React.FC<EventInfo> = ({
   isOpen,
   toggleSection,
-  title,
-  contact,
-  summary,
-  setTitle,
-  setSummary,
-  price,
-  email,
-  setEmail,
-  setContact,
-  setPrice,
-  contriesPrices,
-  setContriesPrices,
-  countriesParameters,
+  eventInfoData,
+  setEventInfoData,
 }) => {
-  const [countryCodeValue, setCountryCodeValue] = useState("");
-  const [countryPriceValue, setCountryPriceValue] = useState("");
-  const [addCountryPrices, setAddCountryPrices] = useState(false);
-
   // Checks If All the required info field Has been Field
   const validate = () => {
     if (
-      title.trim().length &&
-      summary.trim().length &&
-      email.trim().length &&
-      price.trim().length
+      eventInfoData.title.trim().length &&
+      eventInfoData.description.trim().length &&
+      eventInfoData.email.trim().length &&
+      eventInfoData.price.trim().length &&
+      eventInfoData.maximum.trim().length
     ) {
       return true;
     } else {
@@ -62,39 +32,11 @@ const EventInfo: React.FC<EventInfo> = ({
     }
   };
 
-  const countriesCodes = countriesParameters.map((item: any) => {
-    return {
-      value: `${item.name} (${item.code})`,
-      label: item.name + " " + item.code,
-    };
-  });
-
-  // Add A country Price To the List
-  const handleAddCountryPrice = () => {
-    // Validate If The user Entered A Country Code And a Price
-    if (countryCodeValue === "" || countryPriceValue === "") {
-      errorToast("Missing Field", "Please Enter a country and a Price.");
-      return;
-    }
-
-    // Add The Price
-    setContriesPrices((prev: any) => [
-      ...prev,
-      {
-        code: countryCodeValue.split(" ")[1].slice(1, 3),
-        price: countryPriceValue,
-      },
-    ]);
-
-    setCountryCodeValue("");
-    setCountryPriceValue("");
-  };
-
-  // Remove A country Price From the List
-  const handleRemoveCountryPrice = (countryCode: string) => {
-    setContriesPrices((prev: any) =>
-      prev.filter((item: any) => item.code !== countryCode)
-    );
+  // Update Value of eventInfo
+  const updateValue = (label: string, value: string) => {
+    setEventInfoData((prev: any) => {
+      return { ...prev, [label]: value };
+    });
   };
 
   return (
@@ -121,10 +63,10 @@ const EventInfo: React.FC<EventInfo> = ({
           {validate() ? <Check width={20} /> : <Plus width={20} />}
         </div>
         <h2 className="text-primary-boulder900 text-xl tablet:text-3xl font-bold mb-3.5">
-          <b>{title.trim().length ? title : "Event Title"}</b>
+          <b>{validate() ? eventInfoData.title : "Event Title"}</b>
         </h2>
         <p className="text-primary-boulder900 font-medium text-sm">
-          {summary.trim().length ? title : "Event Description"}
+          {validate() ? eventInfoData.title : "Event Description"}
         </p>
       </div>
       {isOpen && (
@@ -141,8 +83,8 @@ const EventInfo: React.FC<EventInfo> = ({
           </p>
           <Input
             type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            value={eventInfoData.email}
+            onChange={(e) => updateValue("email", e.target.value)}
             placeholder="Enter Email"
             className="text-sm font-medium text-primary-boulder900 placeholder:text-primary-boulder900/70 h-12 mb-6"
           />
@@ -155,8 +97,8 @@ const EventInfo: React.FC<EventInfo> = ({
           </p>
           <Input
             type="text"
-            value={contact}
-            onChange={(e) => setContact(e.target.value)}
+            value={eventInfoData.contact}
+            onChange={(e) => updateValue("contact", e.target.value)}
             placeholder="Enter Contact"
             className="text-sm font-medium text-primary-boulder900 placeholder:text-primary-boulder900/70 h-12 mb-6"
           />
@@ -169,8 +111,8 @@ const EventInfo: React.FC<EventInfo> = ({
           </p>
           <Input
             type="text"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
+            value={eventInfoData.title}
+            onChange={(e) => updateValue("title", e.target.value)}
             placeholder="Event Title"
             className="text-sm font-medium text-primary-boulder900 placeholder:text-primary-boulder900/70 h-12 mb-6"
           />
@@ -182,88 +124,61 @@ const EventInfo: React.FC<EventInfo> = ({
             Attendees will see this at the top of your event page.
           </p>
           <Textarea
-            value={summary}
-            onChange={(e) => setSummary(e.target.value)}
+            value={eventInfoData.description}
+            onChange={(e) => updateValue("description", e.target.value)}
             placeholder="Event Summary"
             className="text-sm font-medium text-primary-boulder900 placeholder:text-primary-boulder900/70 h-28 mb-6"
           />
           <h6 className="text-primary-boulder900 font-semibold text-base mb-3">
+            Maximum Guests
+          </h6>
+          <p className="text-primary-boulder900 font-normal text-xs mb-3">
+            Enter the maximum number of guest you want to have
+          </p>
+          <Input
+            min={1}
+            type="number"
+            value={eventInfoData.maximum}
+            onChange={(e) => updateValue("maximum", e.target.value)}
+            placeholder="Enter Maximum"
+            className="text-sm font-medium text-primary-boulder900 placeholder:text-primary-boulder900/70 h-12 mb-6"
+          />
+          <h6 className="text-primary-boulder900 font-semibold text-base mb-3">
+            Event Status
+          </h6>
+          <p className="text-primary-boulder900 font-normal text-xs mb-3">
+            Select the status of your event post
+          </p>
+
+          <select
+            value={eventInfoData.status}
+            onChange={(e) => updateValue("status", e.target.value)}
+            className="unclose w-full text-sm font-medium border rounded-md outline-none px-2 text-primary-boulder900 placeholder:text-primary-boulder900/70 h-12 mb-6"
+          >
+            <option value="public">Public</option>
+            <option value="private">Private</option>
+            <option value="draft">Draft</option>
+          </select>
+
+          <h6 className="text-primary-boulder900 font-semibold text-base mb-3">
             Event Price
           </h6>
           <p className="text-primary-boulder900 font-normal text-xs mb-3">
-            Enter a price for this Event Ticket. Enter &quot;0&quot; if your
-            Ticket is Free.
+            Enter a default price for your Event Ticket. You will be able to add
+            specific prices for different countries once event is created. Enter
+            &quot;0&quot; if your Ticket is Free.
           </p>
           <Input
+            min={0}
             type="number"
-            value={price}
-            onChange={(e) => setPrice(e.target.value)}
+            value={eventInfoData.price}
+            onChange={(e) => updateValue("price", e.target.value)}
             placeholder="Event Price"
             className="text-sm font-medium text-primary-boulder900 placeholder:text-primary-boulder900/70 h-12 mb-3"
           />
           <p className="text-primary-boulder900 font-normal text-xs mb-3">
             Please Note that Prices are in USD.
           </p>
-          <div className="mb-3 flex items-center gap-3 flex-wrap">
-            <p className="text-primary-boulder900 font-normal text-xs">
-              Add USD Prices for other Countries.
-            </p>{" "}
-            <Switch
-              onCheckedChange={(value: boolean) => setAddCountryPrices(value)}
-            />
-          </div>
-          {addCountryPrices && (
-            <div className="w-full mb-4 flex flex-wrap gap-y-3 justify-between items-center">
-              <div className="flex sm:max-w-[calc(100%-150px)]   max-w-full flex-wrap gap-y-3 items-center gap-x-5">
-                <div className="sm:w-[calc(50%-10px)] w-full">
-                  <Combobox
-                    value={countryCodeValue}
-                    setValue={setCountryCodeValue}
-                    list={countriesCodes}
-                  />
-                </div>
-                <div className="sm:w-[calc(50%-10px)] w-full">
-                  <Input
-                    type="number"
-                    value={countryPriceValue}
-                    onChange={(e) => setCountryPriceValue(e.target.value)}
-                    placeholder="Enter Price"
-                    className="text-sm font-medium text-primary-boulder900 placeholder:text-primary-boulder900/70"
-                  />
-                </div>
-              </div>
-              <Button
-                onClick={handleAddCountryPrice}
-                className="bg-background-darkYellow w-full sm:w-max hover:bg-background-darkYellow/80"
-              >
-                <Plus className="mr-1 " width={15} /> Add Price
-              </Button>
-            </div>
-          )}
-          <div className="w-full flex flex-col gap-3">
-            {contriesPrices.map((item: any) => {
-              return (
-                <div
-                  className="w-full flex justify-between items-center py-2 border-b px-3"
-                  key={crypto.randomUUID()}
-                >
-                  <p className="text-primary-boulder900 font-normal text-xs">
-                    {item.code}
-                  </p>
-                  <p className="text-primary-boulder900 font-normal text-xs">
-                    {item.price}
-                  </p>
-                  <Button
-                    className="unclose text-xs h-8 px-4 text-primary-boulder900"
-                    onClick={() => handleRemoveCountryPrice(item.code)}
-                    variant="outline"
-                  >
-                    Remove
-                  </Button>
-                </div>
-              );
-            })}
-          </div>
         </div>
       )}
     </div>

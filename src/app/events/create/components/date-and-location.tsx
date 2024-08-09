@@ -4,22 +4,31 @@ import { convertDateFormat } from "../../resources/convert-date-format";
 import {
   validate,
   DateAndLocationInterface,
-} from "@/utils/create-event/date-and-location";
+} from "@/configs/upload-event/date-and-location";
 import { Input } from "@/components/ui/input";
 import LocationSection from "./location-section";
 
 const DateAndLocation: React.FC<DateAndLocationInterface> = ({
   isOpen,
   toggleSection,
-  startsDate,
-  endsDate,
-  setEndsDate,
-  setStartsDate,
-  location,
-  locationType,
-  setLocation,
-  setLocationType,
+  dateAndLocationInfo,
+  setDateAndLocationInfo,
 }) => {
+  const checkValidation = () =>
+    validate(
+      dateAndLocationInfo.startsDate,
+      dateAndLocationInfo.endsDate,
+      dateAndLocationInfo.location,
+      dateAndLocationInfo.locationType
+    );
+
+  // Update Value of dateAndLocationInfo
+  const updateValue = (label: string, value: string) => {
+    setDateAndLocationInfo((prev: any) => {
+      return { ...prev, [label]: value };
+    });
+  };
+
   return (
     <div
       className={`section w-full rounded-lg border-2 hover:border-background-darkYellow ${
@@ -36,24 +45,20 @@ const DateAndLocation: React.FC<DateAndLocationInterface> = ({
       >
         <div
           className={`ml-auto w-9 h-9 flex items-center justify-center rounded-full  ${
-            validate(startsDate, endsDate, location, locationType)
+            checkValidation()
               ? "bg-green-600 text-white"
               : "bg-gray-700/5 text-background-darkYellow"
           }`}
         >
-          {validate(startsDate, endsDate, location, locationType) ? (
-            <Check width={20} />
-          ) : (
-            <Plus width={20} />
-          )}
+          {checkValidation() ? <Check width={20} /> : <Plus width={20} />}
         </div>
         <h2 className="text-primary-boulder900 text-xl tablet:text-3xl font-bold mb-3.5">
           <b>Event Date & Location</b>
         </h2>
         <p className="text-primary-boulder900 font-medium text-sm flex gap-1 items-center">
           <Calendar width={18} />{" "}
-          {startsDate.trim().length
-            ? convertDateFormat(startsDate)
+          {checkValidation()
+            ? convertDateFormat(dateAndLocationInfo.startsDate)
             : "Day, Month, Year"}
         </p>
       </div>
@@ -72,8 +77,8 @@ const DateAndLocation: React.FC<DateAndLocationInterface> = ({
               </p>
               <Input
                 type="datetime-local"
-                value={startsDate}
-                onChange={(e) => setStartsDate(e.target.value)}
+                value={dateAndLocationInfo.startsDate}
+                onChange={(e) => updateValue("startsDate", e.target.value)}
                 placeholder=""
                 className="text-sm font-medium text-primary-boulder900 placeholder:text-primary-boulder900/70 h-12"
               />
@@ -87,8 +92,8 @@ const DateAndLocation: React.FC<DateAndLocationInterface> = ({
               </p>
               <Input
                 type="datetime-local"
-                value={endsDate}
-                onChange={(e) => setEndsDate(e.target.value)}
+                value={dateAndLocationInfo.endsDate}
+                onChange={(e) => updateValue("endsDate", e.target.value)}
                 placeholder=""
                 className="text-sm font-medium text-primary-boulder900 placeholder:text-primary-boulder900/70 h-12"
               />
@@ -97,10 +102,14 @@ const DateAndLocation: React.FC<DateAndLocationInterface> = ({
 
           {/* Location */}
           <LocationSection
-            location={location}
-            locationType={locationType}
-            setLocation={setLocation}
-            setLocationType={setLocationType}
+            url_link={dateAndLocationInfo.url_link}
+            location={dateAndLocationInfo.location}
+            locationType={dateAndLocationInfo.locationType}
+            setLocation={(value: string) => updateValue("location", value)}
+            setUrlLink={(value: string) => updateValue("url_link", value)}
+            setLocationType={(value: string) =>
+              updateValue("locationType", value)
+            }
           />
         </div>
       )}

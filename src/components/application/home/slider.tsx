@@ -2,12 +2,12 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
-const onBoardingInfo = ["/hero.jpg", "/hero.webp", "/hero_2.jpg"];
+const onBoardingInfo = ["/hero_2.webp", "/hero.webp", "/hero.jpg"];
 
 const Slider = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   useEffect(() => {
-    const interval = setInterval(goToNextSlide, 4000);
+    const interval = setInterval(goToNextSlide, 6000);
 
     return () => {
       clearInterval(interval);
@@ -19,7 +19,7 @@ const Slider = () => {
   };
 
   return (
-    <div className="flex h-max z-10 overflow-hidden border-t sticky top-0">
+    <div className="flex h-max z-10 overflow-hidden border-t">
       <div className="relative transform transition-all duration-50000 bg-white w-full h-[30vh] tablet:h-[60vh] overflow-hidden">
         <div className="overflow-x-hidden relative w-full h-full">
           <div

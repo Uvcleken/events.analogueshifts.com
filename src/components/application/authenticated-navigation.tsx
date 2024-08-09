@@ -2,7 +2,7 @@ import Link from "next/link";
 import ApplicationLogo from "./application-logo";
 import { Plus } from "lucide-react";
 import { useEffect, useState } from "react";
-import { handleSCroll } from "@/utils/layout/navbar";
+import { handleSCroll } from "@/configs/layout/navbar";
 
 import ProfileDropdown from "./profile-dropdown";
 import SearchBar from "./searchbar";
@@ -11,25 +11,23 @@ import MobileMenu from "./mobile-menu";
 export default function AuthenticationNavigation({ user, handleLogout }: any) {
   const [position, setPosition] = useState(0);
 
-  useEffect(() => {
-    handleSCroll(setPosition);
-    window.addEventListener("scroll", () => handleSCroll(setPosition));
-    return () => {
-      window.removeEventListener("scroll", () => handleSCroll(setPosition));
-    };
-  }, []);
+  // useEffect(() => {
+  //   handleSCroll(setPosition);
+  //   window.addEventListener("scroll", () => handleSCroll(setPosition));
+  //   return () => {
+  //     window.removeEventListener("scroll", () => handleSCroll(setPosition));
+  //   };
+  // }, []);
 
   return (
     <nav
-      style={{ top: `${position}px` }}
-      className="w-full z-40 absolute left-0 duration-300 h-16 px-6 flex items-center justify-between border-b bg-white"
+      // style={{ top: `${position}px` }}
+      className="w-full z-40 fixed backdrop-blur-lg bg-opacity-30 top-0 left-0 duration-300 h-16 px-6 flex items-center justify-between border-b bg-white"
     >
       <Link href="/">
         <ApplicationLogo />
       </Link>
-      <div className="hidden desktop:block w-[45%]">
-        <SearchBar />
-      </div>
+
       <div className="desktop:flex hidden items-center gap-7">
         <Link
           href="/events/create"
@@ -41,7 +39,11 @@ export default function AuthenticationNavigation({ user, handleLogout }: any) {
         <ProfileDropdown handleLogout={handleLogout} user={user} />
       </div>
       <div className="desktop:hidden flex">
-        <MobileMenu user={user} handleLogout={handleLogout} />
+        <MobileMenu
+          showSearch={false}
+          user={user}
+          handleLogout={handleLogout}
+        />
       </div>
     </nav>
   );

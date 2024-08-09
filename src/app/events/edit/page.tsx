@@ -1,5 +1,5 @@
 "use client";
-import { useEffect } from "react";
+import { Suspense, useEffect } from "react";
 import { useRouter } from "next/navigation";
 
 export default function Page() {
@@ -9,5 +9,5 @@ export default function Page() {
     router.push("/");
   }, []);
 
-  return null;
+  return <Suspense fallback={<p></p>}></Suspense>;
 }

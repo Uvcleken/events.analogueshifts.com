@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
-import { handleSCroll, navLinks } from "@/utils/layout/sidebar";
+import { handleSCroll, navLinks } from "@/configs/layout/sidebar";
 
 import { LogOut } from "lucide-react";
 

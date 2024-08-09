@@ -4,21 +4,34 @@ import ProfileDropdown from "./profile-dropdown";
 import SearchBar from "./searchbar";
 import MobileMenu from "./mobile-menu";
 
-export default function GuestNavigation({ user, handleLogout }: any) {
+export default function GuestNavigation({
+  user,
+  handleLogout,
+  showSearch,
+}: any) {
   return (
-    <nav className="w-full z-40 absolute left-0 top-0 h-16 px-6 flex items-center justify-between bg-white">
+    <nav className="w-full z-40 fixed left-0 top-0 h-16 px-6 flex items-center justify-between bg-white">
       <Link href="/">
         <ApplicationLogo />
       </Link>
-      <div className="hidden desktop:block w-[45%]">
+      <div
+        className="hidden desktop:block w-[45%]"
+        onClick={() => showSearch(true)}
+      >
         <SearchBar />
       </div>
       <div className="desktop:flex hidden items-center gap-1">
         <Link
-          href="/events/create"
+          href={user ? "/events/create" : "/login"}
           className="px-4 flex py-2.5 hover:bg-gray-700/5 font-medium rounded-full bg-transparent text-[13px] text-primary-boulder900 items-center gap-1"
         >
           Create Events
+        </Link>
+        <Link
+          href="/all"
+          className="px-4 flex py-2.5 hover:bg-gray-700/5 font-medium rounded-full bg-transparent text-[13px] text-primary-boulder900 items-center gap-1"
+        >
+          Find Event
         </Link>
         {user ? (
           <ProfileDropdown handleLogout={handleLogout} user={user} />
@@ -40,7 +53,11 @@ export default function GuestNavigation({ user, handleLogout }: any) {
         )}
       </div>
       <div className="desktop:hidden flex">
-        <MobileMenu user={user} handleLogout={handleLogout} />
+        <MobileMenu
+          showSearch={showSearch}
+          user={user}
+          handleLogout={handleLogout}
+        />
       </div>
     </nav>
   );

@@ -1,65 +1,108 @@
-import Link from "next/link";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+"use client";
+import { useState } from "react";
+import { usePathname } from "next/navigation";
 
-import { Menu } from "lucide-react";
+import Link from "next/link";
 import SearchBar from "./searchbar";
+import { AnimatePresence, motion } from "framer-motion";
 
 export default function MobileMenu({
   user,
   handleLogout,
+  showSearch,
 }: {
   user: any;
   handleLogout: any;
+  showSearch: any;
 }) {
+  const [open, setOpen] = useState(false);
+  const pathname = usePathname();
+
   return (
-    <Sheet>
-      <SheetTrigger>
-        <Menu width={18} className="text-primary-boulder900" />
-      </SheetTrigger>
-      <SheetContent className="w-screen ">
-        <div className="-translate-y-2 w-4/5">
-          <SearchBar />
-        </div>
-        <div className="w-full flex flex-col items-center gap-5 pt-5">
-          {!user ? (
-            <>
+    <>
+      <button
+        onClick={() => setOpen((prev) => !prev)}
+        className="w-[18px] flex flex-col gap-1.5 bg-transparent border-none outline-none"
+      >
+        <div
+          className={`w-full h-[1px] bg-primary-boulder700 duration-300 ${
+            open
+              ? "rotate-[45deg] translate-y-[3.6px]"
+              : "rotate-0 translate-y-0"
+          }`}
+        ></div>
+        <div
+          className={`w-full h-[1px] bg-primary-boulder700 duration-300 ${
+            open
+              ? "-rotate-[45deg] -translate-y-[3.6px]"
+              : "rotate-0 translate-y-0"
+          }`}
+        ></div>
+        <AnimatePresence>
+          {open && (
+            <motion.div
+              animate={{ x: 0 }}
+              exit={{ x: "-100%" }}
+              initial={{ x: "-100%" }}
+              transition={{ duration: 0.2 }}
+              className="fixed left-0 top-0 bg-white w-4/5 h-screen p-5 flex flex-col gap-5"
+            >
+              {pathname.startsWith("/events") ? (
+                <></>
+              ) : (
+                <div className="w-full h-max" onClick={() => showSearch(true)}>
+                  <SearchBar />
+                </div>
+              )}
               <Link
-                href="/login"
-                className="px-4 w-11/12 flex py-2.5 hover:bg-gray-700/5 font-medium rounded-full bg-transparent text-[13px] text-primary-boulder900 items-center gap-1"
+                href="/all"
+                className="text-primary-boulder700 font-medium text-sm w-max pl-3"
               >
-                Log In
+                Find event
               </Link>
               <Link
-                href="/register"
-                className="px-4 w-11/12 flex py-2.5 hover:bg-gray-700/5 font-medium rounded-full bg-transparent text-[13px] text-primary-boulder900 items-center gap-1"
+                href={user ? "/events/create" : "/login"}
+                className="text-primary-boulder700 font-medium text-sm w-max pl-3"
               >
-                Sign Up
+                Create event
               </Link>
-            </>
-          ) : (
-            <>
-              <SheetTrigger
-                onClick={handleLogout}
-                className="px-4 w-11/12 flex py-2.5 hover:bg-gray-700/5 font-medium rounded-full bg-transparent text-[13px] text-primary-boulder900 items-center gap-1"
-              >
-                Logout
-              </SheetTrigger>
-              <Link
-                href="/events"
-                className="px-4 w-11/12 flex py-2.5 hover:bg-gray-700/5 font-medium rounded-full bg-transparent text-[13px] text-primary-boulder900 items-center gap-1"
-              >
-                My Events
-              </Link>
-            </>
+              {user ? (
+                <>
+                  {" "}
+                  <Link
+                    href="/events"
+                    className="text-primary-boulder700 font-medium text-sm w-max pl-3"
+                  >
+                    Manage events
+                  </Link>
+                  <button
+                    onClick={handleLogout}
+                    className="text-red-600 font-medium text-sm w-max absolute bottom-20 left-8"
+                  >
+                    Logout
+                  </button>
+                </>
+              ) : (
+                <>
+                  {" "}
+                  <Link
+                    href="/login"
+                    className="text-primary-boulder700 font-medium text-sm w-max pl-3"
+                  >
+                    Login
+                  </Link>
+                  <Link
+                    href="/register"
+                    className="text-primary-boulder700 font-medium text-sm w-max pl-3"
+                  >
+                    Sig Up
+                  </Link>
+                </>
+              )}
+            </motion.div>
           )}
-          <Link
-            href="/events/create"
-            className="px-4 w-11/12 flex py-2.5 hover:bg-gray-700/5 font-medium rounded-full bg-transparent text-[13px] text-primary-boulder900 items-center gap-1"
-          >
-            Create Event
-          </Link>
-        </div>
-      </SheetContent>
-    </Sheet>
+        </AnimatePresence>
+      </button>
+    </>
   );
 }
