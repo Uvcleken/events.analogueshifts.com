@@ -170,3 +170,19 @@ input[type="password"]::-ms-reveal {
 .event-grid:hover .share-button {
   opacity: 1;
 }
+
+/* tiptap.css */
+.prose ol {
+  list-style-type: decimal;
+  margin-left: 1.5rem; /* adjust as needed */
+}
+.prose ul {
+  list-style: disc;
+  margin-left: 1.5rem;
+}
+
+.prose p {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  line-height: 1.75;
+}

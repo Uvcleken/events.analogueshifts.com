@@ -3,6 +3,7 @@ import React from "react";
 import { Plus, Check } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import Tiptap from "@/components/application/tiptap/tiptap";
 
 interface EventInfo {
   isOpen: boolean;
@@ -123,12 +124,14 @@ const EventInfo: React.FC<EventInfo> = ({
             Grab people&apos;s attention with a description about your event.
             Attendees will see this at the top of your event page.
           </p>
-          <Textarea
-            value={eventInfoData.description}
-            onChange={(e) => updateValue("description", e.target.value)}
-            placeholder="Event Summary"
-            className="text-sm font-medium text-primary-boulder900 placeholder:text-primary-boulder900/70 h-28 mb-6"
-          />
+
+          <div className="w-full mb-6">
+            <Tiptap
+              changed={(e) => updateValue("description", e)}
+              initialData={eventInfoData.description}
+            />
+          </div>
+
           <h6 className="text-primary-boulder900 font-semibold text-base mb-3">
             Maximum Guests
           </h6>

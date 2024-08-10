@@ -3,9 +3,10 @@ import { useAuth } from "@/hooks/auth";
 import { useUser } from "@/contexts/user";
 import { useEvents } from "@/hooks/events";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
 import Link from "next/link";
-import { ChevronLeft } from "lucide-react";
+import { Banknote, ChevronLeft } from "lucide-react";
 import UploadImage from "@/app/events/create/components/upload-image";
 import EventInfo from "@/app/events/create/components/event-info";
 import DateAndLocation from "@/app/events/create/components/date-and-location";
@@ -45,6 +46,7 @@ export default function EditPage({ uuid }: { uuid: string }) {
   const { user } = useUser();
   const { notifyUser } = useAuth();
   const { uploadEvent, getEvent } = useEvents();
+  const router = useRouter();
 
   const prefillInputs = (data: any) => {
     setEventInfoData({
@@ -148,10 +150,16 @@ export default function EditPage({ uuid }: { uuid: string }) {
         />
       </section>
 
-      <section className="fixed z-20 bottom-0 left-0 w-screen bg-white py-5 flex justify-end tablet:pr-8 pr-5">
+      <section className="fixed z-20 items-center gap-5 bottom-0 left-0 w-screen bg-white py-5 flex justify-end tablet:pr-8 pr-5">
+        <Button
+          onClick={() => router.push(`/events/pricing/${uuid}`)}
+          className="bg-white hover:bg-white flex items-center justify-center gap-2 border border-background-darkYellow text-background-darkYellow tablet:px-8 tablet:py-4"
+        >
+          <Banknote width={15} /> Manage pricing
+        </Button>
         <Button
           onClick={handleEditEvent}
-          className="bg-background-darkYellow hover:bg-background-darkYellow/80 tablet:px-8 tablet:py-3"
+          className="bg-background-darkYellow hover:bg-background-darkYellow/80 tablet:px-8 tablet:py-4"
         >
           Edit event
         </Button>

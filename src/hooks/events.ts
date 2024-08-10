@@ -146,7 +146,7 @@ export const useEvents = () => {
         handleSuccess();
         notifyUser("success", response.data.message, "right");
       } else if (response.data?.data?.url) {
-        window.open(response.data.data.url, "_blank");
+        window.open(response.data.data.url, "_parent");
       }
 
       setLoading(false);

@@ -79,9 +79,10 @@ export default function ShowEvent({ event }: Params) {
           </div>
           <div className="w-full grid tablet:grid-cols-6 grid-cols-1 tablet:gap-16 items-start">
             <div className="tablet:col-span-4 max-w-full col-span-1 flex flex-col">
-              <p className="text-primary-boulder700 font-normal text-base mt-3">
-                {event.description}
-              </p>
+              <div
+                dangerouslySetInnerHTML={{ __html: event.description }}
+                className="text-primary-boulder700 font-normal text-base prose mt-3"
+              ></div>
 
               <h2 className="text-primary-boulder900 mt-7 text-base tablet:text-2xl font-semibold mb-5">
                 <b>Date and time of Event</b>

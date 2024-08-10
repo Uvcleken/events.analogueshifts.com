@@ -36,7 +36,7 @@ export default async function Home() {
             </h2>
             {events && (
               <div className="w-full grid xl:grid-cols-4 md:grid-cols-3 mobile:grid-cols-2 grid-cols-1 gap-y-10 gap-x-6">
-                {events.data.events.data.map((item: any) => {
+                {events?.data?.events?.data?.map((item: any) => {
                   return <EventGridTile key={item.slug} item={item} />;
                 })}
               </div>
