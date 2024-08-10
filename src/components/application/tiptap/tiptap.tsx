@@ -10,12 +10,10 @@ import React, { useEffect } from "react";
 
 import {
   Bold,
-  CaseSensitive,
   Heading2,
   Italic,
   List,
   ListOrdered,
-  Pilcrow,
   Redo,
   Undo,
 } from "lucide-react";
@@ -139,8 +137,8 @@ interface TiptapProps {
 }
 
 const extensions = [
-  Color.configure({ types: [TextStyle.name, ListItem.name] }),
-  TextStyle.configure({ types: [ListItem.name] }),
+  Color.configure({ types: [ListItem.name] }), // Adjust here
+  TextStyle, // No need to configure types here
   StarterKit.configure({
     bulletList: {
       keepMarks: true,
