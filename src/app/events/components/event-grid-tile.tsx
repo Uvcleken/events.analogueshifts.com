@@ -88,8 +88,7 @@ export default function EventGridTile({ item, setLoading, url }: any) {
           </p>
           <p className="text-primary-boulder900 w-full md:truncate text-[13px] font-medium">
             <span className="text-background-darkYellow"> On Sale ·</span>&nbsp;
-            Starts {convertDateFormat(item.starts_date)} · Ends{" "}
-            {convertDateFormat(item.ends_date)}
+            Registration Starts {convertDateFormat(item.starts_date)}
           </p>
         </div>
       </div>

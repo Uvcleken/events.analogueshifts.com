@@ -118,11 +118,13 @@ const EventInfo: React.FC<EventInfo> = ({
             className="text-sm font-medium text-primary-boulder900 placeholder:text-primary-boulder900/70 h-12 mb-6"
           />
           <h6 className="text-primary-boulder900 font-semibold text-base mb-3">
-            Event Summary
+            Event Description
           </h6>
           <p className="text-primary-boulder900 font-normal text-xs mb-3">
             Grab people&apos;s attention with a description about your event.
-            Attendees will see this at the top of your event page.
+            Attendees will see this at the top of your event page. <br /> Note:
+            Include all the details for your event here, Including your Event
+            Date and Time
           </p>
 
           <div className="w-full mb-6">

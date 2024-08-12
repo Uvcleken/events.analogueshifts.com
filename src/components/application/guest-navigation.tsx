@@ -10,7 +10,7 @@ export default function GuestNavigation({
   showSearch,
 }: any) {
   return (
-    <nav className="w-full z-40 fixed left-0 top-0 h-16 px-6 flex items-center justify-between bg-white">
+    <nav className="w-full border-b z-40 fixed left-0 top-0 h-16 px-6 flex items-center justify-between bg-white">
       <Link href="/">
         <ApplicationLogo />
       </Link>

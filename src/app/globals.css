@@ -186,3 +186,10 @@ input[type="password"]::-ms-reveal {
   margin-bottom: 1rem;
   line-height: 1.75;
 }
+
+.hover-text-button:hover span:nth-child(1) {
+  transform: translateY(-16px);
+}
+.hover-text-button:hover span:nth-child(2) {
+  transform: translateY(0px);
+}
