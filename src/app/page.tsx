@@ -57,12 +57,27 @@ export default async function Home() {
 }
 
 const getEvents = async () => {
-  const res = await fetch("https://api.analogueshifts.com/api/event", {
-    next: {
-      revalidate: 60,
-    },
-  });
-  if (res.ok) {
-    return res.json();
+  try {
+    const res = await fetch("https://api.analogueshifts.com/api/event", {
+      next: {
+        revalidate: 60,
+      },
+    });
+
+    const contentType = res.headers.get("Content-Type") || "";
+    if (!contentType.includes("application/json")) {
+      throw new Error("Invalid response type");
+    }
+
+    if (res.ok) {
+      return await res.json();
+    } else {
+      throw new Error(
+        `Failed to fetch events: ${res.status} ${res.statusText}`
+      );
+    }
+  } catch (error) {
+    console.error("Error fetching events:", error);
+    return null;
   }
 };
