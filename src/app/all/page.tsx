@@ -23,13 +23,13 @@ export default async function Page({
               </h2>
               {events && (
                 <div className="w-full px-2  grid xl:grid-cols-4 md:grid-cols-3 mobile:grid-cols-2 grid-cols-1 gap-y-10 gap-x-6">
-                  {events.data.events.data.map((item: any) => {
+                  {events?.data?.events?.data.map((item: any) => {
                     return <EventGridTile key={item.slug} item={item} />;
                   })}
                 </div>
               )}
             </div>
-            <AllEventsPagination currentPageInfo={events.data.events} />
+            <AllEventsPagination currentPageInfo={events?.data?.events} />
           </div>
         </div>
       </section>
@@ -38,18 +38,30 @@ export default async function Page({
 }
 
 const getEvents = async (page: string) => {
-  const url = new URL("https://api.analogueshifts.com/api/event");
-  url.searchParams.append("page", page);
+  try {
+    const url = new URL("https://api.analogueshifts.com/api/event");
+    url.searchParams.append("page", page);
 
-  const res = await fetch(url.toString(), {
-    next: {
-      revalidate: 60,
-    },
-  });
+    const res = await fetch(url.toString(), {
+      next: {
+        revalidate: 60,
+      },
+    });
 
-  if (res.ok) {
-    return res.json();
-  } else {
+    const contentType = res.headers.get("Content-Type") || "";
+    if (!contentType.includes("application/json")) {
+      throw new Error("Invalid response type");
+    }
+
+    if (res.ok) {
+      return await res.json();
+    } else {
+      throw new Error(
+        `Failed to fetch events: ${res.status} ${res.statusText}`
+      );
+    }
+  } catch (error) {
+    console.error("Error fetching events:", error);
     return null;
   }
 };
