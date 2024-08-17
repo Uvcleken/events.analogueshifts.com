@@ -211,9 +211,12 @@ export const useEvents = () => {
           Authorization: "Bearer " + token,
         },
       });
-      setData(response.data.data.event);
-      if (setCountries) {
-        setCountries(response.data.data.countries);
+
+      if (response.data.success) {
+        setData(response?.data?.data?.event);
+        if (setCountries) {
+          setCountries(response?.data?.data?.countries);
+        }
       }
       setLoading(false);
     } catch (error: any) {
