@@ -2,7 +2,6 @@
 import React from "react";
 import { Plus, Check } from "lucide-react";
 import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
 import Tiptap from "@/components/application/tiptap/tiptap";
 
 interface EventInfo {

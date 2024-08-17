@@ -62,7 +62,7 @@ export default function EditPage({ uuid }: { uuid: string }) {
       startsDate: data?.starts_date,
       endsDate: data?.ends_date,
       locationType: data?.location_type,
-      location: data?.location_type === "virtual" ? "null" : data.location,
+      location: data?.location_type === "virtual" ? "null" : data?.location,
       url_link: data?.url_link || "",
       longitude: data?.longitude || "",
       latitude: data?.latitude || "",
