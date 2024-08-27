@@ -5,8 +5,7 @@ import { useState, useEffect } from "react";
 
 import Cookies from "js-cookie";
 import GuestNavigation from "../guest-navigation";
-import IdiomProof from "../idiom-proof";
-import Loading from "../loading";
+import LogoutConfirmation from "../logout-confirmation";
 import SearchModal from "./search-modal";
 
 export default function GuestLayout({
@@ -15,8 +14,7 @@ export default function GuestLayout({
   children: React.ReactNode;
 }) {
   const { user } = useUser();
-  const { logout, getUser } = useAuth();
-  const [loading, setLoading] = useState(false);
+  const { getUser } = useAuth();
   const [idiomModalDisplay, setIdiomModalDisplay] = useState(false);
   const [showSearchModal, setShowSearchModal] = useState(false);
 
@@ -27,21 +25,11 @@ export default function GuestLayout({
     }
   }, []);
 
-  const handleLogout = () => {
-    setIdiomModalDisplay(false);
-    logout({ setLoading });
-  };
-
   return (
     <section className="w-full min-h-screen">
-      {loading && <Loading />}
-      <IdiomProof
-        action={handleLogout}
+      <LogoutConfirmation
         close={() => setIdiomModalDisplay(false)}
-        description="Are you sure you want to sign out of your account? You can always sign in at anytime."
         open={idiomModalDisplay}
-        title="Confirm LogOut"
-        label="Log Out"
       />
       <GuestNavigation
         handleLogout={() => setIdiomModalDisplay(true)}

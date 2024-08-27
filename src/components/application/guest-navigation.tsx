@@ -22,7 +22,11 @@ export default function GuestNavigation({
       </div>
       <div className="desktop:flex hidden items-center gap-1">
         <Link
-          href={user ? "/events/create" : "/login"}
+          href={
+            user
+              ? "/events/create"
+              : "https://auth.analogueshifts.app?app=events"
+          }
           className="px-4 flex py-2.5 hover:bg-gray-700/5 font-medium rounded-full bg-transparent text-[13px] text-primary-boulder900 items-center gap-1"
         >
           Create Events
@@ -38,7 +42,7 @@ export default function GuestNavigation({
         ) : (
           <>
             <Link
-              href="/login"
+              href="https://auth.analogueshifts.app?app=events"
               className="px-4 flex py-2.5 hover:bg-gray-700/5 font-medium rounded-full bg-transparent text-[13px] text-primary-boulder900 items-center gap-1"
             >
               Log In

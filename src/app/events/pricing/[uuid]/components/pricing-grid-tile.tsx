@@ -16,16 +16,15 @@ import { useEvents } from "@/hooks/events";
 
 export default function PricingGridTile({
   item,
-  setLoading,
   eventUUID,
   setData,
   setPriceToEdit,
 }: any) {
   const { deleteEventPrice } = useEvents();
   const [deleteModalDisplay, setDeleteModalDisplay] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-  const handleDelete = () => {
-    setDeleteModalDisplay(false);
+  const handleDelete = async () => {
     deleteEventPrice({ setLoading, priceUUID: item.uuid, eventUUID, setData });
   };
 
@@ -33,11 +32,15 @@ export default function PricingGridTile({
     <div className="w-full max-w-full p-3 rounded-lg bg-white border flex justify-between items-center">
       {/* Delete Event Idiom Modal */}
       <IdiomProof
-        action={handleDelete}
+        action={async () => {
+          await handleDelete();
+          setDeleteModalDisplay(false);
+        }}
         close={() => setDeleteModalDisplay(false)}
         description={"Are you sure you want to delete the price " + item.name}
-        label="Delete"
+        buttonLabel="Delete"
         open={deleteModalDisplay}
+        loading={loading}
         title="Confirm delete"
       />
 

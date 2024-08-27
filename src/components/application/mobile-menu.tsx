@@ -61,7 +61,11 @@ export default function MobileMenu({
                 Find event
               </Link>
               <Link
-                href={user ? "/events/create" : "/login"}
+                href={
+                  user
+                    ? "/events/create"
+                    : "https://auth.analogueshifts.app?app=events"
+                }
                 className="text-primary-boulder700 font-medium text-sm w-max pl-3"
               >
                 Create event
@@ -86,7 +90,7 @@ export default function MobileMenu({
                 <>
                   {" "}
                   <Link
-                    href="/login"
+                    href="https://auth.analogueshifts.app?app=events"
                     className="text-primary-boulder700 font-medium text-sm w-max pl-3"
                   >
                     Login

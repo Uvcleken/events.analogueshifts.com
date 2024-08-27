@@ -117,7 +117,7 @@ export default function CheckoutReview({ event, close, show, prices }: Params) {
                           key={item.uuid}
                           value={item.uuid}
                         >
-                          {item.name} - {item.location}
+                          {item.name}
                         </SelectItem>
                       );
                     })}

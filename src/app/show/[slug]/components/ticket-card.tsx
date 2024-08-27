@@ -8,7 +8,7 @@ export default function TicketCard({
   return (
     <>
       <div className="tablet:col-span-2 col-span-1 w-full max-h-[300px] left-0 fixed bottom-0 tablet:static p-5 bg-white border flex flex-col gap-5">
-        <div className="w-full flex flex-col max-h-[200px] overflow-y-auto p-4 border">
+        <div className="w-full flex flex-col max-h-[200px] overflow-y-auto p-4 border scroll-hidden">
           <p className="text-base font-medium text-primary-boulder900">
             <b>Pricings</b>
           </p>
@@ -22,7 +22,7 @@ export default function TicketCard({
                     className="text-sm font-semibold text-primary-boulder900"
                   >
                     {" "}
-                    {item.name} - {item.location}: ${item.price}
+                    {item.name}: ${item.price}
                   </p>
                 );
               })}

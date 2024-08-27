@@ -1,5 +1,6 @@
 import { Skeleton } from "@/components/ui/skeleton";
 import { convertDateFormat } from "@/app/events/resources/convert-date-format";
+import Link from "next/link";
 
 interface Params {
   orders: any[];
@@ -34,6 +35,9 @@ export default function OrdersTable({ orders, loading, user }: Params) {
             <th className="text-[15px] text-primary-boulder900 font-normal text-start">
               Contact
             </th>
+            <th className="text-[15px] text-primary-boulder900 font-normal text-start">
+              Receipt
+            </th>
           </tr>
         </thead>
         {orders && !loading && (
@@ -63,6 +67,9 @@ export default function OrdersTable({ orders, loading, user }: Params) {
                   </td>
                   <td className="text-sm text-primary-boulder900 font-normal text-start">
                     {item.contact}
+                  </td>
+                  <td className="text-sm text-primary-boulder900 font-normal text-start">
+                    <Link href={"/receipts/events/" + item.uuid}>Open</Link>
                   </td>
                 </tr>
               );

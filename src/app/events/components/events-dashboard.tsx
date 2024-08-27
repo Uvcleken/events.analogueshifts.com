@@ -28,7 +28,7 @@ export default function EventsDashboard() {
       <div className="tablet:col-span-5 col-span-7 flex flex-col gap-10">
         {user ? (
           <h1 className="text-primary-boulder700 text-3xl tablet:text-5xl font-bold">
-            <b> Welcome, {user?.first_name}</b>
+            <b> Welcome, {user?.user?.user_profile?.first_name}</b>
           </h1>
         ) : (
           <div className="flex items-center w-3/5 space-x-4">
@@ -72,7 +72,6 @@ export default function EventsDashboard() {
                         <EventGridTile
                           key={item.uuid}
                           item={item}
-                          setLoading={setLoading}
                           url={eventsUrl}
                         />
                       );

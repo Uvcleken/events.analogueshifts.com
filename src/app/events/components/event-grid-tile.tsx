@@ -27,21 +27,18 @@ import {
 import { share } from "@/configs/share";
 import IdiomProof from "@/components/application/idiom-proof";
 import { useState } from "react";
-import Cookies from "js-cookie";
 
-export default function EventGridTile({ item, setLoading, url }: any) {
+export default function EventGridTile({ item, url }: any) {
   const router = useRouter();
   const [deleteModalDisplay, setDeleteModalDisplay] = useState(false);
   const { setEvents, setPaginationInfo } = useEventsContext();
+  const [loading, setLoading] = useState(false);
 
   const { notifyUser } = useAuth();
   const { deleteEvent } = useEvents();
 
-  const token = Cookies.get("analogueshifts");
-
-  const handleDelete = () => {
-    setDeleteModalDisplay(false);
-    deleteEvent({
+  const handleDelete = async () => {
+    await deleteEvent({
       setData: setEvents,
       setLoading,
       setPaginationData: setPaginationInfo,
@@ -54,10 +51,14 @@ export default function EventGridTile({ item, setLoading, url }: any) {
     <div className="w-full relative max-w-full p-0 overflow-hidden md:p-3 rounded-lg bg-white border flex justify-between items-center">
       {/* Delete Event Idiom Modal */}
       <IdiomProof
-        action={handleDelete}
+        action={async () => {
+          await handleDelete();
+          setDeleteModalDisplay(false);
+        }}
+        loading={loading}
         close={() => setDeleteModalDisplay(false)}
         description={"Are you sure you want to delete the event " + item.title}
-        label="Delete"
+        buttonLabel="Delete"
         open={deleteModalDisplay}
         title="Confirm delete"
       />

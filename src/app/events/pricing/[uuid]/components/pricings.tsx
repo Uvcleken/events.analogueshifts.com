@@ -113,7 +113,6 @@ export default function Pricings({ uuid }: { uuid: string }) {
                           <PricingGridTile
                             key={item.uuid}
                             item={item}
-                            setLoading={setLoading}
                             eventUUID={uuid}
                             setData={(data: any) => {
                               setEvent(data);

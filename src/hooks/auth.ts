@@ -9,22 +9,6 @@ import { useToast } from "@/contexts/toast";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEventsContext } from "@/contexts/events";
 
-interface RegisterParams {
-  first_name: string;
-  last_name: string;
-  email: string;
-  password: string;
-  password_confirmation: string;
-  device_token: string;
-  setLoading: (loading: boolean) => void;
-}
-
-interface LoginParams {
-  email: string;
-  password: string;
-  setLoading: (loading: boolean) => void;
-}
-
 interface GetUserParams {
   setLoading: (loading: boolean) => void;
   layout: string;
@@ -47,14 +31,6 @@ export const useAuth = () => {
 
   const token = Cookies.get("analogueshifts");
 
-  const authConfig = {
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-      secret_key: process.env.NEXT_PUBLIC_SECRET_KEY!,
-    },
-  };
-
   const notifyUser = (toast: string, message: string, position: string) => {
     setToast(toast);
     setMessage(message);
@@ -67,69 +43,22 @@ export const useAuth = () => {
     }, 3000);
   };
 
-  const register = async ({
-    first_name,
-    last_name,
-    email,
-    password,
-    password_confirmation,
-    device_token,
-    setLoading,
-  }: RegisterParams) => {
-    setLoading(true);
+  const validateApp = async ({ appToken }: { appToken: string }) => {
+    let RedirectionLink = Cookies.get("RedirectionLink");
     try {
-      const response = await axios.post(
-        "/register",
-        {
-          first_name,
-          last_name,
-          email,
-          password,
-          password_confirmation,
-          device_token,
-        },
-        authConfig
-      );
-      Cookies.set("analogueshifts", response?.data[0]?.data?.token);
-      setUser(response?.data[0]?.data?.token);
-
-      notifyUser("success", "Account created successfully", "right");
-      router.push("/events");
-      setLoading(false);
-    } catch (error: any) {
-      setLoading(false);
-      notifyUser(
-        "error",
-        error?.response?.data?.message || "Failed To Create Account",
-        "right"
-      );
-    }
-  };
-
-  const login = async ({ email, password, setLoading }: LoginParams) => {
-    setLoading(true);
-    try {
-      const response = await axios.post(
-        "/login",
-        { email, password },
-        authConfig
-      );
-      Cookies.set("analogueshifts", response.data.data.token);
-      await getUser({
-        layout: "authenticated",
-        setLoading,
-        token: response.data.data.token || "",
+      const response = await axios.request({
+        url: "/app/callback/" + appToken,
+        method: "GET",
       });
-      notifyUser("success", "Logged in successfully", "right");
-      router.push("/events");
-      setLoading(false);
+      if (response.data?.success) {
+        Cookies.set("analogueshifts", response.data?.data.token);
+        notifyUser("success", "success", "right");
+        window.location.href = RedirectionLink || "/";
+      }
     } catch (error: any) {
-      setLoading(false);
-      notifyUser(
-        "error",
-        error?.response?.data?.message || "Failed To Login",
-        "right"
-      );
+      notifyUser("error", error.messsage || "Invalid Request", "right");
+      router.push(RedirectionLink || "/");
+      console.log(error);
     }
   };
 
@@ -183,7 +112,7 @@ export const useAuth = () => {
     try {
       await axios.request(config);
       Cookies.remove("analogueshifts");
-      router.push("/login");
+      router.push("/");
     } catch (error: any) {
       setLoading(false);
       notifyUser("error", error?.response?.data?.data?.message, "right");
@@ -194,10 +123,9 @@ export const useAuth = () => {
   };
 
   return {
-    register,
-    login,
     logout,
     getUser,
     notifyUser,
+    validateApp,
   };
 };

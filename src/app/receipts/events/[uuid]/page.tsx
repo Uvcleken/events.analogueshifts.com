@@ -1,11 +1,13 @@
+import Cookies from "js-cookie";
 import GuestLayout from "@/components/application/layouts/guest";
 import Receipt from "./components/receipt";
 
 export default async function Page({ params }: { params: any }) {
+  const token = Cookies.get("analogueshifts");
   const url =
     process.env.NEXT_PUBLIC_BACKEND_URL + "/event/registration/" + params?.uuid;
-  const registration = await getRegistration(url);
-  const register = registration?.data?.register;
+  const registration = await getRegistration(url, token);
+  const register = registration?.data;
 
   return (
     <GuestLayout>
@@ -22,8 +24,14 @@ export default async function Page({ params }: { params: any }) {
   );
 }
 
-const getRegistration = async (url: string) => {
-  const res = await fetch(url);
+const getRegistration = async (url: string, token?: string) => {
+  const res = await fetch(url, {
+    headers: token
+      ? {
+          Authorization: `Bearer ${token}`,
+        }
+      : {},
+  });
 
   if (res.ok) {
     return res.json();

@@ -28,7 +28,7 @@ const UploadImage: React.FC<UploadImage> = ({
   const token = Cookies.get("analogueshifts");
 
   const uploadImage = async (value: any) => {
-    const url = process.env.NEXT_PUBLIC_BACKEND_URL + "/upload";
+    const url = process.env.NEXT_PUBLIC_FILE_UPLOAD_URL + "/upload";
     const axios = require("axios");
     const formData = new FormData();
     formData.append("upload", value);

@@ -1,31 +1,33 @@
 "use client";
-import { Fragment, useRef } from "react";
+import { useAuth } from "@/hooks/auth";
+import { Fragment, useRef, useState } from "react";
+
 import { Transition, Dialog } from "@headlessui/react";
-import { TriangleAlert } from "lucide-react";
 
 import Image from "next/image";
 import Spinner from "@/assets/images/spinner.svg";
 
-interface IdiomProps {
-  title: string;
-  description: string;
+export default function LogoutConfirmation({
+  open,
+  close,
+}: {
   open: boolean;
   close: () => void;
-  action: () => void;
-  buttonLabel: string;
-  loading?: boolean;
-}
-
-const IdiomProof: React.FC<IdiomProps> = ({
-  title,
-  description,
-  open,
-  action,
-  close,
-  buttonLabel,
-  loading,
-}) => {
+}) {
   const cancelButtonRef = useRef(null);
+  const [loading, setLoading] = useState(false);
+
+  const { logout } = useAuth();
+
+  const handleLogout = async () => {
+    try {
+      await logout({ setLoading });
+      close();
+    } catch (error) {
+      close();
+    }
+  };
+
   return (
     <Transition.Root show={open} as={Fragment}>
       <Dialog
@@ -57,19 +59,21 @@ const IdiomProof: React.FC<IdiomProps> = ({
               leaveFrom="opacity-100 translate-y-0 sm:scale-100"
               leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
             >
-              <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
+              <Dialog.Panel className="relative transform overflow-hidden rounded-2xl bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
                 <div className="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
                   <div className="sm:flex sm:items-start">
+                    <Image width={40} height={40} alt="" src="/logout.svg" />
                     <div className="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
                       <Dialog.Title
                         as="h3"
                         className="text-base font-semibold leading-6 text-gray-900"
                       >
-                        {title}
+                        Log Out
                       </Dialog.Title>
                       <div className="mt-2">
                         <p className="text-sm text-primary-boulder400">
-                          {description}
+                          Are you sure you want to sign out of your account? You
+                          can always sign in at anytime.
                         </p>
                       </div>
                     </div>
@@ -78,18 +82,18 @@ const IdiomProof: React.FC<IdiomProps> = ({
                 <div className=" px-4 pb-6 pt-4 sm:flex sm:flex-row-reverse sm:px-6">
                   <button
                     type="button"
+                    disabled={loading}
                     className={`inline-flex items-center gap-1.5 w-full justify-center rounded-xl  h-10  text-xs font-semibold text-primary-boulder50  sm:ml-3 sm:w-auto px-10 bg-background-darkYellow`}
-                    onClick={action}
+                    onClick={handleLogout}
                   >
-                    {loading ? (
-                      <Image
-                        src={Spinner}
-                        alt=""
-                        className="w-8 animate-spin"
-                      />
-                    ) : (
-                      buttonLabel || title
-                    )}
+                    {loading ? "" : "Yes"}
+                    <Image
+                      src={Spinner}
+                      className={`animate-spin ${loading ? "block" : "hidden"}`}
+                      width={18}
+                      height={18}
+                      alt=""
+                    />
                   </button>
                   <button
                     type="button"
@@ -97,7 +101,7 @@ const IdiomProof: React.FC<IdiomProps> = ({
                     onClick={close}
                     ref={cancelButtonRef}
                   >
-                    Cancel
+                    No
                   </button>
                 </div>
               </Dialog.Panel>
@@ -107,6 +111,4 @@ const IdiomProof: React.FC<IdiomProps> = ({
       </Dialog>
     </Transition.Root>
   );
-};
-
-export default IdiomProof;
+}
