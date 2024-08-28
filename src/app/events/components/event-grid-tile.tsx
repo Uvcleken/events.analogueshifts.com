@@ -43,7 +43,7 @@ export default function EventGridTile({ item, url }: any) {
       setLoading,
       setPaginationData: setPaginationInfo,
       url,
-      uuid: item.uuid,
+      uuid: item?.uuid,
     });
   };
 
@@ -57,7 +57,7 @@ export default function EventGridTile({ item, url }: any) {
         }}
         loading={loading}
         close={() => setDeleteModalDisplay(false)}
-        description={"Are you sure you want to delete the event " + item.title}
+        description={"Are you sure you want to delete the event " + item?.title}
         buttonLabel="Delete"
         open={deleteModalDisplay}
         title="Confirm delete"
@@ -66,17 +66,17 @@ export default function EventGridTile({ item, url }: any) {
       <div className=" flex md:flex-row flex-col gap-3 overflow-x-hidden max-w-full md:max-w-[90%] items-center">
         <div className="w-full hidden h-10 md:flex flex-col justify-between">
           <p className="text-background-darkYellow text-xs font-semibold">
-            {convertDateFormat(item.starts_date)?.slice(0, 3)?.toUpperCase()}
+            {convertDateFormat(item?.starts_date)?.slice(0, 3)?.toUpperCase()}
           </p>
           <p className="text-primary-boulder900 text-lg font-semibold">
-            {convertDateFormat(item.starts_date)?.slice(4, 6)}
+            {convertDateFormat(item?.starts_date)?.slice(4, 6)}
           </p>
         </div>{" "}
         <div className="md:w-20 w-full max-w-full h-36 min-w-20 md:max-w-20 overflow-hidden md:h-16">
           <img
             src={
-              item.thumbnail.length > 0 && item.thumbnail !== "null"
-                ? item.thumbnail
+              item?.thumbnail?.length > 0 && item?.thumbnail !== "null"
+                ? item?.thumbnail
                 : "/venue-little.jpeg"
             }
             alt=""
@@ -85,7 +85,7 @@ export default function EventGridTile({ item, url }: any) {
         </div>
         <div className="w-full px-4 pt-1 pb-3 gap-1.5 md:gap-0 md:p-0 h-max md:h-10 flex flex-col justify-between">
           <p className="text-primary-boulder900 truncate  text-sm font-semibold">
-            {item.title}
+            {item?.title}
           </p>
           <p className="text-primary-boulder900 w-full md:truncate text-[13px] font-medium">
             <span className="text-background-darkYellow"> On Sale ·</span>&nbsp;
@@ -103,25 +103,25 @@ export default function EventGridTile({ item, url }: any) {
           </DropdownMenuLabel>
           <DropdownMenuSeparator />
           <DropdownMenuItem
-            onClick={() => router.push(`/events/pricing/${item.uuid}`)}
+            onClick={() => router.push(`/events/pricing/${item?.uuid}`)}
             className="py-3 cursor-pointer px-4 focus:bg-gray-700/5"
           >
             <Banknote className="mr-2 h-4 w-4" /> Manage Pricing
           </DropdownMenuItem>
           <DropdownMenuItem
-            onClick={() => router.push(`/events/guests/${item.uuid}`)}
+            onClick={() => router.push(`/events/guests/${item?.uuid}`)}
             className="py-3 cursor-pointer px-4 focus:bg-gray-700/5"
           >
             <Users className="mr-2 h-4 w-4" /> View Guests
           </DropdownMenuItem>
           <DropdownMenuItem
-            onClick={() => router.push(`/show/${item.slug}`)}
+            onClick={() => router.push(`/show/${item?.slug}`)}
             className="py-3 cursor-pointer px-3 focus:bg-gray-700/5"
           >
             <PartyPopper className="mr-2 h-4 w-4" /> View Event
           </DropdownMenuItem>
           <DropdownMenuItem
-            onClick={() => router.push(`/events/edit/${item.uuid}`)}
+            onClick={() => router.push(`/events/edit/${item?.uuid}`)}
             className="py-3 cursor-pointer px-3 focus:bg-gray-700/5"
           >
             <Pencil className="mr-2 h-4 w-4" /> Edit Event
@@ -129,8 +129,8 @@ export default function EventGridTile({ item, url }: any) {
           <DropdownMenuItem
             onClick={() => {
               share(
-                item.title,
-                window.location.origin + `/show/${item.slug}`,
+                item?.title,
+                window.location.origin + `/show/${item?.slug}`,
                 notifyUser
               );
             }}

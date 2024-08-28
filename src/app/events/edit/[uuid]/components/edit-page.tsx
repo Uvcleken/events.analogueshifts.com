@@ -50,19 +50,20 @@ export default function EditPage({ uuid }: { uuid: string }) {
 
   const prefillInputs = (data: any) => {
     setEventInfoData({
-      email: data?.email,
+      email: data?.email || "",
       contact: data?.contact || "",
-      title: data?.title,
+      title: data?.title || "",
       description: data?.description,
       price: "0",
-      maximum: data?.maximum,
+      maximum: data?.maximum || "10",
       status: data?.status ? "public" : "private",
     });
     setDateAndLocationInfo({
-      startsDate: data?.starts_date,
-      endsDate: data?.ends_date,
-      locationType: data?.location_type,
-      location: data?.location_type === "virtual" ? "null" : data?.location,
+      startsDate: data?.starts_date || "",
+      endsDate: data?.ends_date || "",
+      locationType: data?.location_type || "",
+      location:
+        data?.location_type === "virtual" ? "null" : data?.location || "",
       url_link: data?.url_link || "",
       longitude: data?.longitude || "",
       latitude: data?.latitude || "",

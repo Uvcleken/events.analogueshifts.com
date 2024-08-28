@@ -6,14 +6,6 @@ import { X } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-
 import { AnimatePresence, motion } from "framer-motion";
 import ButtonLoadingSpinner from "@/components/ui/loading-button";
 
@@ -185,7 +177,9 @@ export default function AddPricing({
                 transition={{ duration: 0.2 }}
                 alt=""
                 src={
-                  event.thumbnail.length > 0 ? event.thumbnail : "/concert.jpg"
+                  event?.thumbnail?.length > 0
+                    ? event?.thumbnail
+                    : "/concert.jpg"
                 }
                 className="w-full h-[30%] object-cover hidden tablet:block"
               />
@@ -198,7 +192,7 @@ export default function AddPricing({
               </div>
               <div className="tablet:h-max h-full w-full pt-6 px-6">
                 <p className="text-primary-boulder900 text-sm border-b mb-3 font-medium pb-3">
-                  <b>{event.title}</b>
+                  <b>{event?.title}</b>
                 </p>
                 <p className="text-primary-boulder500/90 text-[13px] leading-5  font-normal">
                   {priceToEdit

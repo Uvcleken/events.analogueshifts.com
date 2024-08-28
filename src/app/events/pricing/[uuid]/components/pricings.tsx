@@ -80,12 +80,14 @@ export default function Pricings({ uuid }: { uuid: string }) {
               <h2 className="text-primary-boulder900 text-xl tablet:text-3xl font-bold">
                 <b>Event Pricings</b>
               </h2>
-              <button
-                onClick={() => setShowAddPricingModal(true)}
-                className="outline-none outline-transparent hover:bg-black/5  h-10 w-10 text-primary-boulder900 flex items-center justify-center rounded-full"
-              >
-                <Plus width={18} />
-              </button>
+              {event && (
+                <button
+                  onClick={() => setShowAddPricingModal(true)}
+                  className="outline-none outline-transparent hover:bg-black/5  h-10 w-10 text-primary-boulder900 flex items-center justify-center rounded-full"
+                >
+                  <Plus width={18} />
+                </button>
+              )}
             </div>
 
             {/* List */}

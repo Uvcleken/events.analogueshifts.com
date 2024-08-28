@@ -180,8 +180,8 @@ export const useEvents = () => {
           Authorization: "Bearer " + userToken,
         },
       });
-      setPaginationData(response.data.data.events);
-      setData(response.data.data.events.data);
+      setPaginationData(response.data?.data?.events);
+      setData(response.data?.data?.events?.data);
       setLoading(false);
     } catch (error: any) {
       setLoading(false);

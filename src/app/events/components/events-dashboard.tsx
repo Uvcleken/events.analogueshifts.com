@@ -14,7 +14,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 export default function EventsDashboard() {
   const [loading, setLoading] = useState(false);
-  const { events, paginationInfo } = useEventsContext();
+  const { events, paginationInfo }: any = useEventsContext();
 
   const searchParams = useSearchParams();
   const page = searchParams.get("page");
@@ -57,7 +57,7 @@ export default function EventsDashboard() {
           <div className="w-full h-[60vh] tablet:h-allEventsSection overflow-y-auto">
             {events ? (
               <>
-                {events.length === 0 ? (
+                {events?.length === 0 ? (
                   <div className="w-full h-full flex flex-col items-center justify-center">
                     <Image
                       src={EmptyBox}
@@ -67,10 +67,10 @@ export default function EventsDashboard() {
                   </div>
                 ) : (
                   <div className="w-full flex flex-col gap-5 py-5">
-                    {events.map((item: any) => {
+                    {events?.map((item: any) => {
                       return (
                         <EventGridTile
-                          key={item.uuid}
+                          key={item?.uuid}
                           item={item}
                           url={eventsUrl}
                         />
