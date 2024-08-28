@@ -1,40 +1,59 @@
+"use client";
+import Image from "next/image";
+import Briefcase from "@/assets/images/briefcase.svg";
+import Link from "next/link";
+
+import { useUser } from "@/contexts/user";
+
 export default function Landing() {
+  const { user } = useUser();
+
   return (
-    <div
-      style={{
-        backgroundImage: "url(/venue.jpeg)",
-      }}
-      className="w-full h-max bg-left-bottom overflow-hidden rounded-3xl bg-cover bg-no-repeat mt-8"
-    >
-      <div
-        style={{
-          background: "linear-gradient(to right, #39364f, transparent)",
-        }}
-        className="w-full h-max py-8 md:py-12 px-5 md:px-10"
-      >
-        <div className="w-[400px] max-w-[80%] flex flex-col">
-          <h2 className="text-white font-semibold text-lg md:text-2xl mb-1">
-            Explore upcoming
-          </h2>
-          <h1 className="text-white font-bold text-2xl md:text-4xl mb-3 md:mb-6">
-            <b>Events</b>
-          </h1>
-          <p className="md:text-sm text-xs text-white/90 font-normal md:leading-6 mb-10">
-            Looking for events to attend? we&apos;ve got loads of great tips and
-            events. You can explore and register for events.
+    <section className="w-full overflow-hidden h-max large:pb-[216px] tablet:pb-[120px] pb-[170px] large:pt-[91px] pt-16 relative">
+      <div className="w-full h-max  bg-transparent flex flex-col items-center justify-center">
+        <div className="w-max max-w-full h-max tablet:mb-3 mb-5 rounded-full tablet:py-1 py-1.5 large:py-2.5 tablet:px-2.5 px-3.5 large:px-6 flex items-center tablet:gap-1 gap-2.5 bg-background-darkYellow/10">
+          <Image
+            className="large:w-max h-max tablet:w-2.5 w-4"
+            src={Briefcase}
+            alt=""
+          />
+          <p className="font-medium tablet:text-xs text-sm large:text-base text-background-darkYellow">
+            All events
           </p>
-          <button className="w-40 hover-text-button h-11 border flex justify-center items-center text-white/90 rounded-full font-medium text-sm">
-            <div className="relative h-4 flex flex-col w-full overflow-hidden">
-              <span className="w-full h-full duration-500 flex  justify-center items-center">
-                Explore events
-              </span>{" "}
-              <span className="w-full h-full flex duration-500 justify-center items-center absolute translate-y-4">
-                Explore events
-              </span>
-            </div>
-          </button>
         </div>
+        <h1 className=" large:text-[32px] tablet:text-xl text-[26px] font-semibold tablet:mb-3 mb-4 large:mb-5 text-center large:leading-[48px] leading-9 tablet:px-5 px-0 text-black">
+          Connecting you with tailored{" "}
+          <span className="text-background-darkYellow">Events</span>
+        </h1>
+        <p className="text-center tablet:mb-5 mb-7 large:mb-10 tablet:max-w-full px-5 max-w-[770px] large:max-w-[889px] tablet:leading-7 leading-8 large:leading-[48px] font-normal tablet:text-sm text-base large:text-xl text-primary-boulder400">
+          Create, manage, and promote your events with ease. Our platform
+          empowers organizers to design unforgettable experiences, from small
+          gatherings to large conferences. Connect with your audience, sell
+          tickets, and track your event&apos;s success all in one place.
+        </p>
+        <div className="tablet:w-4/5 w-max max-w-full tablet:mb-5 mb-10 tablet:grid grid-cols-2 flex large:flex items-center large:h-14 h-14 tablet:h-max  gap-3">
+          <input
+            className="w-[415px] tablet:w-full tablet:col-span-2 tablet:h-12 h-full outline-none rounded-2xl border border-primary-boulder200 px-6 tablet:text-sm text-sm large:text-base font-normal text-primary-boulder700 placeholder:text-primary-boulder200"
+            placeholder="Search for upcoming events"
+          />
+          <button className="rounded-2xl tablet:h-12  h-full bg-background-darkYellow flex justify-center items-center text-primary-boulder50 tablet:text-sm text-sm large:text-base font-semibold tablet:px-5 px-12">
+            Search
+          </button>
+          <Link
+            href={
+              user
+                ? "/events/create"
+                : "https://auth.analogueshifts.app?app=events"
+            }
+            className="rounded-2xl tablet:h-12  h-full bg-transparent flex justify-center items-center text-background-darkYellow tablet:text-sm text-sm large:text-base font-semibold tablet:px-5 px-12 border border-background-darkYellow"
+          >
+            Create an event
+          </Link>
+        </div>
+        <p className="text-base tablet:text-xs tablet:px-5 px-0 text-center font-medium text-primary-boulder400">
+          You can quickly search for events or post an event
+        </p>
       </div>
-    </div>
+    </section>
   );
 }

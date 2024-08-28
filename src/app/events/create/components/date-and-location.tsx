@@ -52,7 +52,7 @@ const DateAndLocation: React.FC<DateAndLocationInterface> = ({
         >
           {checkValidation() ? <Check width={20} /> : <Plus width={20} />}
         </div>
-        <h2 className="text-primary-boulder900 text-xl tablet:text-3xl font-bold mb-3.5">
+        <h2 className="text-primary-boulder900 tablet:text-xl text-3xl font-bold mb-3.5">
           <b>Registration Date & Event Location</b>
         </h2>
         <p className="text-primary-boulder900 font-medium text-sm flex gap-1 items-center">
@@ -67,7 +67,7 @@ const DateAndLocation: React.FC<DateAndLocationInterface> = ({
           <h4 className="text-primary-boulder900 font-bold text-xl mb-6">
             Event Registration Date
           </h4>
-          <div className="w-full grid grid-cols-1 tablet:grid-cols-2 gap-5 mb-8">
+          <div className="w-full grid tablet:grid-cols-1 grid-cols-2 gap-5 mb-8">
             <div className="col-span-1 flex flex-col">
               <h6 className="text-primary-boulder900 font-semibold text-base mb-3">
                 Starts Date

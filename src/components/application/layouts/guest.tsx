@@ -6,7 +6,7 @@ import { useState, useEffect } from "react";
 import Cookies from "js-cookie";
 import GuestNavigation from "../guest-navigation";
 import LogoutConfirmation from "../logout-confirmation";
-import SearchModal from "./search-modal";
+import Footer from "../footer";
 
 export default function GuestLayout({
   children,
@@ -16,7 +16,6 @@ export default function GuestLayout({
   const { user } = useUser();
   const { getUser } = useAuth();
   const [idiomModalDisplay, setIdiomModalDisplay] = useState(false);
-  const [showSearchModal, setShowSearchModal] = useState(false);
 
   useEffect(() => {
     const token = Cookies.get("analogueshifts");
@@ -26,18 +25,20 @@ export default function GuestLayout({
   }, []);
 
   return (
-    <section className="w-full min-h-screen">
-      <LogoutConfirmation
-        close={() => setIdiomModalDisplay(false)}
-        open={idiomModalDisplay}
-      />
-      <GuestNavigation
-        handleLogout={() => setIdiomModalDisplay(true)}
-        user={user}
-        showSearch={setShowSearchModal}
-      />
-      <SearchModal open={showSearchModal} setOpen={setShowSearchModal} />
-      <div className="w-full pt-16">{children}</div>
-    </section>
+    <>
+      <section className="w-full min-h-screen">
+        <LogoutConfirmation
+          close={() => setIdiomModalDisplay(false)}
+          open={idiomModalDisplay}
+        />
+        <GuestNavigation
+          handleLogout={() => setIdiomModalDisplay(true)}
+          user={user}
+        />
+
+        <div className="w-full pt-16">{children}</div>
+      </section>
+      <Footer />
+    </>
   );
 }

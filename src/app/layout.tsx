@@ -1,7 +1,7 @@
 import "./globals.css";
 import Script from "next/script";
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Plus_Jakarta_Sans } from "next/font/google";
 import { cn } from "@/lib/utils";
 
 import { UserProvider } from "@/contexts/user";
@@ -9,7 +9,10 @@ import { ToastProvider } from "@/contexts/toast";
 import ToastMessage from "@/components/application/toast";
 import { EventsProvider } from "@/contexts/events";
 
-const inter = Inter({ subsets: ["latin"] });
+const plusJakartaSans = Plus_Jakarta_Sans({
+  weight: ["400", "500", "600", "700"],
+  subsets: ["latin"],
+});
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -33,7 +36,7 @@ export default function RootLayout({
                     `}
         </Script>
       </head>
-      <body className={cn(inter.className)}>
+      <body className={cn(plusJakartaSans.className)}>
         {" "}
         <UserProvider>
           <ToastProvider>

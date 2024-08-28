@@ -9,7 +9,7 @@ export default async function Page({ params }: any) {
       {event ? (
         <ShowEvent event={event.data.event} />
       ) : (
-        <div className="w-full h-[40vh] flex items-center justify-center">
+        <div className="w-full h-[60vh] flex items-center justify-center">
           <h2 className="text-primary-boulder900 text-3xl font-semibold">
             <b>Not Found</b>
           </h2>

@@ -9,7 +9,7 @@ import { useState } from "react";
 import { share } from "@/configs/share";
 import { convertDateFormat } from "@/app/events/resources/convert-date-format";
 
-import { Calendar, Share2, Clock, MapPin, Video } from "lucide-react";
+import { Share2, Clock, MapPin, Video } from "lucide-react";
 
 interface Params {
   event: any;
@@ -32,7 +32,7 @@ export default function ShowEvent({ event }: Params) {
       {event ? (
         <div
           style={{ backgroundImage: "url(/curve.svg)" }}
-          className="w-full h-[30vh] bg-cover bg-center tablet:h-[66vh]"
+          className="w-full max-w-[1500px] mx-auto tablet:h-[30vh] bg-cover bg-center h-[66vh]"
         >
           <div
             style={{
@@ -42,7 +42,7 @@ export default function ShowEvent({ event }: Params) {
                   : "/concert.jpg"
               })`,
             }}
-            className="w-[90%] bg-cover h-64 translate-y-10 tablet:h-[72vh] max-w-desktop mx-auto rounded-3xl overflow-hidden"
+            className="w-[90%] bg-cover tablet:h-64 translate-y-10 h-[72vh] max-w-desktop mx-auto rounded-3xl overflow-hidden"
           >
             <div className="w-full h-full backdrop-blur-lg ">
               <img
@@ -52,22 +52,22 @@ export default function ShowEvent({ event }: Params) {
                     : "/concert.jpg"
                 }
                 alt="Cover Photo"
-                className=" w-4/5 tablet:w-9/12 max-w-full mx-auto h-full object-cover"
+                className=" tablet:w-4/5 w-9/12 max-w-full mx-auto h-full object-cover"
               />
             </div>
           </div>
         </div>
       ) : (
         <div className="w-full h-[60vh] flex justify-center items-center">
-          <h1 className="text-center text-2xl font-semibold text-primary-boulder900">
+          <h1 className="text-center text-2xl font-bold text-primary-boulder900">
             <b>Not Found</b>
           </h1>
         </div>
       )}
       {event && (
-        <div className="mt-14 tablet:mb-44 w-[90%] pb-[300px] translate-y-10 tablet:pb-0 max-w-desktop mx-auto tablet:translate-y-[calc(6vh+40px)]">
+        <div className="pt-14  w-[90%] tablet:translate-y-0  max-w-desktop mx-auto translate-y-[calc(6vh+40px)]">
           <div className="w-full mb-5 flex justify-between  items-center">
-            <h1 className="text-primary-boulder900 text-3xl tablet:text-6xl font-bold">
+            <h1 className="text-primary-boulder900 tablet:text-3xl text-6xl font-sans">
               <b> {event.title}</b>
             </h1>
             <button
@@ -83,14 +83,14 @@ export default function ShowEvent({ event }: Params) {
               <Share2 width={18} />
             </button>
           </div>
-          <div className="w-full grid tablet:grid-cols-6 grid-cols-1 tablet:gap-16 items-start">
-            <div className="tablet:col-span-4 max-w-full col-span-1 flex flex-col">
+          <div className="w-full grid grid-cols-6 tablet:grid-cols-1 tablet:gap-4 gap-16 items-start">
+            <div className="col-span-4 max-w-full tablet:col-span-1 flex flex-col">
               <div
                 dangerouslySetInnerHTML={{ __html: event.description }}
                 className="text-primary-boulder700 font-normal text-base prose mt-3"
               ></div>
 
-              <h2 className="text-primary-boulder900 mt-7 text-base tablet:text-2xl font-semibold mb-5">
+              <h2 className="text-primary-boulder900 mt-7 tablet:text-base text-2xl font-sans mb-5">
                 <b>Registration Date and time of Event</b>
               </h2>
               <p className="text-primary-boulder700 max-w-full  font-medium text-sm flex flex-wrap gap-1 items-center">
@@ -101,7 +101,7 @@ export default function ShowEvent({ event }: Params) {
                 {event.ends_date.split(" ")[1]}
               </p>
 
-              <h2 className="text-primary-boulder900 mt-7 text-base tablet:text-2xl font-semibold mb-5">
+              <h2 className="text-primary-boulder900 mt-7 tablet:text-base text-2xl font-semibold mb-5">
                 <b>Event Location</b>
               </h2>
               <p className="text-primary-boulder700 max-w-full  font-medium text-sm flex flex-wrap gap-1 items-center">

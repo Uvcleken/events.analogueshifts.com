@@ -6,7 +6,7 @@ import { CalendarPlus } from "lucide-react";
 
 export default function YourPlan() {
   return (
-    <div className="tablet:col-span-2 col-span-7 flex flex-col gap-7">
+    <div className="col-span-2 tablet:col-span-7 flex flex-col gap-7">
       <div className="p-5 rounded-md border">
         <div className="w-full mb-5 flex justify-between items-center">
           <div className="px-2 py-1.5 rounded-lg bg-gray-700/5">

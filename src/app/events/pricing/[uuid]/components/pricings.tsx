@@ -60,7 +60,7 @@ export default function Pricings({ uuid }: { uuid: string }) {
       />
 
       <main className="my-10 items-start grid grid-cols-7 gap-7 mx-auto w-[90%] max-w-desktop">
-        <div className="tablet:col-span-5 col-span-7 flex flex-col gap-5">
+        <div className="col-span-5 tablet:col-span-7 flex flex-col gap-5">
           <Link
             href="/events"
             className="flex items-center w-max gap-1 text-background-darkYellow text-sm font-medium"
@@ -70,14 +70,14 @@ export default function Pricings({ uuid }: { uuid: string }) {
           {!user || loading ? (
             <Skeleton className="w-full h-9" />
           ) : (
-            <h1 className="text-primary-boulder700 mb-5 text-3xl tablet:text-5xl font-bold">
+            <h1 className="text-primary-boulder700 mb-5 tablet:text-3xl text-5xl font-sans">
               <b> {event?.title}</b>
             </h1>
           )}
 
           <div className="p-6 rounded-md border h-max max-h-screen">
             <div className="w-full border-b h-16 justify-between flex items-center px-3">
-              <h2 className="text-primary-boulder900 text-xl tablet:text-3xl font-bold">
+              <h2 className="text-primary-boulder900 tablet:text-xl text-3xl font-sans">
                 <b>Event Pricings</b>
               </h2>
               {event && (

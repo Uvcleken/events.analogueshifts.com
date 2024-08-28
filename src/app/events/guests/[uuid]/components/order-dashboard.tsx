@@ -47,7 +47,7 @@ export default function OrdersDashboard({ eventUUID }: { eventUUID: string }) {
         >
           <ChevronLeft height={13} /> Back to Events
         </Link>
-        <h1 className="text-primary-boulder700 text-3xl tablet:text-5xl font-bold">
+        <h1 className="text-primary-boulder700 tablet:text-3xl text-5xl font-bold">
           <b>Order Management</b>
         </h1>
         <p className="text-primary-boulder400 font-medium text-lg">

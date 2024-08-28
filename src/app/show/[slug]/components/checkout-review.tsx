@@ -57,8 +57,8 @@ export default function CheckoutReview({ event, close, show, prices }: Params) {
           transition={{ duration: 0.5 }}
           className="fixed duration-300 top-0 left-0 z-40 bg-black/10 w-screen h-screen flex justify-center items-center"
         >
-          <div className="tablet:w-4/5 w-[90%] tablet:h-[94vh] h-[70vh] bg-white flex flex-col-reverse tablet:flex-row">
-            <div className="tablet:w-[70%] w-full h-[70%] tablet:h-full">
+          <div className="w-4/5 tablet:w-[90%] h-[94vh] tablet:h-[70vh] bg-white flex tablet:flex-col-reverse flex-row">
+            <div className="w-[70%] tablet:w-full tablet:h-[70%] h-full">
               <div className="w-full pl-5 border-b h-20 flex items-center">
                 <h3 className="text-base font-medium text-primary-boulder700">
                   <b>Checkout Review</b>
@@ -128,7 +128,7 @@ export default function CheckoutReview({ event, close, show, prices }: Params) {
                 </button>
               </form>
             </div>
-            <div className="tablet:w-[30%] w-full relative h-[30%] tablet:h-full bg-background-darkPurple border-l">
+            <div className="w-[30%] tablet:w-full relative tablet:h-[30%] h-full bg-background-darkPurple border-l">
               <motion.img
                 initial={{ y: "-100%" }}
                 animate={{
@@ -139,7 +139,7 @@ export default function CheckoutReview({ event, close, show, prices }: Params) {
                 src={
                   event.thumbnail.length > 0 ? event.thumbnail : "/concert.jpg"
                 }
-                className="w-full h-[30%] object-cover hidden tablet:block"
+                className="w-full h-[30%] object-cover tablet:hidden block"
               />
               <div
                 onClick={close}
@@ -147,7 +147,7 @@ export default function CheckoutReview({ event, close, show, prices }: Params) {
               >
                 <X width={16} />
               </div>
-              <div className="tablet:h-[70%] h-full w-full pt-5 px-6">
+              <div className="h-[70%] tablet:h-full w-full pt-5 px-6">
                 <p className="text-primary-boulder900 text-sm font-medium pb-5">
                   <b>Order summary</b>
                 </p>

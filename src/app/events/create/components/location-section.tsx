@@ -33,17 +33,23 @@ export default function LocationSection({
               : "text-primary-boulder900 bg-gray-700/5"
           }`}
         >
-          <MapPin height={22} width={19} /> Venue
+          <MapPin
+            height={22}
+            width={19}
+            className="h-max w-[19px] tablet:w-3"
+          />{" "}
+          Venue
         </button>
         <button
           onClick={() => setLocationType("virtual")}
-          className={`w-max flex items-center rounded-full py-1.5 px-4 gap-2 text-sm font-medium ${
+          className={`w-max flex items-center rounded-full py-1.5 px-4 tablet:px-3 tablet:text-xs gap-2 text-sm font-medium ${
             locationType === "virtual"
               ? "text-white bg-background-darkYellow"
               : "text-primary-boulder900 bg-gray-700/5"
           }`}
         >
-          <Video width={22} /> Online Event
+          <Video className="h-max w-[19px] tablet:w-3" width={22} /> Online
+          Event
         </button>
       </div>
 

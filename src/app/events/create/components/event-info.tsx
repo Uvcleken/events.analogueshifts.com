@@ -62,7 +62,7 @@ const EventInfo: React.FC<EventInfo> = ({
         >
           {validate() ? <Check width={20} /> : <Plus width={20} />}
         </div>
-        <h2 className="text-primary-boulder900 text-xl tablet:text-3xl font-bold mb-3.5">
+        <h2 className="text-primary-boulder900 tablet:text-xl text-3xl font-bold mb-3.5">
           <b>{validate() ? eventInfoData.title : "Event Title"}</b>
         </h2>
         <p className="text-primary-boulder900 font-medium text-sm">

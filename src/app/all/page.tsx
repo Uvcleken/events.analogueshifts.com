@@ -1,7 +1,7 @@
 import GuestLayout from "@/components/application/layouts/guest";
-import EventGridTile from "@/components/application/home/event-grid-tile";
-import AllEventsPagination from "./pagination";
 import Landing from "./components/landing";
+import RenderEvents from "./components/render-events";
+import DownloadApp from "@/components/application/home/download-app";
 
 export default async function Page({
   searchParams,
@@ -13,26 +13,9 @@ export default async function Page({
 
   return (
     <GuestLayout>
-      <section className="w-full min-h-screen bg-white z-20 pb-5 px-4">
-        <div className="w-full flex justify-center">
-          <div className="w-full max-w-[1250px] md:px-5 ">
-            <Landing />
-            <div className="w-full mt-14  flex flex-col gap-7">
-              <h2 className="text-primary-boulder900/90 font-bold text-2xl">
-                All Events
-              </h2>
-              {events && (
-                <div className="w-full px-2  grid xl:grid-cols-4 md:grid-cols-3 mobile:grid-cols-2 grid-cols-1 gap-y-10 gap-x-6">
-                  {events?.data?.events?.data.map((item: any) => {
-                    return <EventGridTile key={item.slug} item={item} />;
-                  })}
-                </div>
-              )}
-            </div>
-            <AllEventsPagination currentPageInfo={events?.data?.events} />
-          </div>
-        </div>
-      </section>
+      <Landing />
+      {events && <RenderEvents events={events?.data?.events} />}
+      <DownloadApp />
     </GuestLayout>
   );
 }

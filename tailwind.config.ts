@@ -19,9 +19,10 @@ const config = {
     },
     extend: {
       screens: {
-        tablet: "900px",
         desktop: "1000px",
         mobile: "500px",
+        tablet: { raw: "(max-width: 999px)" },
+        large: { raw: "(min-width: 1440px) and (min-height: 1040px)" },
       },
       maxWidth: {
         desktop: "1200px",
@@ -69,6 +70,8 @@ const config = {
           foreground: "hsl(var(--primary-foreground))",
           boulder: "#7B7B7B",
           boulder50: "#F6F6F6",
+          boulder100: "#E7E7E7",
+          tan: "#111111",
           boulder200: "#D1D1D1",
           boulder300: "#B0B0B0",
           boulder400: "#7B7B7B",

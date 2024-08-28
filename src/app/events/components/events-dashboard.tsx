@@ -25,9 +25,9 @@ export default function EventsDashboard() {
   return (
     <main className="my-10 items-start grid grid-cols-7 gap-7 mx-auto w-[90%] max-w-desktop">
       {loading && <Loading />}
-      <div className="tablet:col-span-5 col-span-7 flex flex-col gap-10">
+      <div className="col-span-5 tablet:col-span-7 flex flex-col gap-10">
         {user ? (
-          <h1 className="text-primary-boulder700 text-3xl tablet:text-5xl font-bold">
+          <h1 className="text-primary-boulder700 tablet:text-3xl text-5xl font-sans">
             <b> Welcome, {user?.user?.user_profile?.first_name}</b>
           </h1>
         ) : (
@@ -39,10 +39,10 @@ export default function EventsDashboard() {
             </div>
           </div>
         )}
-        <div className="md:p-6 px-3 py-2 rounded-md border h-max tablet:h-screen max-h-screen">
+        <div className="md:p-6 px-3 py-2 rounded-md border tablet:h-max h-screen max-h-screen">
           <div className="w-full border-b h-16 flex items-center pl-3">
             {events ? (
-              <h2 className="text-primary-boulder900 text-xl tablet:text-3xl font-bold">
+              <h2 className="text-primary-boulder900 tablet:text-xl text-3xl font-sans">
                 <b>My Events ({events?.length})</b>
               </h2>
             ) : (
@@ -54,7 +54,7 @@ export default function EventsDashboard() {
           </div>
 
           {/* List */}
-          <div className="w-full h-[60vh] tablet:h-allEventsSection overflow-y-auto">
+          <div className="w-full tablet:h-[60vh] h-allEventsSection overflow-y-auto">
             {events ? (
               <>
                 {events?.length === 0 ? (
