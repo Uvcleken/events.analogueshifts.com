@@ -31,7 +31,7 @@ export default function Landing() {
           gatherings to large conferences. Connect with your audience, sell
           tickets, and track your event&apos;s success all in one place.
         </p>
-        <div className="tablet:w-4/5 w-max max-w-full tablet:mb-5 mb-10 tablet:grid grid-cols-2 flex large:flex items-center large:h-14 h-14 tablet:h-max  gap-3">
+        <div className="tablet:w-[90%] w-max max-w-full tablet:mb-5 mb-10 tablet:grid grid-cols-2 flex large:flex items-center large:h-14 h-14 tablet:h-max  gap-3">
           <input
             className="w-[415px] tablet:w-full tablet:col-span-2 tablet:h-12 h-full outline-none rounded-2xl border border-primary-boulder200 px-6 tablet:text-sm text-sm large:text-base font-normal text-primary-boulder700 placeholder:text-primary-boulder200"
             placeholder="Search for upcoming events"

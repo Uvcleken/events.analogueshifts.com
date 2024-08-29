@@ -96,7 +96,7 @@ export default function CheckoutReview({ event, close, show, prices }: Params) {
                   value={contact}
                   onChange={(e) => setContact(e.target.value)}
                   className="md:w-[calc(50%-6px)] w-full rounded-none h-12 text-primary-boulder500 placeholder:text-primary-boulder500"
-                  placeholder="Contact"
+                  placeholder="Phone Number"
                 />
                 <Select
                   value={selectedPricing.uuid}
@@ -117,7 +117,7 @@ export default function CheckoutReview({ event, close, show, prices }: Params) {
                           key={item.uuid}
                           value={item.uuid}
                         >
-                          {item.name}
+                          {item.name} pricing
                         </SelectItem>
                       );
                     })}

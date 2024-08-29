@@ -65,7 +65,7 @@ export default function ShowEvent({ event }: Params) {
         </div>
       )}
       {event && (
-        <div className="pt-14  w-[90%] tablet:translate-y-0  max-w-desktop mx-auto translate-y-[calc(6vh+40px)]">
+        <div className="pt-14  w-[90%] tablet:translate-y-10 tablet:pb-10  max-w-desktop mx-auto translate-y-[calc(6vh+40px)]">
           <div className="w-full mb-5 flex justify-between  items-center">
             <h1 className="text-primary-boulder900 tablet:text-3xl text-6xl font-sans">
               <b> {event.title}</b>
