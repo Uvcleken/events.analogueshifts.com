@@ -97,29 +97,8 @@ export const useAuth = () => {
   };
 
   const logout = async ({ setLoading }: LogoutParams) => {
-    const url = "/logout";
-
-    const config = {
-      url: url,
-      method: "POST",
-      headers: {
-        Authorization: "Bearer " + token,
-      },
-    };
-
-    setLoading(true);
-
-    try {
-      await axios.request(config);
-      Cookies.remove("analogueshifts");
-      router.push("/");
-    } catch (error: any) {
-      setLoading(false);
-      notifyUser("error", error?.response?.data?.data?.message, "right");
-      if (error?.response?.status === 401) {
-        clearUserSession();
-      }
-    }
+    Cookies.remove("analogueshifts");
+    router.push("/");
   };
 
   return {
