@@ -38,7 +38,7 @@ export default async function Home() {
 
 const getEvents = async () => {
   try {
-    const res = await fetch("https://api.analogueshifts.com/api/event", {
+    const res = await fetch("https://api.analogueshifts.app/api/event", {
       next: {
         revalidate: 60,
       },

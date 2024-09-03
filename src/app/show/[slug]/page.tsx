@@ -22,7 +22,7 @@ export default async function Page({ params }: any) {
 const getEvent = async (slug: string) => {
   try {
     const res = await fetch(
-      `https://api.analogueshifts.com/api/event/${slug}`,
+      `https://api.analogueshifts.app/api/event/${slug}`,
       {
         next: {
           revalidate: 60,

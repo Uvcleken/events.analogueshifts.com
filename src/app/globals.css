@@ -184,7 +184,7 @@ input[type="password"]::-ms-reveal {
 .prose p {
   margin-top: 1rem;
   margin-bottom: 1rem;
-  line-height: 1.75;
+  line-height: 2.2;
 }
 
 .hover-text-button:hover span:nth-child(1) {

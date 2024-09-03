@@ -22,7 +22,7 @@ export default async function Page({
 
 const getEvents = async (page: string) => {
   try {
-    const url = new URL("https://api.analogueshifts.com/api/event");
+    const url = new URL("https://api.analogueshifts.app/api/event");
     url.searchParams.append("page", page);
 
     const res = await fetch(url.toString(), {
