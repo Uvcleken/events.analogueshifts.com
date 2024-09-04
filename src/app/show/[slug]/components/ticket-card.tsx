@@ -7,8 +7,8 @@ export default function TicketCard({
 }) {
   return (
     <>
-      <div className="col-span-2 tablet:col-span-1 w-full h-max max-h-[300px] p-5 bg-white border flex flex-col gap-5">
-        <div className="w-full flex flex-col max-h-[200px] overflow-y-auto p-4 border scroll-hidden">
+      <div className="col-span-2 tablet:col-span-1 w-full h-max p-5 bg-white border flex flex-col gap-5">
+        <div className="w-full flex flex-col h-max p-4 border">
           <p className="text-base font-medium text-primary-boulder900">
             <b>Pricings</b>
           </p>

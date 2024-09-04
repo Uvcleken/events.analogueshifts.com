@@ -65,7 +65,7 @@ export default function ShowEvent({ event }: Params) {
         </div>
       )}
       {event && (
-        <div className="pt-14  w-[90%] tablet:translate-y-10 tablet:pb-10  max-w-desktop mx-auto translate-y-[calc(6vh+40px)]">
+        <div className="pt-14  w-[90%] tablet:mt-[30px] tablet:pb-10  max-w-desktop mx-auto mt-[55px]">
           <div className="w-full mb-5 flex justify-between  items-center">
             <h1 className="text-primary-boulder900 tablet:text-3xl text-6xl font-sans">
               <b> {event.title}</b>
@@ -87,10 +87,10 @@ export default function ShowEvent({ event }: Params) {
             <div className="col-span-4 max-w-full tablet:col-span-1 flex flex-col">
               <div
                 dangerouslySetInnerHTML={{ __html: event.description }}
-                className="text-primary-boulder700 font-normal text-base prose mt-3"
+                className="text-primary-boulder700 font-normal text-base prose"
               ></div>
 
-              <h2 className="text-primary-boulder900 mt-7 tablet:text-base text-2xl font-sans mb-5">
+              <h2 className="text-primary-boulder900 mt-3 tablet:text-base text-2xl font-sans mb-5">
                 <b>Registration Date and time of Event</b>
               </h2>
               <p className="text-primary-boulder700 max-w-full  font-medium text-sm flex flex-wrap gap-1 items-center">
