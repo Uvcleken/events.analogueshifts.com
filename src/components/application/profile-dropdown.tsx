@@ -70,7 +70,7 @@ export default function LoggedInProfileDropdown({
             }
             alt="Profile"
           />
-          <AvatarFallback className="bg-background-darkYellow text-white text-sm font-bold ">
+          <AvatarFallback className="bg-[#ffbb0a] text-white text-sm font-bold ">
             {user?.user?.email?.slice(0, 1)?.toUpperCase()}
           </AvatarFallback>
         </Avatar>
