@@ -4,6 +4,35 @@ import { EventTypes } from "@/configs/landing";
 import Slider from "@/components/application/home/slider";
 import ExploreEvents from "@/components/application/home/explore-events";
 import DownloadApp from "@/components/application/home/download-app";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Online Event Management Software | Analogue Shifts",
+  description:
+    "Simplify your event planning with our online event management software. Manage registrations, schedules, and communication all in one user-friendly platform.",
+  openGraph: {
+    title: "Online Event Management Software | Analogue Shifts",
+    description:
+      "Simplify your event planning with our online event management software. Manage registrations, schedules, and communication all in one user-friendly platform.",
+    url: "https://events.analogueshifts.app",
+    siteName: "AnalogueShifts Events Planner",
+    images: [
+      {
+        url: "/a4.jpg",
+        width: 800,
+        height: 600,
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  alternates: {
+    canonical: "https://events.analogueshifts.app",
+  },
+  verification: {
+    google: "wNT1hvWDYGZp2pbVAHsjrug-fDv3T_Z0uxTL_SWBOwc",
+  },
+};
 
 export default async function Home() {
   const events = await getEvents();
