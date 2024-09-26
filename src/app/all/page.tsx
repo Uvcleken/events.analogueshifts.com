@@ -2,6 +2,7 @@ import GuestLayout from "@/components/application/layouts/guest";
 import Landing from "./components/landing";
 import RenderEvents from "./components/render-events";
 import DownloadApp from "@/components/application/home/download-app";
+import Reviews from "@/components/application/home/reviews";
 
 export default async function Page({
   searchParams,
@@ -15,6 +16,7 @@ export default async function Page({
     <GuestLayout>
       <Landing />
       {events && <RenderEvents events={events?.data?.events} />}
+      <Reviews />
       <DownloadApp />
     </GuestLayout>
   );

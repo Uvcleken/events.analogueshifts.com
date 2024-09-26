@@ -42,12 +42,12 @@ export default function OurApps() {
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      <button className="font-medium text-primary-boulder950 large:text-base text-xs h-6 leading-5 flex items-center">
+      <button className="font-medium text-primary-boulder950 large:text-base text-xs h-6 leading-5 flex items-start">
         Products{" "}
         <Image
           src={ChevronDown}
           alt=""
-          className={`large:w-6 large:h-6 w-4 h-4 duration-200 ${
+          className={`large:w-6 large:h-6 w-4 h-4 duration-200 translate-y-[2px] ${
             isOpen ? "rotate-180" : "rotate-0"
           }`}
         />

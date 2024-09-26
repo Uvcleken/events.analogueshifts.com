@@ -26,7 +26,7 @@ const GuestNavigation = ({ user, handleLogout }: any) => {
 
   return (
     <div
-      className={`w-full bg-white flex justify-center h-20 large:h-[104px]  z-30 duration-500 fixed top-0 left-0`}
+      className={`w-full  bg-white flex justify-center h-20 large:h-[104px]  z-30 duration-500 fixed top-0 left-0`}
     >
       {/* Logout Idiom */}
 

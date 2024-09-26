@@ -98,7 +98,7 @@ export const useAuth = () => {
 
   const logout = async ({ setLoading }: LogoutParams) => {
     Cookies.remove("analogueshifts");
-    router.push("/");
+    window.location.href = "/";
   };
 
   return {

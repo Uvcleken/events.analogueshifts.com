@@ -1,10 +1,11 @@
 "use client";
 import Link from "next/link";
-import { convertDateFormat } from "@/app/events/resources/convert-date-format";
+import RightArrowWhite from "@/assets/images/right-arrow-white.svg";
 import { Share2 } from "lucide-react";
 
 import { share } from "@/configs/share";
 import { useAuth } from "@/hooks/auth";
+import Image from "next/image";
 
 interface Params {
   item: any;
@@ -17,15 +18,17 @@ export default function EventGridTile({ item, index }: Params) {
   return (
     <div
       key={index}
-      className="sm:pr-5 lg:pr-10 pr-0  flex-shrink-0 flex w-full sm:w-1/2 lg:w-1/3"
+      className={`flex-shrink-0 flex w-full sm:w-[calc(50%-20px)] lg:w-1/3 ${
+        index === 0 ? "pr-5 lg:pr-8" : index !== 1 ? "pl-5 lg:pl-8" : ""
+      }`}
     >
       <div className="flex relative event-grid flex-col w-full">
         <Link
-          href={"/show/" + item.slug}
-          className="w-full h-[220px] rounded-2xl mb-8"
+          href={""}
+          className="w-full tablet:h-[200px] h-[232px] rounded-2xl mb-6"
         >
           <img
-            src={item?.thumbnail ? item.thumbnail : "/venue.jpeg"}
+            src={item?.img ? item.img : "/venue.jpeg"}
             alt=""
             className="rounded-2xl w-full h-full object-cover"
           />
@@ -42,16 +45,38 @@ export default function EventGridTile({ item, index }: Params) {
         >
           <Share2 width={16} />
         </div>
-        <div className="w-full flex gap-x-8 gap-y-5 flex-wrap items-center">
-          <p className="text-[15px] text-primary-boulder400 font-normal">
-            {item.location_type === "virtual" ? "Online Event" : item.location}
-          </p>
-          <h2 className="large:text-[22px] w-full text-lg large:mb-2.5 leading-8 large:leading-10 font-medium text-primary-tan">
+        <div className="w-full flex flex-col">
+          <h2 className="large:text-xl font-medium text-[#111111] large:leading-[37px] mb-3 text-lg tablet:text-base">
             {item.title}
           </h2>
-          <p className="text-primary-boulder400 mb-5 large:mb-8 font-normal text-[15px]">
-            {convertDateFormat(item.starts_date)}
+          <p className="truncate-2-lines text-primary-boulder400 h-[60px] tablet:leading-7 mb-[22px] leading-[33px] tablet:text-xs text-sm">
+            {item.summary}
           </p>
+          <p className="text-primary-boulder900 mb-[26px] font-medium leading-[33px] tablet:text-xs text-sm">
+            {item.date} | {item.time} | {item.location}{" "}
+          </p>
+          <Link
+            className="h-[53px] hover-text-button bg-background-darkYellow text-primary-boulder50 flex justify-center items-center gap-1 rounded-2xl text-sm large:text-base font-semibold"
+            href=""
+          >
+            {" "}
+            <div className="flex-col flex overflow-hidden relative h-4">
+              {" "}
+              <span className="h-5 leading-4 overflow-hidden duration-300">
+                {" "}
+                Events details
+              </span>{" "}
+              <span className="h-5 leading-4 overflow-hidden absolute translate-y-4 duration-300">
+                {" "}
+                Events details
+              </span>
+            </div>
+            <Image
+              src={RightArrowWhite}
+              alt=""
+              className="h-max large:w-max w-4"
+            />
+          </Link>
         </div>
       </div>
     </div>

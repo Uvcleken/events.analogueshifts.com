@@ -5,11 +5,9 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import LeftArrow from "@/assets/images/left-arrow.svg";
+import RightArrowYellow from "@/assets/images/home/right-arrow.svg";
 import RightArrow from "@/assets/images/right-arrow.svg";
-import RightArrowWhite from "@/assets/images/right-arrow-white.svg";
-import { convertDateFormat } from "@/app/events/resources/convert-date-format";
-import { Share2 } from "lucide-react";
-import { share } from "@/configs/share";
+import EventGridTile from "./event-grid-tile";
 
 const Carousel = ({ posts }: any) => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -51,13 +49,13 @@ const Carousel = ({ posts }: any) => {
   useEffect(() => {
     const interval = setInterval(() => {
       goToNext();
-    }, 10000);
+    }, 12000);
 
     return () => clearInterval(interval);
   }, []);
 
   return (
-    <div className="relative w-full overflow-hidden">
+    <div className="relative w-full flex flex-col large:gap-[122px] gap-[90px] tablet:gap-[60px] overflow-hidden">
       <div
         className="flex  transition-transform duration-500"
         style={{
@@ -65,48 +63,7 @@ const Carousel = ({ posts }: any) => {
         }}
       >
         {posts.map((item: any, index: number) => (
-          <div
-            key={index}
-            className="sm:pr-5 lg:pr-10 pr-0  flex-shrink-0 flex w-full sm:w-1/2 lg:w-1/3"
-          >
-            <div className="flex relative event-grid flex-col w-full">
-              <Link
-                href={"/show/" + item.slug}
-                className="w-full h-[220px] rounded-2xl mb-8"
-              >
-                <img
-                  src={item?.thumbnail ? item.thumbnail : "/venue.jpeg"}
-                  alt=""
-                  className="rounded-2xl w-full h-full object-cover"
-                />
-              </Link>
-              <div
-                onClick={() =>
-                  share(
-                    item.title,
-                    "https://events.analogueshifts.com/show/" + item.slug,
-                    notifyUser
-                  )
-                }
-                className="absolute duration-500 share-button top-10 text-primary-boulder700 cursor-pointer flex justify-center items-center right-2 bg-white border w-10 h-10 rounded-full"
-              >
-                <Share2 width={16} />
-              </div>
-              <div className="w-full flex gap-x-8 gap-y-5 flex-wrap items-center">
-                <p className="text-[15px] text-primary-boulder400 font-normal">
-                  {item.location_type === "virtual"
-                    ? "Online Event"
-                    : item.location}
-                </p>
-                <h2 className="large:text-[22px] w-full text-lg large:mb-2.5 leading-8 large:leading-10 font-medium text-primary-tan">
-                  {item.title}
-                </h2>
-                <p className="text-primary-boulder400 mb-5 large:mb-8 font-normal text-[15px]">
-                  {convertDateFormat(item.starts_date)}
-                </p>
-              </div>
-            </div>
-          </div>
+          <EventGridTile item={item} index={index} key={index} />
         ))}
       </div>
 
@@ -126,12 +83,23 @@ const Carousel = ({ posts }: any) => {
           </button>
         </div>
         <Link
-          className="h-full px-10 large:px-12 bg-background-darkYellow flex justify-center items-center gap-1 rounded-2xl text-sm large:text-base font-semibold text-primary-boulder50"
+          className="h-full hover-text-button px-10 large:px-12 bg-transparent border border-background-darkYellow text-background-darkYellow flex justify-center items-center gap-1 rounded-2xl text-sm large:text-base font-semibold"
           href="/all"
         >
-          View More{" "}
+          {" "}
+          <div className="flex-col flex overflow-hidden relative h-4">
+            {" "}
+            <span className="h-5 leading-4 overflow-hidden duration-300">
+              {" "}
+              View More
+            </span>{" "}
+            <span className="h-5 leading-4 overflow-hidden absolute translate-y-4 duration-300">
+              {" "}
+              View More
+            </span>
+          </div>
           <Image
-            src={RightArrowWhite}
+            src={RightArrowYellow}
             alt=""
             className="h-max large:w-max w-4"
           />

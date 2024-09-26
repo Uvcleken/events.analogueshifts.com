@@ -1,0 +1,26 @@
+[
+  {
+    "img": "/hero.png",
+    "title": "Tech Innovators Summit",
+    "summary": "An onsite event featuring the brightest minds in tech, discussing innovation and future trends.",
+    "date": "Today",
+    "time": "9:30PM WAT",
+    "location": "Chicago Musuem"
+  },
+  {
+    "img": "/hero.png",
+    "title": "Startups & Entrepreneurs Meet",
+    "summary": "Network with fellow entrepreneurs and investors at this exclusive event.",
+    "date": "Septemper 2,2024",
+    "time": "10:00PM WAT",
+    "location": "Rike Park"
+  },
+  {
+    "img": "/hero.png",
+    "title": "Webinar on AI in Healthcare",
+    "summary": "Explore the impact of AI in healthcare with industry experts.",
+    "date": "September 25, 2024",
+    "time": "9:00AM WAT",
+    "location": "Online"
+  }
+]

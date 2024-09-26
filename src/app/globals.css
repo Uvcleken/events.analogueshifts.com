@@ -74,6 +74,9 @@
     @apply bg-background text-foreground;
   }
 }
+.accordion-dropshadow {
+  box-shadow: 0px 106px 250px 0px #00000014;
+}
 
 .lds-ellipsis,
 .lds-ellipsis div {
@@ -93,6 +96,9 @@
   border-radius: 50%;
   background: #ffbb0a;
   animation-timing-function: cubic-bezier(0, 1, 1, 0);
+}
+.review-box {
+  border: 0.67px solid #ffbb0a;
 }
 .lds-ellipsis div:nth-child(1) {
   left: 8px;
@@ -126,6 +132,7 @@
     transform: scale(0);
   }
 }
+
 @keyframes lds-ellipsis2 {
   0% {
     transform: translate(0, 0);
@@ -145,6 +152,13 @@ body::-webkit-scrollbar {
 
 .helpful-link:hover div {
   background-color: rgba(255, 187, 10, 0.1);
+}
+.slideshow {
+  background: linear-gradient(
+    90.99deg,
+    rgba(0, 0, 0, 0.6) 29.42%,
+    rgba(0, 0, 0, 0.16) 76.18%
+  );
 }
 
 input[type="password"]::-webkit-textfield-decoration-container {
@@ -188,7 +202,7 @@ input[type="password"]::-ms-reveal {
 }
 
 .hover-text-button:hover span:nth-child(1) {
-  transform: translateY(-16px);
+  transform: translateY(-20px);
 }
 .hover-text-button:hover span:nth-child(2) {
   transform: translateY(0px);
@@ -199,4 +213,11 @@ input[type="password"]::-ms-reveal {
 }
 .profile-menu:hover .profile-chevron {
   transform: translateY(2px);
+}
+.truncate-2-lines {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
 }

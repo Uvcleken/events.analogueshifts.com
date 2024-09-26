@@ -9,7 +9,7 @@ export default function Landing() {
   const { user } = useUser();
 
   return (
-    <section className="w-full overflow-hidden h-max large:pb-[216px] tablet:pb-[120px] pb-[170px] large:pt-[91px] pt-16 relative">
+    <section className="w-full overflow-hidden h-max large:pb-[176px] tablet:pb-[80px] pb-[130px] large:pt-[91px] pt-16 relative">
       <div className="w-full h-max  bg-transparent flex flex-col items-center justify-center">
         <div className="w-max max-w-full h-max tablet:mb-3 mb-5 rounded-full tablet:py-1 py-1.5 large:py-2.5 tablet:px-2.5 px-3.5 large:px-6 flex items-center tablet:gap-1 gap-2.5 bg-background-darkYellow/10">
           <Image
@@ -25,7 +25,7 @@ export default function Landing() {
           Connecting you with tailored{" "}
           <span className="text-background-darkYellow">Events</span>
         </h1>
-        <p className="text-center tablet:mb-5 mb-7 large:mb-10 tablet:max-w-full px-5 max-w-[770px] large:max-w-[889px] tablet:leading-7 leading-8 large:leading-[48px] font-normal tablet:text-sm text-base large:text-xl text-primary-boulder400">
+        <p className="text-center tablet:mb-5 mb-7 large:mb-10 tablet:max-w-full px-5 max-w-[750px] large:max-w-[800px] tablet:leading-7 leading-8 large:leading-[48px] font-normal tablet:text-sm text-base large:text-xl text-primary-boulder400">
           Create, manage, and promote your events with ease. Our platform
           empowers organizers to design unforgettable experiences, from small
           gatherings to large conferences. Connect with your audience, sell
@@ -50,9 +50,6 @@ export default function Landing() {
             Create an event
           </Link>
         </div>
-        <p className="text-base tablet:text-xs tablet:px-5 px-0 text-center font-medium text-primary-boulder400">
-          You can quickly search for events or post an event
-        </p>
       </div>
     </section>
   );

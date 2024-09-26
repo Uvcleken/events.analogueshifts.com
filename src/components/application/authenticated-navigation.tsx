@@ -24,7 +24,7 @@ export default function AuthenticationNavigation({ user, handleLogout }: any) {
   }, [pathname]);
 
   return (
-    <nav className="w-full h-20 px-6 sm:px-20 large:px-[112px] large:h-[104px] z-40 fixed backdrop-blur-lg bg-opacity-30 top-0 left-0 duration-300 flex items-center justify-between border-b bg-white">
+    <nav className="w-full max-w-[1650px] mx-auto h-20 px-6 sm:px-20 large:px-[112px] large:h-[104px] z-40 fixed backdrop-blur-lg bg-opacity-30 top-0 left-0 duration-300 flex items-center justify-between border-b bg-white">
       <Link href="/">
         <Image
           src={NavLogo}

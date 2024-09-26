@@ -6,6 +6,9 @@ import EventGridTile from "@/components/application/home/event-grid-tile";
 import Image from "next/image";
 import Spinner from "@/assets/images/event-types/spinner.svg";
 
+import dummyEvents from "@/components/application/utilities/dummy-events.json";
+import CategorySelector from "@/components/application/home/category-selector";
+
 export default function RenderEvents({ events }: { events: any }) {
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState(events?.data || []);
@@ -32,16 +35,17 @@ export default function RenderEvents({ events }: { events: any }) {
   };
 
   return (
-    <section className="w-full  tablet:px-5 z-20 sticky px-10 h-max bg-white items-center overflow-hidden large:pb-[168px] tablet:pb-14 pb-24 flex flex-col">
+    <section className="w-full max-w-[1650px] mx-auto tablet:px-5 z-20 sticky px-10 h-max bg-white items-center overflow-hidden large:pb-[168px] tablet:pb-14 pb-24 flex flex-col">
       <h2 className="text-center mb-5 font-semibold text-2xl tablet:text-lg large:text-32 text-black">
-        Explore All <span className="text-background-darkYellow">Events</span>
+        Explore <span className="text-background-darkYellow">Events</span>
       </h2>
-      <p className="text-primary-boulder400 mb-12 large:mb-16 tablet:text-sm text-base large:text-xl text-center font-normal">
+      <p className="text-primary-boulder400 mb-8 large:mb-10 tablet:text-sm text-base large:text-xl text-center font-normal">
         Explore upcoming tailored events.
       </p>
+      <CategorySelector />
       <div className="relative w-full overflow-hidden mb-10">
         <div className="flex flex-wrap tablet:gap-y-10 gap-y-14 transition-transform duration-500">
-          {data.map((item: any, index: number) => {
+          {dummyEvents.map((item: any, index: number) => {
             return <EventGridTile item={item} index={index} key={index} />;
           })}
         </div>
