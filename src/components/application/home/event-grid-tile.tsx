@@ -19,7 +19,11 @@ export default function EventGridTile({ item, index }: Params) {
     <div
       key={index}
       className={`flex-shrink-0 flex w-full sm:w-[calc(50%-20px)] lg:w-1/3 ${
-        index === 0 ? "pr-5 lg:pr-8" : index !== 1 ? "pl-5 lg:pl-8" : ""
+        index === 0
+          ? "pr-5 lg:pr-8 tablet:px-2"
+          : index !== 1
+          ? "pl-5 lg:pl-8 tablet:px-2"
+          : ""
       }`}
     >
       <div className="flex relative event-grid flex-col w-full">

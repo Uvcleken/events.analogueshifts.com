@@ -102,12 +102,12 @@ export default function Reviews() {
         What Our Users Are
         <span className="text-background-darkYellow">Saying</span>
       </h2>
-      <div className="w-[calc(100%-96px)] mb-[58px] large:mb-[76px] tablet:w-[calc(100%-64px)] transition-transform  tablet:h-max h-[274px] large:h-[274px] overflow-x-hidden">
+      <div className="w-[calc(100%-96px)] mb-[58px] large:mb-[76px] tablet:w-[calc(100%-64px)] transition-transform  tablet:h-[300px] h-[274px] large:h-[274px] overflow-x-hidden">
         <div
           style={{
             transform: `translateX(-${currentIndex * (100 / itemsPerView)}%)`,
           }}
-          className="duration-500 tablet:h-max h-full flex  items-center"
+          className="duration-500  h-full flex  items-center"
         >
           {ratings.map((item: any, index: number) => {
             return (
@@ -115,9 +115,9 @@ export default function Reviews() {
                 key={index}
                 className={`flex-shrink-0 w-full h-full sm:w-[calc(50%-20px)] lg:w-1/3 ${
                   index === 0
-                    ? "pr-4 lg:pr-6"
+                    ? "pr-4 tablet:pr-0 lg:pr-6"
                     : index !== 1
-                    ? "pl-4 lg:pl-6"
+                    ? "pl-4 tablet:pl-0 lg:pl-6"
                     : ""
                 }`}
               >
