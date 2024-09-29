@@ -1,26 +1,30 @@
 [
-  {
-    "question": "How do I create an event?",
-    "answer": "Easily create an event by selecting your event type and following the simple steps on our platform."
-  },
-  {
-    "question": "Can I share events on social media?",
-    "answer": "Yes, share your events across various social media platforms with just a click."
-  },
-  {
-    "question": "Is the platform mobile-friendly?",
-    "answer": "Absolutely! Our platform is fully optimized for mobile use."
-  },
-  {
-    "question": "Can I manage both online and onsite events?",
-    "answer": "Yes, you can manage and organize both types of events effortlessly."
-  },
-  {
-    "question": "Is there a fee for posting events?",
-    "answer": "Posting events is free, with optional premium features available."
-  },
-  {
-    "question": "How do I get started?",
-    "answer": "Sign up, and you’re ready to create, share, and manage your events."
-  }
+  [
+    {
+      "question": "How do I create an event?",
+      "answer": "Easily create an event by selecting your event type and following the simple steps on our platform."
+    },
+    {
+      "question": "Can I share events on social media?",
+      "answer": "Yes, share your events across various social media platforms with just a click."
+    },
+    {
+      "question": "Is the platform mobile-friendly?",
+      "answer": "Absolutely! Our platform is fully optimized for mobile use."
+    }
+  ],
+  [
+    {
+      "question": "Can I manage both online and onsite events?",
+      "answer": "Yes, you can manage and organize both types of events effortlessly."
+    },
+    {
+      "question": "Is there a fee for posting events?",
+      "answer": "Posting events is free, with optional premium features available."
+    },
+    {
+      "question": "How do I get started?",
+      "answer": "Sign up, and you’re ready to create, share, and manage your events."
+    }
+  ]
 ]
