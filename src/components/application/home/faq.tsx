@@ -14,7 +14,6 @@ import {
 
 export default function FAQ() {
   const router = useRouter();
-  const [selected, setSelected] = useState("");
 
   return (
     <section className="w-full max-w-[1650px] mx-auto large:px-[148px] px-[120px] tablet:px-6 large:pb-[134px] pb-[104px] tablet:pb-[84px] flex flex-col items-center">
@@ -41,33 +40,16 @@ export default function FAQ() {
                     value={String(index)}
                     className="accordion-dropshadow px-8 rounded-[10px] border border-[#FFBB0A3D] bg-white"
                   >
-                    <AccordionTrigger
-                      onClick={() => {
-                        if (selected !== item.question) {
-                          setSelected(item.question);
-                        } else {
-                          setSelected("");
-                        }
-                      }}
-                      className="items-start py-0"
-                    >
+                    <AccordionTrigger className="items-start py-0">
                       <div className="w-full h-[100px] tablet:h-max tablet:py-6 flex gap-[30px] items-center">
-                        <div className="w-[30px] h-[30px] tablet:w-5 tablet:h-5 relative flex justify-center items-center">
-                          <div
-                            className={`w-full h-[5px] tablet:h-[3px] rounded-[20px] bg-[#14051B] duration-500  ${
-                              selected === item.question
-                                ? "opacity-0"
-                                : "opacity-100"
-                            }`}
-                          ></div>
-                          <div
-                            className={` duration-500 h-[30px] tablet:h-5 tablet:w-[3px] absolute top-0 left-[50%] w-[5px] rounded-[20px] -translate-x-[50%] ${
-                              selected === item.question
-                                ? "bg-background-darkYellow rotate-[-90deg]"
-                                : "bg-[#14051B] rotate-0"
-                            }`}
-                          ></div>
-                        </div>{" "}
+                        <span className="icon w-[30px] duration-500 h-[30px] tablet:w-5 tablet:h-5 relative flex justify-center items-center">
+                          <p
+                            className={`w-full plus h-[5px] opacity-100 tablet:h-[3px] rounded-[20px] bg-[#14051B] duration-500  `}
+                          ></p>
+                          <p
+                            className={`bg-[#14051B] minus rotate-0 duration-500 h-[30px] tablet:h-5 tablet:w-[3px] absolute top-0 left-[50%] w-[5px] rounded-[20px] -translate-x-[50%] `}
+                          ></p>
+                        </span>{" "}
                         <h3 className="font-semibold text-[#14051B] large:text-xl text-lg text-start tablet:text-sm">
                           {item.question}
                         </h3>
