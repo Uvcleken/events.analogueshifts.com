@@ -53,7 +53,7 @@ const DateAndLocation: React.FC<DateAndLocationInterface> = ({
           {checkValidation() ? <Check width={20} /> : <Plus width={20} />}
         </div>
         <h2 className="text-primary-boulder900 tablet:text-xl text-3xl font-bold mb-3.5">
-          <b>Registration Date & Event Location</b>
+          <b>Event Date & Location</b>
         </h2>
         <p className="text-primary-boulder900 font-medium text-sm flex gap-1 items-center">
           <Calendar width={18} />{" "}

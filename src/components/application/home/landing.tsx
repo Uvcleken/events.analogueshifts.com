@@ -4,11 +4,13 @@ import Image from "next/image";
 import SectionMessage from "./section-message";
 import Plus from "@/assets/images/plus.svg";
 import Calendar from "@/assets/images/calendar.svg";
+import Cookies from "js-cookie";
 
 import Hero from "@/assets/images/home/hero.svg";
 
 export default function Landing() {
   const router = useRouter();
+  const token = Cookies.get("analogueshifts");
 
   return (
     <section className="w-full flex justify-center">
@@ -26,7 +28,11 @@ export default function Landing() {
           </div>
           <SectionMessage
             action={() => {
-              router.push("https://www.analogueshifts.com/contact");
+              router.push(
+                token
+                  ? "/events/create"
+                  : "https://auth.analogueshifts.app?app=events"
+              );
             }}
             title="Create, Share, and Post Events"
             highlighted="with Ease"

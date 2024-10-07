@@ -28,9 +28,7 @@ const getEvents = async (page: string) => {
     url.searchParams.append("page", page);
 
     const res = await fetch(url.toString(), {
-      next: {
-        revalidate: 60,
-      },
+      cache: "no-store",
     });
 
     const contentType = res.headers.get("Content-Type") || "";

@@ -55,9 +55,7 @@ export default async function Home() {
 const getEvents = async () => {
   try {
     const res = await fetch("https://api.analogueshifts.app/api/event", {
-      next: {
-        revalidate: 60,
-      },
+      cache: "no-store",
     });
 
     const contentType = res.headers.get("Content-Type") || "";

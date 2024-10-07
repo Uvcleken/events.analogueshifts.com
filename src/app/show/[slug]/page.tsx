@@ -24,9 +24,7 @@ const getEvent = async (slug: string) => {
     const res = await fetch(
       `https://api.analogueshifts.app/api/event/${slug}`,
       {
-        next: {
-          revalidate: 60,
-        },
+        cache: "no-store",
       }
     );
 
