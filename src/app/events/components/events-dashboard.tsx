@@ -54,11 +54,11 @@ export default function EventsDashboard() {
           </div>
 
           {/* List */}
-          <div className="w-full tablet:h-[60vh] h-allEventsSection overflow-y-auto">
+          <div className="w-full tablet:h-max tablet:max-h-[60vh] h-allEventsSection overflow-y-auto">
             {events ? (
               <>
                 {events?.length === 0 ? (
-                  <div className="w-full h-full flex flex-col items-center justify-center">
+                  <div className="w-full h-full py-5 flex flex-col items-center justify-center">
                     <Image
                       src={EmptyBox}
                       alt="Empty Box"

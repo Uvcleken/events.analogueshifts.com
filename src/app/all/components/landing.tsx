@@ -9,7 +9,7 @@ export default function Landing() {
   const { user } = useUser();
 
   return (
-    <section className="w-full overflow-hidden h-max large:pb-[176px] tablet:pb-[80px] pb-[130px] large:pt-[91px] pt-16 relative">
+    <section className="w-full overflow-hidden h-max large:pb-[156px] tablet:pb-[80px] pb-[110px] large:pt-[91px] pt-16 relative">
       <div className="w-full h-max  bg-transparent flex flex-col items-center justify-center">
         <div className="w-max max-w-full h-max tablet:mb-3 mb-5 rounded-full tablet:py-1 py-1.5 large:py-2.5 tablet:px-2.5 px-3.5 large:px-6 flex items-center tablet:gap-1 gap-2.5 bg-background-darkYellow/10">
           <Image

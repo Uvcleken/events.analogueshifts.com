@@ -28,6 +28,7 @@ export default function CreatePage() {
     price: "0",
     maximum: "10",
     status: "public",
+    category: ["Tech"],
   });
 
   const [dateAndLocationInfo, setDateAndLocationInfo] = useState({
@@ -84,7 +85,7 @@ export default function CreatePage() {
       <p className="text-primary-boulder900 font-medium text-base mb-4">
         Add all of your event details and let attendees know what to expect
       </p>
-      <section className="w-[90%] mx-auto flex flex-col gap-5">
+      <section className="w-[95%] mx-auto flex flex-col gap-5">
         <EventInfo
           isOpen={openSection === "info"}
           toggleSection={(section: string) =>
@@ -110,12 +111,11 @@ export default function CreatePage() {
           toggleSection={(section: string) =>
             toggleSection(section, setOpenSection)
           }
-          setLoading={setLoading}
           setThumbnail={setThumbnail}
         />
       </section>
 
-      <section className="fixed z-20 bottom-0 left-0 w-screen bg-white py-5 flex justify-end tablet:pr-8 pr-5">
+      <section className="fixed  z-50 bottom-0 left-0 w-screen bg-white py-5 flex justify-end tablet:pr-8 pr-5">
         <Button
           onClick={handleCreateEvent}
           className="bg-background-darkYellow hover:bg-background-darkYellow/80 tablet:px-8 tablet:py-3"

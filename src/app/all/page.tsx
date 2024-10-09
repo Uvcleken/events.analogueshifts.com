@@ -15,7 +15,7 @@ export default async function Page({
   return (
     <GuestLayout>
       <Landing />
-      {events && <RenderEvents events={events?.data?.events} />}
+      {events && <RenderEvents events={events?.data?.events?.data} />}
       <Reviews />
       <DownloadApp />
     </GuestLayout>

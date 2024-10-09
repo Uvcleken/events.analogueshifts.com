@@ -1,18 +1,46 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "@/lib/axios";
 import EventGridTile from "@/components/application/home/event-grid-tile";
 
 import Image from "next/image";
 import Spinner from "@/assets/images/event-types/spinner.svg";
 
-import dummyEvents from "@/components/application/utilities/dummy-events.json";
 import CategorySelector from "@/components/application/home/category-selector";
+import { useToast } from "@/contexts/toast";
 
 export default function RenderEvents({ events }: { events: any }) {
   const [loading, setLoading] = useState(false);
-  const [data, setData] = useState(events?.data || []);
   const [currentPageInfo, setCurrentPageInfo] = useState(events);
+  const [posts, setPosts] = useState(events);
+  const [selectedCategory, setSelectedCategory] = useState("All");
+  const { notifyUser }: any = useToast();
+
+  const filterByCategory = async () => {
+    try {
+      const request = await axios.get("/event?category=" + selectedCategory);
+      if (request?.data?.success) {
+        setPosts(request?.data?.data?.events?.data);
+      }
+    } catch (error: any) {
+      notifyUser(
+        "error",
+        error?.response?.data?.message ||
+          error?.response?.data?.data?.message ||
+          error?.message ||
+          "Failed to fetch events",
+        "right"
+      );
+    }
+  };
+
+  useEffect(() => {
+    if (selectedCategory === "All") {
+      setPosts(events);
+    } else {
+      filterByCategory();
+    }
+  }, [selectedCategory]);
 
   const handleFetchMore = async () => {
     try {
@@ -26,7 +54,7 @@ export default function RenderEvents({ events }: { events: any }) {
         setLoading(false);
         if (res.data?.success) {
           setCurrentPageInfo(res.data.data.events);
-          setData(res.data.data.events.data);
+          setPosts(res.data.data.events.data);
         }
       } catch (error) {
         setLoading(false);
@@ -42,13 +70,23 @@ export default function RenderEvents({ events }: { events: any }) {
       <p className="text-primary-boulder400 mb-8 large:mb-10 tablet:text-sm text-base large:text-xl text-center font-normal">
         Explore upcoming tailored events.
       </p>
-      <CategorySelector />
+      <CategorySelector
+        selectedCategory={selectedCategory}
+        setSelectedCategory={setSelectedCategory}
+      />
       <div className="relative w-full overflow-hidden mb-10">
         <div className="flex flex-wrap tablet:gap-y-10 gap-y-14 transition-transform duration-500">
-          {dummyEvents.map((item: any, index: number) => {
+          {posts.map((item: any, index: number) => {
             return <EventGridTile item={item} index={index} key={index} />;
           })}
         </div>
+        {posts.length === 0 && (
+          <div className="w-full py-10 flex justify-center items-center">
+            <p className=" text-primary-boulder400  tablet:text-sm text-base">
+              No event found.
+            </p>
+          </div>
+        )}
       </div>
       {currentPageInfo?.next_page_url && (
         <button

@@ -1,5 +1,5 @@
 export const categories = [
-  "Trending Events",
+  "All",
   "Tech",
   "Entertainment",
   "Food & Drinks",

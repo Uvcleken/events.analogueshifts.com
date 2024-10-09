@@ -1,8 +1,9 @@
 "use client";
-import React from "react";
-import { Plus, Check } from "lucide-react";
+import React, { useState } from "react";
+import { Plus, Check, X } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import Tiptap from "@/components/application/tiptap/tiptap";
+import { AnimatePresence, motion } from "framer-motion";
 
 interface EventInfo {
   isOpen: boolean;
@@ -17,6 +18,8 @@ const EventInfo: React.FC<EventInfo> = ({
   eventInfoData,
   setEventInfoData,
 }) => {
+  const [category, setCategory] = useState("");
+
   // Checks If All the required info field Has been Field
   const validate = () => {
     if (
@@ -75,7 +78,7 @@ const EventInfo: React.FC<EventInfo> = ({
             Event Overview
           </h4>
           <h6 className="text-primary-boulder900 font-semibold text-base mb-3">
-            Your Email
+            Your email
           </h6>
           <p className="text-primary-boulder900 font-normal text-xs mb-3">
             Enter your email address. Attendes will contact you with this email
@@ -89,7 +92,7 @@ const EventInfo: React.FC<EventInfo> = ({
             className="text-sm font-medium text-primary-boulder900 placeholder:text-primary-boulder900/70 h-12 mb-6"
           />
           <h6 className="text-primary-boulder900 font-semibold text-base mb-3">
-            Your Contact
+            Your contact
           </h6>
           <p className="text-primary-boulder900 font-normal text-xs mb-3">
             Enter your contact. Attendes will contact you with this number if
@@ -117,13 +120,75 @@ const EventInfo: React.FC<EventInfo> = ({
             className="text-sm font-medium text-primary-boulder900 placeholder:text-primary-boulder900/70 h-12 mb-6"
           />
           <h6 className="text-primary-boulder900 font-semibold text-base mb-3">
-            Event Description
+            Event categories
+          </h6>
+          <p className="text-primary-boulder900 font-normal text-xs mb-3">
+            Select the categories your event fall under.
+          </p>
+          <select
+            value={category}
+            onChange={(e) => {
+              setCategory(e.target.value);
+              if (!eventInfoData.category.includes(e.target.value)) {
+                setEventInfoData((prev: any) => {
+                  return {
+                    ...prev,
+                    category: [...prev.category, e.target.value],
+                  };
+                });
+              }
+            }}
+            className="unclose w-full text-sm font-medium border rounded-md outline-none px-2 text-primary-boulder900 placeholder:text-primary-boulder900/70 h-12 mb-3"
+          >
+            <option value="Tech">Tech</option>
+            <option value="Entertainment">Entertainment</option>
+            <option value="Foods & Drinks">Foods & Drinks</option>
+            <option value="Hobbies">Hobbies</option>
+            <option value="Business">Business</option>
+          </select>
+          <div className="mb-6 w-full h-max min-h-[120px] rounded-md border flex gap-2 flex-wrap p-3">
+            <AnimatePresence initial={false} mode="popLayout">
+              {eventInfoData.category.map((item: string, index: number) => {
+                return (
+                  <motion.div
+                    layout
+                    key={index}
+                    initial={{ scale: 0.7, opacity: 0 }}
+                    animate={{ scale: 1, opacity: 1 }}
+                    exit={{ scale: 0.8, opacity: 0 }}
+                    transition={{ type: "spring" }}
+                    className="bg-background-darkYellow w-max h-8 rounded-[2px] flex items-center px-1.5 py-1"
+                  >
+                    <p className="text-white text-[13px] font-normal">
+                      {item?.toUpperCase()}
+                    </p>
+                    <button
+                      type="button"
+                      className="outline-none bg-none"
+                      onClick={() =>
+                        setEventInfoData((prev: any) => {
+                          return {
+                            ...prev,
+                            category: prev.category.filter(
+                              (v: any) => v !== item
+                            ),
+                          };
+                        })
+                      }
+                    >
+                      <X className="text-white" width={18} />
+                    </button>
+                  </motion.div>
+                );
+              })}
+            </AnimatePresence>
+          </div>
+          <h6 className="text-primary-boulder900 font-semibold text-base mb-3">
+            Event summary
           </h6>
           <p className="text-primary-boulder900 font-normal text-xs mb-3">
             Grab people&apos;s attention with a description about your event.
-            Attendees will see this at the top of your event page. <br /> Note:
-            Include all the details for your event here, Including your Event
-            Date and Time
+            Attendees will see this at the top of your event page.
           </p>
 
           <div className="w-full mb-6">

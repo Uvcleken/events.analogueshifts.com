@@ -5,8 +5,13 @@ import Image from "next/image";
 import { categories } from "@/configs/categories";
 import { useState, useEffect } from "react";
 
-export default function CategorySelector() {
-  const [selectedCategory, setSelectedCategory] = useState("Trending Events");
+export default function CategorySelector({
+  selectedCategory,
+  setSelectedCategory,
+}: {
+  selectedCategory: string;
+  setSelectedCategory: any;
+}) {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [itemsPerSlide, setItemsPerSlide] = useState(4); // Default to 3 items per slide (desktop)
   const itemGap = 24; // Gap between slides in pixels

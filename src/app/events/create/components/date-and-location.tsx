@@ -65,7 +65,7 @@ const DateAndLocation: React.FC<DateAndLocationInterface> = ({
       {isOpen && (
         <div className="w-full rounded-lg overflow-hidden h-max p-6 flex flex-col">
           <h4 className="text-primary-boulder900 font-bold text-xl mb-6">
-            Event Registration Date
+            Event Date
           </h4>
           <div className="w-full grid tablet:grid-cols-1 grid-cols-2 gap-5 mb-8">
             <div className="col-span-1 flex flex-col">
@@ -73,7 +73,7 @@ const DateAndLocation: React.FC<DateAndLocationInterface> = ({
                 Starts Date
               </h6>
               <p className="text-primary-boulder900 font-normal text-xs mb-3">
-                Enter the date and time the registration for your event starts.
+                Enter the date and time your event starts.
               </p>
               <Input
                 type="datetime-local"
@@ -88,7 +88,7 @@ const DateAndLocation: React.FC<DateAndLocationInterface> = ({
                 Ends Date
               </h6>
               <p className="text-primary-boulder900 font-normal text-xs mb-3">
-                Enter the date and time the registration for your event ends.
+                Enter the date and time your event ends.
               </p>
               <Input
                 type="datetime-local"

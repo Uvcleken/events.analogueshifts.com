@@ -384,9 +384,13 @@ export const useEvents = () => {
       setLoading(false);
       notifyUser(
         "error",
-        error?.response?.data?.data?.message || "Failed To Create Event",
+        error?.response?.data?.data?.message ||
+          error?.response?.data?.message ||
+          "Failed To Create Event",
         "right"
       );
+      console.log(error);
+
       if (error?.response?.status === 401) {
         clearUserSession();
       }

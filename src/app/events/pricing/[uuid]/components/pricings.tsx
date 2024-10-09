@@ -91,7 +91,7 @@ export default function Pricings({ uuid }: { uuid: string }) {
             </div>
 
             {/* List */}
-            <div className="scroll-hidden w-full h-[70vh] overflow-y-auto">
+            <div className="scroll-hidden w-full h-[70vh] tablet:h-max tablet:max-h-[70vh] overflow-y-auto">
               {!user || loading ? (
                 <div className="w-full flex flex-col gap-5 py-5">
                   <Skeleton className="w-full h-11" />

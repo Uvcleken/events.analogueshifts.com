@@ -1,17 +1,17 @@
 "use client";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import React from "react";
 import Image from "next/image";
 import ImageShape from "@/assets/images/image-shape.svg";
 import { Upload, Plus, Check } from "lucide-react";
-import { clearUserSession } from "@/configs/clear-user-session";
-import Cookies from "js-cookie";
+import "cropperjs/dist/cropper.css";
+import CropModal from "./crop-modal";
+import { uploadImage } from "@/configs/upload-event/upload-image";
 
 interface UploadImage {
   isOpen: boolean;
   toggleSection: any;
   thumbnail: string;
-  setLoading: any;
   setThumbnail: any;
   notifyUser: any;
 }
@@ -20,44 +20,31 @@ const UploadImage: React.FC<UploadImage> = ({
   isOpen,
   toggleSection,
   thumbnail,
-  setLoading,
   setThumbnail,
   notifyUser,
 }) => {
   const imageFileRef: any = useRef(null);
-  const token = Cookies.get("analogueshifts");
+  const [loading, setLoading] = useState(false);
+  const [croppedImage, setCroppedImage] = useState<string>(""); // State to store the cropped image
+  const [imageToCrop, setImageToCrop] = useState<string | null>(null); // State to store the image preview for cropping
 
-  const uploadImage = async (value: any) => {
-    const url = process.env.NEXT_PUBLIC_FILE_UPLOAD_URL + "/upload";
-    const axios = require("axios");
-    const formData = new FormData();
-    formData.append("upload", value);
-    formData.append("type", "image");
-    let config = {
-      method: "POST",
-      url: url,
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "multipart/form-data",
-        Authorization: "Bearer " + token || "",
-      },
-      data: formData,
-    };
+  // Reference to the Cropper instance
+  const cropperRef: any = useRef(null);
 
-    setLoading(true);
-    try {
-      const data = await axios.request(config);
-      setThumbnail(data.data.data.full_path);
-      setLoading(false);
-    } catch (error: any) {
-      setLoading(false);
-      notifyUser("error", error?.response?.data?.data?.message || "", "right");
-      if (error?.response?.status === 401) {
-        clearUserSession();
-      }
+  // Function to handle cropping
+  const cropImage = () => {
+    if (cropperRef.current) {
+      const cropper: any = cropperRef.current.cropper;
+      const croppedCanvas = cropper.getCroppedCanvas({
+        width: 2160, // Set the width to 2160px
+        height: 1080, // Set the height to 1080px
+      });
+      setCroppedImage(croppedCanvas.toDataURL()); // Save the cropped image as a base64 string
+      handleUploadCroppedImage(croppedCanvas.toDataURL());
     }
   };
 
+  // Handle file input change
   const handleFileChange = (e: any) => {
     const maxFileSize = 5 * 1024 * 1024;
     const selectedFile = e.target.files[0];
@@ -66,8 +53,39 @@ const UploadImage: React.FC<UploadImage> = ({
       return;
     }
     if (selectedFile) {
-      uploadImage(selectedFile);
+      const reader = new FileReader();
+      reader.onload = () => {
+        setImageToCrop(reader.result as string); // Display the image in the cropper
+        setCroppedImage(reader.result as string);
+      };
+      reader.readAsDataURL(selectedFile);
     }
+  };
+
+  // Handle cropping and uploading the image
+  const handleUploadCroppedImage = async (img: string) => {
+    if (img) {
+      const croppedBlob = dataURLToBlob(croppedImage); // Convert base64 to Blob
+      try {
+        await uploadImage(croppedBlob, setLoading, setThumbnail, notifyUser);
+        setImageToCrop(null);
+      } catch (error) {
+        setImageToCrop(null);
+      }
+    }
+  };
+
+  // Utility function to convert base64 to Blob
+  const dataURLToBlob = (dataURL: string) => {
+    const arr = dataURL.split(",");
+    const mime = arr[0].match(/:(.*?);/)?.[1];
+    const bstr = atob(arr[1]);
+    let n = bstr.length;
+    const u8arr = new Uint8Array(n);
+    while (n--) {
+      u8arr[n] = bstr.charCodeAt(n);
+    }
+    return new Blob([u8arr], { type: mime });
   };
 
   return (
@@ -91,7 +109,7 @@ const UploadImage: React.FC<UploadImage> = ({
               : "/concert.jpg"
           }
           alt=""
-          className="w-full h-[250px] sm:h-[400px] object-cover"
+          className="w-full h-[200px] object-center sm:h-[400px] object-cover"
         />
         <div className="absolute top-0 left-0 w-full h-full bg-white/20 cursor-pointer flex justify-center items-center">
           <div className="w-36 h-max bg-white rounded-lg border-2 p-4 flex flex-col items-center gap-4 border-gray-700/10">
@@ -135,7 +153,7 @@ const UploadImage: React.FC<UploadImage> = ({
           </p>
           <div
             style={{ backgroundImage: `url(${thumbnail})` }}
-            className="w-full h-[250px] sm:h-[400px] bg-cover mb-3.5 bg-background-whisperWhite rounded-lg flex flex-col items-center justify-center gap-3.5"
+            className="w-full h-[200px] sm:h-[400px] bg-cover mb-3.5 bg-background-whisperWhite rounded-lg flex flex-col items-center justify-center gap-3.5"
           >
             <Image src={ImageShape} alt="" className="w-16" />
             <button
@@ -145,9 +163,20 @@ const UploadImage: React.FC<UploadImage> = ({
               Upload Image
             </button>
           </div>
+
+          <CropModal
+            loading={loading}
+            close={() => {
+              setImageToCrop(null);
+            }}
+            cropImage={cropImage}
+            croppedImage={croppedImage}
+            cropperRef={cropperRef}
+            imageToCrop={imageToCrop}
+          />
           <p className="text-primary-boulder900 font-normal text-xs mb-5">
             · Recommended image size: 2160 x 1080px &nbsp; · Maximum file size:
-            10MB &nbsp; Supported image files: JPEG, PNG
+            5MB &nbsp; Supported image files: JPEG, PNG
           </p>
         </div>
       )}

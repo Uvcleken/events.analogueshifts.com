@@ -10,6 +10,10 @@ import { share } from "@/configs/share";
 import { convertDateFormat } from "@/app/events/resources/convert-date-format";
 
 import { Share2, Clock, MapPin, Video } from "lucide-react";
+import {
+  extractDate,
+  extractTime,
+} from "@/configs/upload-event/convert-date-format";
 
 interface Params {
   event: any;
@@ -86,19 +90,18 @@ export default function ShowEvent({ event }: Params) {
           <div className="w-full grid grid-cols-6 tablet:grid-cols-1 tablet:gap-4 gap-16 items-start">
             <div className="col-span-4 max-w-full tablet:col-span-1 flex flex-col">
               <div
-                dangerouslySetInnerHTML={{ __html: event.description }}
+                dangerouslySetInnerHTML={{ __html: event?.description }}
                 className="text-primary-boulder700 font-normal text-base prose"
               ></div>
 
               <h2 className="text-primary-boulder900 mt-3 tablet:text-base text-2xl font-sans mb-5">
-                <b>Registration Date and time of Event</b>
+                <b>Date and time of Event</b>
               </h2>
               <p className="text-primary-boulder700 max-w-full  font-medium text-sm flex flex-wrap gap-1 items-center">
-                Starts: &nbsp; {convertDateFormat(event.starts_date)} &nbsp;{" "}
-                <Clock width={16} /> {event.starts_date.split(" ")[1]} &nbsp;-
-                &nbsp; Ends: &nbsp;
-                {convertDateFormat(event.ends_date)} &nbsp; <Clock width={16} />{" "}
-                {event.ends_date.split(" ")[1]}
+                Starts: &nbsp;{extractDate(event?.starts_date)} &nbsp; @ &nbsp;
+                {extractTime(event?.starts_date)} &nbsp;- &nbsp; Ends: &nbsp;
+                {extractDate(event?.ends_date)} &nbsp; @ &nbsp;
+                {extractTime(event?.ends_date)}
               </p>
 
               <h2 className="text-primary-boulder900 mt-7 tablet:text-base text-2xl font-semibold mb-5">

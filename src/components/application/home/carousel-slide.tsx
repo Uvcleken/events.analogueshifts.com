@@ -1,5 +1,4 @@
 "use client";
-import { useAuth } from "@/hooks/auth";
 import { useState, useEffect } from "react";
 
 import Link from "next/link";
@@ -12,8 +11,6 @@ import EventGridTile from "./event-grid-tile";
 const Carousel = ({ posts }: any) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [itemsPerView, setItemsPerView] = useState(1);
-
-  const { notifyUser } = useAuth();
 
   // Set itemsPerView based on the window width
   useEffect(() => {
@@ -32,7 +29,7 @@ const Carousel = ({ posts }: any) => {
     window.addEventListener("resize", updateItemsPerView);
 
     return () => window.removeEventListener("resize", updateItemsPerView);
-  }, []);
+  }, [posts]);
 
   const goToPrevious = () => {
     setCurrentIndex((prevIndex) =>
@@ -52,7 +49,7 @@ const Carousel = ({ posts }: any) => {
     }, 12000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [posts]);
 
   return (
     <div className="relative w-full flex flex-col large:gap-[122px] gap-[90px] tablet:gap-[60px] overflow-hidden">
@@ -65,6 +62,13 @@ const Carousel = ({ posts }: any) => {
         {posts.map((item: any, index: number) => (
           <EventGridTile item={item} index={index} key={index} />
         ))}
+        {posts.length === 0 && (
+          <div className="w-full py-10 flex justify-center items-center">
+            <p className=" text-primary-boulder400  tablet:text-sm text-base">
+              No event found.
+            </p>
+          </div>
+        )}
       </div>
 
       <div className="w-full h-12 large:h-14 flex justify-between">

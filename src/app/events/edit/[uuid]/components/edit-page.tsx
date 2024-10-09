@@ -31,6 +31,7 @@ export default function EditPage({ uuid }: { uuid: string }) {
     price: "0",
     maximum: "10",
     status: "public",
+    category: ["Tech"],
   });
 
   const [dateAndLocationInfo, setDateAndLocationInfo] = useState({
@@ -57,6 +58,7 @@ export default function EditPage({ uuid }: { uuid: string }) {
       price: "0",
       maximum: data?.maximum || "10",
       status: data?.status ? "public" : "private",
+      category: data.category === null ? ["Tech"] : data.category.split(", "),
     });
     setDateAndLocationInfo({
       startsDate: data?.starts_date || "",
@@ -120,7 +122,7 @@ export default function EditPage({ uuid }: { uuid: string }) {
       <p className="text-primary-boulder900 font-medium text-base mb-4">
         Make the adjustments and click on the Edit Event button below
       </p>
-      <section className="w-[90%] mx-auto flex flex-col gap-5">
+      <section className="w-[95%] mx-auto flex flex-col gap-5">
         <EventInfo
           isOpen={openSection === "info"}
           toggleSection={(section: string) =>
@@ -146,12 +148,11 @@ export default function EditPage({ uuid }: { uuid: string }) {
           toggleSection={(section: string) =>
             toggleSection(section, setOpenSection)
           }
-          setLoading={setLoading}
           setThumbnail={setThumbnail}
         />
       </section>
 
-      <section className="fixed z-20 items-center gap-5 bottom-0 left-0 w-screen bg-white py-5 flex justify-end pr-8 tablet:pr-5">
+      <section className="fixed z-50 items-center gap-5 bottom-0 left-0 w-screen bg-white py-5 flex justify-end pr-8 tablet:pr-5">
         <Button
           onClick={() => router.push(`/events/pricing/${uuid}`)}
           className="bg-white hover:bg-white flex items-center justify-center gap-2 border border-background-darkYellow text-background-darkYellow tablet:px-4 px-8 tablet:py-0 py-4"

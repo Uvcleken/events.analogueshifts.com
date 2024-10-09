@@ -15,3 +15,50 @@ export function convertDateFormat(inputDateTime: string) {
 
   return formattedDateTime;
 }
+
+export function extractTime(dateString: string) {
+  let date = new Date(dateString);
+
+  let hours: any = date.getHours();
+  let minutes: any = date.getMinutes();
+
+  let ampm = hours >= 12 ? "PM" : "AM";
+
+  hours = hours % 12;
+  hours = hours ? hours : 12;
+
+  minutes = minutes < 10 ? "0" + minutes : minutes;
+
+  return `${hours}:${minutes} ${ampm}`;
+}
+
+export function extractDate(dateString: any) {
+  // Create a Date object from the string
+  const date = new Date(dateString);
+
+  // Extract the day, month, and year
+  const day = date.getDate();
+  const monthIndex = date.getMonth(); // 0-based index
+  const year = date.getFullYear();
+
+  // Array of month names
+  const monthNames = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
+
+  // Format the date in "DD MMM YYYY" format
+  const formattedDate = `${day} ${monthNames[monthIndex]} ${year}`;
+
+  return formattedDate;
+}

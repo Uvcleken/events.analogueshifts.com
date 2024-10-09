@@ -6,6 +6,10 @@ import { Share2 } from "lucide-react";
 import { share } from "@/configs/share";
 import { useAuth } from "@/hooks/auth";
 import Image from "next/image";
+import {
+  extractDate,
+  extractTime,
+} from "@/configs/upload-event/convert-date-format";
 
 interface Params {
   item: any;
@@ -27,16 +31,13 @@ export default function EventGridTile({ item, index }: Params) {
       }`}
     >
       <div className="flex relative event-grid flex-col w-full">
-        <Link
-          href={""}
-          className="w-full tablet:h-[200px] h-[232px] rounded-2xl mb-6"
-        >
+        <div className="w-full tablet:h-[200px] h-[232px] rounded-2xl mb-6">
           <img
-            src={item?.img ? item.img : "/venue.jpeg"}
+            src={item?.thumbnail ? item.thumbnail : "/venue.jpeg"}
             alt=""
             className="rounded-2xl w-full h-full object-cover"
           />
-        </Link>
+        </div>
         <div
           onClick={() =>
             share(
@@ -50,18 +51,20 @@ export default function EventGridTile({ item, index }: Params) {
           <Share2 width={16} />
         </div>
         <div className="w-full flex flex-col">
-          <h2 className="large:text-xl font-medium text-[#111111] large:leading-[37px] mb-3 text-lg tablet:text-base">
+          <h2 className="large:text-xl truncate font-medium text-[#111111] large:leading-[37px] mb-3 text-lg tablet:text-base">
             {item.title}
           </h2>
-          <p className="truncate-2-lines text-primary-boulder400 h-[60px] tablet:leading-7 mb-[22px] leading-[33px] tablet:text-xs text-sm">
-            {item.summary}
-          </p>
+          <div
+            dangerouslySetInnerHTML={{ __html: item.description }}
+            className="truncate-2-lines text-primary-boulder400 h-[60px] tablet:leading-7 mb-[22px] leading-[33px] tablet:text-xs text-sm"
+          ></div>
           <p className="text-primary-boulder900 mb-[26px] font-medium leading-[33px] tablet:text-xs text-sm">
-            {item.date} | {item.time} | {item.location}{" "}
+            {extractDate(item.starts_date)} | {extractTime(item.starts_date)} |{" "}
+            {item.location_type === "physical" ? item.location : "Online Event"}{" "}
           </p>
           <Link
             className="h-[53px] hover-text-button bg-background-darkYellow text-primary-boulder50 flex justify-center items-center gap-1 rounded-2xl text-sm large:text-base font-semibold"
-            href=""
+            href={"/show/" + item.slug}
           >
             {" "}
             <div className="flex-col flex overflow-hidden relative h-4">

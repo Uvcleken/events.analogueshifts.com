@@ -42,7 +42,9 @@ export default async function Home() {
   return (
     <GuestLayout>
       <Landing />
-      <Slider />
+      {events && events?.data?.events?.data[0] && (
+        <Slider events={events?.data?.events?.data} />
+      )}
       <ExploreEvents events={events?.data?.events?.data} />
       <DownloadApp />
       <Reviews />

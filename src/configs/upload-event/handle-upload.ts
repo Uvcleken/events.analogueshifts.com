@@ -27,6 +27,10 @@ export const handleUpload = (
       url_link: dateAndLocationInfo.url_link,
       longitude: dateAndLocationInfo.longitude,
       latitude: dateAndLocationInfo.latitude,
+      category:
+        eventInfoData.category.length > 0
+          ? eventInfoData.category.join(", ")
+          : null,
     },
     method: method,
     uuid,
