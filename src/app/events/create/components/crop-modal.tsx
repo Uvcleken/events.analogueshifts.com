@@ -30,7 +30,7 @@ export default function CropModal({
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.5 }}
-          className="fixed duration-300 top-0 left-0 z-40 bg-black/10 tablet:bg-black/60 w-screen h-screen flex justify-center items-center"
+          className="fixed duration-300 top-0 left-0 z-[300] bg-black/10 tablet:bg-black/60 w-screen h-screen flex justify-center items-center"
         >
           <div className="w-4/5 tablet:w-[90%] h-[94vh] tablet:h-max tablet:max-h-[90vh] tablet:bg-transparent bg-white flex tablet:flex-col flex-row">
             <div className="w-[70%] tablet:hidden tablet:w-full  h-full">
