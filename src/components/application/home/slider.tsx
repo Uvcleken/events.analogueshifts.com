@@ -5,7 +5,6 @@ import {
 } from "@/configs/upload-event/convert-date-format";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import onBoardingInfo from "../utilities/dummy-events.json";
 
 const Slider = ({ events }: { events: any }) => {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -115,7 +114,7 @@ const Slider = ({ events }: { events: any }) => {
             {events.map((onBoardingtData: any, index: number) => (
               <div
                 style={{ backgroundImage: `url(${onBoardingtData.thumbnail})` }}
-                className="  w-full h-full bg-center bg-cover bg-no-repeat"
+                className="  w-full tablet:w-screen h-full bg-center bg-cover bg-no-repeat"
                 key={index}
               >
                 <div className="slideshow large:px-[115px] px-20 tablet:px-6  flex flex-col justify-center w-full h-full">
@@ -160,7 +159,7 @@ const Slider = ({ events }: { events: any }) => {
           </div>
         </div>
         <div className="absolute bottom-[33px] flex justify-center items-center space-x-1 w-full">
-          {onBoardingInfo.map((_, index) => {
+          {events.map((_: any, index: number) => {
             const width =
               index === activeIndex
                 ? "w-[38px] bg-[#ffbb0a]"
