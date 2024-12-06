@@ -113,7 +113,7 @@ export default function Pricings({ uuid }: { uuid: string }) {
                       {pricings?.map((item: any) => {
                         return (
                           <PricingGridTile
-                            key={item.uuid}
+                            key={item?.uuid}
                             item={item}
                             eventUUID={uuid}
                             setData={(data: any) => {

@@ -99,7 +99,7 @@ export default function CheckoutReview({ event, close, show, prices }: Params) {
                   placeholder="Phone Number"
                 />
                 <Select
-                  value={selectedPricing.uuid}
+                  value={selectedPricing?.uuid}
                   onValueChange={(value) => {
                     setSelectedPricing(
                       prices.find((item: any) => item.uuid === value)
@@ -110,14 +110,14 @@ export default function CheckoutReview({ event, close, show, prices }: Params) {
                     <SelectValue placeholder="Select Pricing" />
                   </SelectTrigger>
                   <SelectContent>
-                    {prices.map((item: any) => {
+                    {prices?.map((item: any) => {
                       return (
                         <SelectItem
                           className="text-sm text-primary-boulder500 focus:text-primary-boulder700"
-                          key={item.uuid}
-                          value={item.uuid}
+                          key={item?.uuid}
+                          value={item?.uuid}
                         >
-                          {item.name} pricing
+                          {item?.name} pricing
                         </SelectItem>
                       );
                     })}
@@ -152,11 +152,11 @@ export default function CheckoutReview({ event, close, show, prices }: Params) {
                   <b>Order summary</b>
                 </p>
                 <p className="text-primary-boulder900 mb-5 text-sm font-medium pb-3.5 border-b flex justify-between items-center">
-                  <span>{selectedPricing.name}</span> <span> 1 x Ticket</span>
+                  <span>{selectedPricing?.name}</span> <span> 1 x Ticket</span>
                 </p>
                 <p className="text-primary-boulder900 text-base font-medium flex justify-between items-center">
                   <b>Total</b>
-                  <b>${selectedPricing.price}</b>
+                  <b>${selectedPricing?.price}</b>
                 </p>
               </div>
             </div>

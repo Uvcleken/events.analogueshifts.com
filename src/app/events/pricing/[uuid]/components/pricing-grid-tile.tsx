@@ -37,7 +37,7 @@ export default function PricingGridTile({
           setDeleteModalDisplay(false);
         }}
         close={() => setDeleteModalDisplay(false)}
-        description={"Are you sure you want to delete the price " + item.name}
+        description={"Are you sure you want to delete the price " + item?.name}
         buttonLabel="Delete"
         open={deleteModalDisplay}
         loading={loading}
@@ -47,17 +47,17 @@ export default function PricingGridTile({
       <div className=" flex gap-3 overflow-x-hidden max-w-[90%] items-center">
         <div className="w-max h-max flex flex-col gap-2 justify-between">
           <p className="text-primary-boulder900 w-max text-base font-semibold">
-            ${item.price}
+            ${item?.price}
           </p>
           <div className="flex items-center gap-2">
             <p className="text-background-darkYellow tracking-wider text-xs font-semibold">
-              {item.name.toUpperCase()}
+              {item?.name.toUpperCase()}
             </p>
-            {item.location !== "default" && (
+            {item?.location !== "default" && (
               <>
                 <p>-</p>
                 <p className="text-primary-boulder700 tracking-wider text-xs font-semibold">
-                  {item.location}
+                  {item?.location}
                 </p>
               </>
             )}
