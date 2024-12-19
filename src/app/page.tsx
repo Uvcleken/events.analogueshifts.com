@@ -43,9 +43,9 @@ export default async function Home() {
     <GuestLayout>
       <Landing />
       {events && events?.data?.events?.data[0] && (
-        <Slider events={events?.data?.events?.data} />
+        <Slider events={events?.data?.events?.data || []} />
       )}
-      <ExploreEvents events={events?.data?.events?.data} />
+      <ExploreEvents events={events?.data?.events?.data || []} />
       <DownloadApp />
       <Reviews />
       <FAQ />
@@ -56,7 +56,7 @@ export default async function Home() {
 
 const getEvents = async () => {
   try {
-    const res = await fetch("https://api.analogueshifts.app/api/event", {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/event`, {
       cache: "no-store",
     });
 

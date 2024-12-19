@@ -15,7 +15,7 @@ export default async function Page({
   return (
     <GuestLayout>
       <Landing />
-      {events && <RenderEvents events={events?.data?.events?.data} />}
+      {events && <RenderEvents events={events?.data?.events?.data || []} />}
       <Reviews />
       <DownloadApp />
     </GuestLayout>
@@ -24,7 +24,7 @@ export default async function Page({
 
 const getEvents = async (page: string) => {
   try {
-    const url = new URL("https://api.analogueshifts.app/api/event");
+    const url = new URL(`${process.env.NEXT_PUBLIC_BACKEND_URL}/event`);
     url.searchParams.append("page", page);
 
     const res = await fetch(url.toString(), {
