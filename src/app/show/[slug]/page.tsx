@@ -22,7 +22,7 @@ export default async function Page({ params }: any) {
 const getEvent = async (slug: string) => {
   try {
     const res = await fetch(
-      `https://api.analogueshifts.app/api/event/${slug}`,
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/event/${slug}`,
       {
         cache: "no-store",
       }
