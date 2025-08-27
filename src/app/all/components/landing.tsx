@@ -8,6 +8,9 @@ import { useUser } from "@/contexts/user";
 export default function Landing() {
   const { user } = useUser();
 
+  const authLink = process.env.NEXT_PUBLIC_AUTH_URL;
+  const app = process.env.NEXT_PUBLIC_SITE_BUILD_UUID;
+
   return (
     <section className="w-full overflow-hidden h-max large:pb-[156px] tablet:pb-[80px] pb-[110px] large:pt-[91px] pt-16 relative">
       <div className="w-full h-max  bg-transparent flex flex-col items-center justify-center">
@@ -40,11 +43,7 @@ export default function Landing() {
             Search
           </button>
           <Link
-            href={
-              user
-                ? "/events/create"
-                : "https://auth.analogueshifts.app?app=events"
-            }
+            href={user ? "/events/create" : `${authLink}?app=${app}`}
             className="rounded-2xl tablet:h-12  h-full bg-transparent flex justify-center items-center text-background-darkYellow tablet:text-sm text-sm large:text-base font-semibold tablet:px-5 px-12 border border-background-darkYellow"
           >
             Create an event

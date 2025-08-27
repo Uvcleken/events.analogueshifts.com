@@ -20,13 +20,16 @@ export default function AuthenticatedLayout({
   const router = useRouter();
   const pathname = usePathname();
 
+  const authLink = process.env.NEXT_PUBLIC_AUTH_URL;
+  const app = process.env.NEXT_PUBLIC_SITE_BUILD_UUID;
+
   const token = Cookies.get("analogueshifts");
 
   useEffect((): any => {
     // Redirect To Login if User is not Authenticated
     if (user === null && !token) {
       Cookies.set("RedirectionLink", pathname);
-      router.push("https://auth.analogueshifts.app?app=events");
+      router.push(`${authLink}?app=${app}`);
       return null;
     } else if (user === null && token) {
       //    Fetch User

@@ -12,6 +12,9 @@ export default function Landing() {
   const router = useRouter();
   const token = Cookies.get("analogueshifts");
 
+  const authLink = process.env.NEXT_PUBLIC_AUTH_URL;
+  const app = process.env.NEXT_PUBLIC_SITE_BUILD_UUID;
+
   return (
     <section className="w-full flex justify-center">
       <div className="w-full bg-white pl-[66px] max-w-[1800px] large:pl-[104px] tablet:flex-col-reverse flex-row justify-between pr-[55px] large:pr-[85px] tablet:px-6 gap-[51px] large:pt-[91px] pt-[71px] large:pb-[108px] pb-[88px] h-max items-center flex">
@@ -28,11 +31,7 @@ export default function Landing() {
           </div>
           <SectionMessage
             action={() => {
-              router.push(
-                token
-                  ? "/events/create"
-                  : "https://auth.analogueshifts.app?app=events"
-              );
+              router.push(token ? "/events/create" : `${authLink}?app=${app}`);
             }}
             title="Create, Share, and Post Events"
             highlighted="with Ease"
